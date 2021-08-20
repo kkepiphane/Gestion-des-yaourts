@@ -15,7 +15,7 @@ if (isset($_POST['btnClient'])) {
 
     $nomUser = $_SESSION['nom_user'];
     $date = date('Y:m:d');
-    $client->addClient($_POST['nomClt'], $_POST['telephone'], $_POST['adresse'], $date, $nomUser);
+    $client->addClient($_POST['nomClt'], $_POST['adresse'], $_POST['telephone'], $nomUser, $date);
     header('location:../views/addClient.php');
 } else {
     $aaClient = $client->getClients();
@@ -39,7 +39,7 @@ if (isset($_GET['id_Dclt'])) {
 if (isset($_GET['id_clt'])) {
     $idUp = $_GET['id_clt'];
     if (isset($_POST['btnUpClient'])) {
-        $client->updateClient($idUp, $_POST['nomClt'], $_POST['telephone'], $_POST['adresse']);
+        $client->updateClient($idUp, $_POST['nomClt'], $_POST['adresse'], $_POST['telephone']);
     }
     $lireClient = $client->idClient($idUp);
 }

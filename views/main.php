@@ -32,7 +32,7 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title><?= $title ?> - KCMG</title>
+  <title><?= $title; ?> - KCMG</title>
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -47,6 +47,8 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
+  <!-- Liens pour le multiSelect-->
+  <link rel="stylesheet" href="../public/node_modules/multiple-select/dist/multiple-select.min.css">
   <script src="lib/chart-master/Chart.js"></script>
 
 </head>
@@ -145,11 +147,11 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
           </li>
           <li class="sub-menu">
             <a href="javascript:;">
-              <i class="fa fa-cog"></i>
+              <i class="fa fa-th"></i>
               <span>Données</span>
             </a>
             <ul class="sub">
-              <li><a href="compte.php">Société</a></li>
+              <li><a href="addCompte.php"><i class="fa fa-asterisk"></i>Société</a></li>
               <li class="sub-menu">
                 <a href="javascript:;">
                   <i class="fa fa-user"></i>
@@ -189,7 +191,8 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
             </a>
             <ul class="sub">
               <li><a href="addIngrediant.php">Ajout des Ingrédiants</a></li>
-              <li><a href="panels.html">Factures des achats</a></li>
+              <li><a href="addFactureAchat.php">Factures des achats</a></li>
+              <li><a href="listeFactureAchat.php">liste Factures des achats</a></li>
             </ul>
           </li>
           <li class="sub-menu">
@@ -198,18 +201,18 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
               <span>Production</span>
             </a>
             <ul class="sub">
-              <li><a href="addProduit.php">ajout des Produits</a></li>
               <li class="sub-menu">
                 <a href="javascript:;">
                   <i class="fa fa-folder-open"></i>
-                  <span>Yaourt</span>
+                  <span>Produit</span>
                 </a>
                 <ul class="sub">
-                  <li><a href="composition.php">Yaourt & Composition</a></li>
+                  <li><a href="composition.php">Produit & Composition</a></li>
                   <li><a href="addYaourt.php">Yaourt</a></li>
                   <li><a href="addType_yaourt.php">Type de Yaourt</a></li>
                 </ul>
               </li>
+              <li><a href="addProduit.php">ajout des Produits</a></li>
             </ul>
           </li>
           <li class="sub-menu">
@@ -248,16 +251,16 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
                   <li><a href="advanced_form_components.html">Advanced Components</a></li>
                 </ul>
               </li>
-              <li class="sub-menu">
-                <a href="javascript:;">
-                  <i class="fa fa-credit-card"></i>
-                  <span>Paramètre</span>
-                </a>
-                <ul class="sub">
-                  <li><a href="addFacture.php">Facture</a></li>
-                  <li><a href="advanced_form_components.html">Advanced Components</a></li>
-                </ul>
-              </li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-cog"></i>
+              <span>Paramètre</span>
+            </a>
+            <ul class="sub">
+              <li><a href="addFacture.php">Facture</a></li>
+              <li><a href="addSystemNot.php">Système de Notifications</a></li>
             </ul>
           </li>
         </ul>

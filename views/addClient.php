@@ -1,10 +1,10 @@
-<?php $title = 'Add Client';
+<?php $title = 'Client';
 require_once('main.php');
 
 require('../controller/controllerClient.php');
 ?>
 <section class="wrapper">
-  <h3><i class="fa fa-angle-right"></i> Ajout Client </h3>
+  <h3><i class="fa fa-angle-right"></i>Client - ajout </h3>
   <!-- FORM VALIDATION -->
   <div class="row mt">
     <div class="col-lg-12">
@@ -24,17 +24,17 @@ require('../controller/controllerClient.php');
               </div>
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-2">Téléphone</label>
+                  <label for="cname" class="control-label col-lg-2">Adresse</label>
                   <div class="col-lg-8">
-                    <input class=" form-control" id="cname" name="telephone" minlength="2" type="number" required />
+                    <input class=" form-control" id="cname" name="adresse" minlength="2" type="text" required />
                   </div>
                 </div>
               </div>
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-2">Adresse</label>
+                  <label for="cname" class="control-label col-lg-2">Téléphone</label>
                   <div class="col-lg-8">
-                    <input class=" form-control" id="cname" name="adresse" minlength="2" type="text" required />
+                    <input class=" form-control" id="cname" name="telephone" minlength="2" type="text" required />
                   </div>
                 </div>
               </div>
@@ -72,11 +72,11 @@ require('../controller/controllerClient.php');
             <?php foreach ($aaClient as $echoClts) : ?>
               <tr>
                 <td><?= $echoClts->nom_client; ?></td>
-                <td><?= $echoClts->telephone; ?></td>
                 <td><?= $echoClts->adresse_client; ?></td>
+                <td><?= $echoClts->telephone; ?></td>
                 <td>
-                  <a href="upClient.php?id_clt=<?= $echoClts->id_client; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                  <a href="addClient.php?id_Dclt=<?= $echoClts->id_client; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                  <a href="upClient.php?id_clt=<?= $echoClts->id_client; ?>" onclick="return confirm('Êtes-vous sûr de vouloir modifier le Client : <?= $echoClts->nom_client; ?>')" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                  <a href="addClient.php?id_Dclt=<?= $echoClts->id_client; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le Client : <?= $echoClts->nom_client; ?>')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                 </td>
               </tr>
             <?php endforeach; ?>

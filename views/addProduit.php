@@ -74,21 +74,35 @@ require('../controller/controllerProduit.php');
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($aDproduit as $echoLirePro) :; ?>
+            <?php
+            $som = 0;
+            foreach ($aDproduit as $echoLirePro) :; ?>
               <tr>
                 <td><?= $echoLirePro->nom_yaourt; ?></td>
-                <td><?= $echoLirePro->quantite_pro; ?>
-                <td></td>
-                </td>
+                <td><?= $echoLirePro->quantite_pro; ?></td>
                 <td><?= $echoLirePro->prix_produit; ?></td>
-                <td></td>
+                <td><?= $echoLirePro->quantite_pro * $echoLirePro->prix_produit;
+                    $som = $echoLirePro->quantite_pro * $echoLirePro->prix_produit + $som;
+                    ?></td>
                 <td>
-                  <a href="" class="btn btn-success btn-xs"><i class="fa fa-check"></i></a>
                   <a href="upProduit.php?idUpdProd=<?= $echoLirePro->id_prod; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                   <a href="../controller/controllerProduit.php?idDel_Prod=<?= $echoLirePro->id_prod; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                 </td>
               </tr>
             <?php endforeach; ?>
+
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>Montant Total</th>
+              <th><?= $som; ?></th>
+            </tr>
           </tbody>
         </table>
       </div>

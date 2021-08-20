@@ -6,13 +6,16 @@ $produits = new ModelProduit();
  * Affichage de tout les Produits
  */
 
+$allProds = $produits->getAllProduits();
 
 /**
  * affichage des derniers ajout d'un Produits
  */
-$allProds = $produits->getAllProduits();
 $aDproduit = $produits->getProduit();
 
+/**
+ * Ici on fait appel à tous les p aprés leurs ajout dans la base de données sans 
+ */
 $allGroupPro = $produits->getAllGroupProduits();
 /**
  * Ajout d'un type de yaourt

@@ -11,7 +11,7 @@ require('../controller/controllerYaourt.php');
             <div class="content-panel">
                 <h4><i class="fa fa-angle-right"></i> Listes des Produit disponible</h4>
                 <hr>
-                <table class="table table-striped table-advance table-hover">
+                <table class="table table-striped table-advance table-hover" width="100%" cellspacing="0" cellpadding="5">
                     <thead>
                         <tr>
                             <th>Yaourt</th>
@@ -20,13 +20,24 @@ require('../controller/controllerYaourt.php');
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($allYaourts as $echoListPro) :; ?>
+                        <?php foreach ($allYaoComp as $echoListPro) :; ?>
                             <tr>
-                                <td><?= $echoListPro->nom_yaourt; ?></td>
-                                <td><?= $echoListPro->nom_ing; ?></td>
-                                <td><?= $echoListPro->quantiteDispoY; ?> g</td>
+                                <td rowspan="<?= $echoListPro->compTab; ?>">
+                                    <?= $echoListPro->nom_yaourt; ?></td>
+                                <?php
+
+                                $db = dbConnect();
+                                $query = $db->prepare("SELECT * FROM yaourt, type_yaout, prod_fac_achats, ingrediants  WHERE yaourt.idType_yaourt = type_yaout.id_ty AND prod_fac_achats.id_ingred_achts  = ingrediants.id_ing AND yaourt.id_ingred = prod_fac_achats.id_ingred_achts AND yaourt.idType_yaourt = ?  GROUP BY yaourt.idType_yaourt,yaourt.id_ingred ORDER BY nom_yaourt");
+                                $query->execute(array($echoListPro->idType_yaourt));
+                                $aaa = $query->fetchall(PDO::FETCH_OBJ);
+                                foreach ($aaa as $echoListComp) :;
+                                ?>
+                                    <td><?= $echoListComp->nom_ing; ?></td>
+                                    <td><?= $echoListComp->quantiteDispoY; ?></td>
                             </tr>
                         <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

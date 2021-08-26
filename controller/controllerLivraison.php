@@ -7,6 +7,8 @@ $ProduitModel = new ModelProduit();
 /**
  * Affichage de tout les ingrédaints
  */
+
+$allProds = $ProduitModel->getAllProduits();
 $allDiss = $distribution->getAllDistributions();
 
 

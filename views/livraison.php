@@ -1,5 +1,7 @@
 <?php $title = 'Livraison';
-require('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 require('../controller/controllerProduit.php');
 require('../controller/controllerCommande.php');
 require('../controller/controllerLivreur.php');

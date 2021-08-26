@@ -2,6 +2,18 @@
 require  '../models/modelYaourt.php';
 $yaourts = new ModelYaourt();
 
+
+
+
+if (isset($_POST['typeYaourt'])) {
+    $_SESSION['idY'] = $_POST['typeYaourt'];
+    $lisIng = $yaourts->getAllProdQuantYao($_POST['typeYaourt']);
+} else {
+    $lisIng = $yaourts->getAllProdQuantYao($_SESSION['idY']);
+}
+
+
+
 /**
  * Affichage des composition
  */
@@ -23,35 +35,37 @@ $allIngred = $yaourts->getAllIngrediantsAchats();
 $aDYaourts = $yaourts->getYaourts();
 /**
  * Onchange pour voir la quantité du produit sélectionné restant
- */ $recapCompt = 0;
-if (isset($_POST['id_ingred'])) {
-    $echoQuant = $yaourts->getAllQuantiteIng($_POST['id_ingred']);
-    $recapQauntite = $echoQuant->Quantite;
-    if ($recapQauntite > 0) {
-        echo '<input class=" form-control" minlength="2" id ="QuantiteD" name="quantiteSou" type="text" value=' . $recapQauntite . '>';
-    } else {
-        echo ' <input class=" form-control" minlength="2"  type="text" required>';
-    }
-}
+ */ $recapComptY = 0;
+
+
 /**
  * Ajout d'un yaourt
  */
 if (isset($_POST['btnAddYa'])) {
 
     //Récupération de la quantité pour faire de la soustration
-    $nomUser = 'Epiphane';
-    $date = date('Y:m:d');
-    $yaourts->addYaourt($_POST['typeYaourt'], $_POST['typeIng'], $_POST['quantiteY'], $nomUser, $date);
+    foreach ($_POST['typeIng'] as $key => $value) {
 
-    $quantiteRes = $_POST['quantiteSou'] - $_POST['quantiteY'];
+        $nomUser = 'Epiphane';
+        $date = date('Y:m:d');
+        $idY = $_SESSION['idY'];
+        $nmeIng = $_POST['typeIng'][$key];
+        $quantite = $_POST['quantiteY'][$key];
+        $yaourts->addYaourt($idY, $nmeIng, $quantite, $nomUser, $date);
+    }
     /**
      * Aprés soutraction on fait le divison
      */
-    $echoQuant = $yaourts->getAllQuantiteIng($_POST['typeIng']);
-    $recapCompt = $echoQuant->Compt;
-    $quantiteDiv = $quantiteRes / $recapCompt;
-    $yaourts->updateQuantiteProd($_POST['typeIng'], $quantiteDiv);
-    header('location:../views/addYaourt.php');
+    $echoRecpName =  $yaourts->getAllProdQuantYao($_SESSION['idY']);
+    foreach ($echoRecpName as $ke => $recPValue) {
+        $namIng = $recPValue->nom_ing;
+        $compteName = $yaourts->getAllQuantiteIng($recPValue->nom_ing);
+        $recapCompt = $compteName->Compt;
+
+        $quantiteRes = $_POST['quantiteSou'][$ke] - $_POST['quantiteY'][$ke];
+        $quantiteDiv = $quantiteRes / $recapCompt;
+        $yaourts->updateQuantiteProd($namIng, $quantiteDiv);
+    }
 }
 /**
  * Supression d'un Yaourt

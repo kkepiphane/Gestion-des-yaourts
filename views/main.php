@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tutorial: PHP Login Registration system
  *
@@ -10,8 +9,9 @@
 session_start();
 
 // check user login
-if (empty($_SESSION['id'])) {
-  header("Location:login.php");
+if(empty($_SESSION['id']))
+{
+    header("Location:login.php");
 }
 
 
@@ -32,7 +32,7 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title><?= $title; ?> - KCMG</title>
+  <title><?= $title ?> - KCMG</title>
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -47,8 +47,6 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
-  <!-- Liens pour le multiSelect-->
-  <link rel="stylesheet" href="../public/node_modules/multiple-select/dist/multiple-select.min.css">
   <script src="lib/chart-master/Chart.js"></script>
 
 </head>
@@ -75,7 +73,7 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
             <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
               <i class="fa fa-envelope-o"></i>
               <span class="badge bg-theme">1</span>
-            </a>
+              </a>
             <ul class="dropdown-menu extended inbox">
               <div class="notify-arrow notify-arrow-green"></div>
               <li>
@@ -85,13 +83,13 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
                 <a href="index.html#">
                   <span class="photo"><img alt="avatar" src="img/ui-zac.jpg"></span>
                   <span class="subject">
-                    <span class="from">Zac Snider</span>
-                    <span class="time">Just now</span>
+                  <span class="from">Zac Snider</span>
+                  <span class="time">Just now</span>
                   </span>
                   <span class="message">
-                    Hi mate, how is everything?
+                  Hi mate, how is everything?
                   </span>
-                </a>
+                  </a>
               </li>
             </ul>
           </li>
@@ -101,7 +99,7 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
             <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
               <i class="fa fa-bell-o"></i>
               <span class="badge bg-warning">1</span>
-            </a>
+              </a>
             <ul class="dropdown-menu extended notification">
               <div class="notify-arrow notify-arrow-yellow"></div>
               <li>
@@ -112,7 +110,7 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
                   <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                   Server Overloaded.
                   <span class="small italic">4 mins.</span>
-                </a>
+                  </a>
               </li>
             </ul>
           </li>
@@ -136,131 +134,91 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-          <h5 class="centered"><?= $user->username;
-                                $_SESSION['nom_user'] = $user->username;
-                                ?></h5>
+          <h5 class="centered"><?= $user->username; ?></h5>
           <li class="mt">
             <a class="active" href="accueil.php">
               <i class="fa fa-home"></i>
-              <span>Tableau de Bord</span>
-            </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-th"></i>
-              <span>Données</span>
-            </a>
-            <ul class="sub">
-              <li><a href="addCompte.php"><i class="fa fa-asterisk"></i>Société</a></li>
-              <li class="sub-menu">
-                <a href="javascript:;">
-                  <i class="fa fa-user"></i>
-                  <span>Clients</span>
-                </a>
-                <ul class="sub">
-                  <li><a href="addClient.php">Add Clients</a></li>
-                  <li><a href="listeClient.php">Listes des Clients</a></li>
-                </ul>
-              </li>
-              <li class="sub-menu">
-                <a href="javascript:;">
-                  <i class="fa fa-user"></i>
-                  <span>Fournisseurs</span>
-                </a>
-                <ul class="sub">
-                  <li><a href="addFournisseur.php">Add Fournisseur</a></li>
-                  <li><a href="listeFournisseur.php">Listes Fournisseurs</a></li>
-                </ul>
-              </li>
-              <li class="sub-menu">
-                <a href="javascript:;">
-                  <i class="fa fa-truck"></i>
-                  <span>Livreur</span>
-                </a>
-                <ul class="sub">
-                  <li><a href="addLivreur.php">add Livreur</a></li>
-                  <li><a href="listeLivreur.php">Liste des Livreurs</a></li>
-                </ul>
-              </li>
-            </ul>
+              <span>Accueil</span>
+              </a>
           </li>
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-shopping-cart"></i>
               <span>Approvisionnement</span>
-            </a>
+              </a>
             <ul class="sub">
+              <li><a href="liste des ingrediant.php">Ingrédiant Disponibles</a></li>
               <li><a href="addIngrediant.php">Ajout des Ingrédiants</a></li>
-              <li><a href="addFactureAchat.php">Factures des achats</a></li>
-              <li><a href="listeFactureAchat.php">liste Factures des achats</a></li>
+              <li><a href="panels.html">Factures des achats</a></li>
+            <li><a href="addYaourt.php">Yaourt</a></li>
+            <li><a href="type_yaourt.php">Type de Yaourt</a></li>
             </ul>
           </li>
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-cogs"></i>
               <span>Production</span>
-            </a>
+              </a>
             <ul class="sub">
-              <li class="sub-menu">
-                <a href="javascript:;">
-                  <i class="fa fa-folder-open"></i>
-                  <span>Produit</span>
-                </a>
-                <ul class="sub">
-                  <li><a href="composition.php">Produit & Composition</a></li>
-                  <li><a href="addYaourt.php">Yaourt</a></li>
-                  <li><a href="addType_yaourt.php">Type de Yaourt</a></li>
-                </ul>
-              </li>
               <li><a href="addProduit.php">ajout des Produits</a></li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-book"></i>
+              <span>Fiche de Productions</span>
+              </a>
+            <ul class="sub">
+              <li><a href="blank.html">Yaourt & Composition</a></li>
+            </ul>
             </ul>
           </li>
+          
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-folder-open"></i>
-              <span>Distributions</span>
-            </a>
+              <span>Commandes</span>
+              </a>
             <ul class="sub">
-              <li class="sub-menu">
-                <a href="javascript:;">
-                  <i class="fa fa-truck"></i>
-                  <span>Commande</span>
-                </a>
-                <ul class="sub">
-                  <li><a href="addCommande.php">add Commandes</a></li>
-                  <li><a href="listeCommande.php">Listes Commandes</a></li>
-                </ul>
-              </li>
-              <li class="sub-menu">
-                <a href="javascript:;">
-                  <i class="fa fa-truck"></i>
-                  <span>Livraison</span>
-                </a>
-                <ul class="sub">
-                  <li><a href="addLivraison.php">Livraison</a></li>
-                  <li><a href="listeLivraison.php">Listes des Livraison</a></li>
-                </ul>
-              </li>
-              <li class="sub-menu">
-                <a href="javascript:;">
-                  <i class="fa fa-credit-card"></i>
-                  <span>Paiement</span>
-                </a>
-                <ul class="sub">
-                  <li><a href="addFacture.php">Facture</a></li>
-                  <li><a href="advanced_form_components.html">Advanced Components</a></li>
-                </ul>
-              </li>
+              <li><a href="commande.php">add Commandes</a></li>
+              <li><a href="login.html">Listes des Commandes</a></li>
             </ul>
           </li>
           <li class="sub-menu">
             <a href="javascript:;">
-              <i class="fa fa-cog"></i>
-              <span>Paramètre</span>
-            </a>
+              <i class="fa fa-credit-card"></i>
+              <span>Paiement</span>
+              </a>
             <ul class="sub">
               <li><a href="addFacture.php">Facture</a></li>
-              <li><a href="addSystemNot.php">Système de Notifications</a></li>
+              <li><a href="advanced_form_components.html">Advanced Components</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-group"></i>
+              <span>Gestion des Personnels</span>
+              </a>
+            <ul class="sub">
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-user"></i>
+              <span>Clients</span>
+              </a>
+            <ul class="sub">
+              <li><a href="addClient.php">Add Clients</a></li>
+              <li><a href="advanced_form_components.html">Listes des Clients</a></li>
+            </ul>
+          </li>
+          
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-truck"></i>
+              <span>Livreur</span>
+              </a>
+            <ul class="sub">
+              <li><a href="addLivreur.php">add Livreur</a></li>
+              <li><a href="listeLivreur">Liste des Livreurs</a></li>
+            </ul>
+          </li>
             </ul>
           </li>
         </ul>
@@ -273,4 +231,66 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
         *********************************************************************************************************************************************************** -->
     <!--main content start-->
     <section id="main-content">
-      <!-- /row -->
+          <?= $content; ?>
+        <!-- /row -->
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="lib/jquery/jquery.min.js"></script>
+
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="lib/jquery.scrollTo.min.js"></script>
+  <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <script src="lib/jquery.sparkline.js"></script>
+  <!--common script for all pages-->
+  <script src="lib/common-scripts.js"></script>
+  <script type="text/javascript" src="lib/gritter/js/jquery.gritter.js"></script>
+  <script type="text/javascript" src="lib/gritter-conf.js"></script>
+  <!--script for this page-->
+  <script src="lib/sparkline-chart.js"></script>
+  <script src="lib/zabuto_calendar.js"></script>
+  <script type="application/javascript">
+    $(document).ready(function() {
+      $("#date-popover").popover({
+        html: true,
+        trigger: "manual"
+      });
+      $("#date-popover").hide();
+      $("#date-popover").click(function(e) {
+        $(this).hide();
+      });
+
+      $("#my-calendar").zabuto_calendar({
+        action: function() {
+          return myDateFunction(this.id, false);
+        },
+        action_nav: function() {
+          return myNavFunction(this.id);
+        },
+        ajax: {
+          url: "show_data.php?action=1",
+          modal: true
+        },
+        legend: [{
+            type: "text",
+            label: "Special event",
+            badge: "00"
+          },
+          {
+            type: "block",
+            label: "Regular event",
+          }
+        ]
+      });
+    });
+
+    function myNavFunction(id) {
+      $("#date-popover").hide();
+      var nav = $("#" + id).data("navigation");
+      var to = $("#" + id).data("to");
+      console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+    }
+  </script>
+</body>
+
+</html>

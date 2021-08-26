@@ -17,11 +17,14 @@ $aDing = $ingrediant->getIngrediant();
  * AJOUT DES CLIENTS
  */
 if (isset($_POST['btnAddIng'])) {
+    foreach ($_POST['fourni'] as $mutlFourni => $val) :;
 
-    $nomUser = $_SESSION['nom_user'];
-    $date = date('Y:m:d');
-    $ingrediant->addIngrediant($_POST['refIng'], $_POST['nomIng'], $_POST['prixU'], $_POST['quantiteIng'], $_POST['mesure'], $_POST['fourni'], $nomUser, $date);
-    header('location:../views/addIngrediant.php');
+        $founir =  $_POST['fourni'][$mutlFourni];
+        $nomUser = $_SESSION['nom_user'];
+        $date = date('Y:m:d');
+        $ingrediant->addIngrediant($_POST['refIng'], $_POST['nomIng'], $_POST['prixU'], $_POST['quantiteIng'], $_POST['mesure'], $founir, $nomUser, $date);
+        header('location:../views/addIngrediant.php');
+    endforeach;
 }
 /**
  * Supression d'un clients

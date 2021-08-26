@@ -4,6 +4,7 @@ require_once '../db/bdd.php';
 class ModelFactureAchats
 {
     //Ahout des factures
+
     public function addFactureAchat($designa, $dateFaAch, $idFourni, $id_ing, $nomUser, $date)
     {
         try {
@@ -90,7 +91,7 @@ class ModelFactureAchats
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM facture_achat, fournisseur WHERE facture_achat.id_fourni = fournisseur.id_four AND facture_achat.id_fac_ach = ?");
+            $query = $db->prepare("SELECT * FROM facture_achat,fournisseur,stock_facture_acht,ingrediants WHERE facture_achat.id_fourni = fournisseur.id_four AND facture_achat.id_fac_ach  = stock_facture_acht.id_fact_ach  AND stock_facture_acht.id_ing_pro  = ingrediants.id_ing AND stock_facture_acht.id_fact_ach = ?");
             $query->execute(array($idFacht));
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);

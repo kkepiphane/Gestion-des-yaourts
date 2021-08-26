@@ -1,5 +1,7 @@
-<?php $title = 'Yaourt'; ?>
-<?php require('main.php');
+<?php $title = 'Yaourt';
+require('head.php');
+require('header.php');
+require('sibar.php');
 require('../controller/controllerYaourt.php');
 require('../controller/controllerTYaourt.php');
 ?>

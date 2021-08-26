@@ -1,5 +1,7 @@
 <?php $title = 'Produit';
-require('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 require('../controller/controllerProduit.php');
 require('../controller/controllerYaourt.php');
 ?>
@@ -27,7 +29,7 @@ require('../controller/controllerYaourt.php');
             $som = 0;
             foreach ($allProds as $echoListPro) :; ?>
               <tr>
-                <td><?= $echoListPro->nom_yaourt; ?></td>
+                <td><?= $echoListPro->id_yaourt; ?></td>
                 <td><?= $echoListPro->quantite_pro; ?></td>
                 <td><?= $echoListPro->prix_produit; ?></td>
                 <td><?= $echoListPro->quantite_pro * $echoListPro->prix_produit;

@@ -1,5 +1,7 @@
 <?php $title = 'Ingrédiant';
-require('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 
 require  '../controller/controllerIngrediant.php';
 require('../controller/controllerFournisseur.php');
@@ -26,7 +28,7 @@ require('../controller/controllerFournisseur.php');
               </div>
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-2">Ingrédiant</label>
+                  <label for="cname" class="control-label col-lg-3">Ingrédiant</label>
                   <div class="col-lg-7">
                     <input class=" form-control" id="cname" name="nomIng" minlength="2" type="text" required />
                   </div>
@@ -34,10 +36,9 @@ require('../controller/controllerFournisseur.php');
               </div>
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-3">Fournisseurs</label>
+                  <label for="cname" class="control-label col-lg-4">Fournisseurs</label>
                   <div class="col-lg-7">
-                    <select class="form-control" name="fourni">
-                      <option>------------</option>
+                    <select name="fourni[]" multiple id="multipleM" class=" form-control">
                       <?php foreach ($allFournis as $FourniLire) : ?>
                         <option value="<?= $FourniLire->id_four; ?>"><?= $FourniLire->nom_four; ?></option>
                       <?php endforeach; ?>
@@ -57,7 +58,7 @@ require('../controller/controllerFournisseur.php');
               </div>
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-2">Quantité</label>
+                  <label for="cname" class="control-label col-lg-3">Quantité</label>
                   <div class="col-lg-7">
                     <input class=" form-control" id="cname" name="quantiteIng" minlength="2" type="number" required />
                   </div>
@@ -65,7 +66,7 @@ require('../controller/controllerFournisseur.php');
               </div>
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-3">Unité Mesure</label>
+                  <label for="cname" class="control-label col-lg-4">Unité Mesure</label>
                   <div class="col-lg-7">
                     <select class="form-control" name="mesure">
                       <option>------------</option>
@@ -98,11 +99,10 @@ require('../controller/controllerFournisseur.php');
       <div class="content-panel">
         <h4><i class="fa fa-angle-right"></i> Listes de dernière ajout</h4>
         <hr>
-        <table class="table table-striped table-advance table-hover">
+        <table class="table table-striped table-advance table-hover" width="100%" cellspacing="0" cellpadding="5">
           <thead>
             <tr>
-              <th>Réferences</th>
-              <th> Nom d'ingrédiant</th>
+              <th>Réferences &Nom d'ingrédiant</th>
               <th>Fournisseurs</th>
               <th>Quantité</th>
               <th> Prix Unitaire</th>
@@ -113,16 +113,32 @@ require('../controller/controllerFournisseur.php');
           <tbody>
             <?php foreach ($aDing as $lireDIng) : ?>
               <tr>
-                <td><?= $lireDIng->references_ing; ?></td>
-                <td><?= $lireDIng->nom_ing; ?></td>
-                <td><?= $lireDIng->nom_four; ?></td>
-                <td><?= $lireDIng->quantite_dispo; ?> <?= $lireDIng->uniteMesure; ?></td>
-                <td><?= $lireDIng->prixUnitaire; ?></td>
-                <td><?= $lireDIng->quantite_dispo * $lireDIng->prixUnitaire; ?></td>
-                <td>
-                  <a href="upIngrediant.php?idUpIng=<?= $lireDIng->id_ing; ?>" onclick="return confirm('Êtes-vous sûr de vouloir modifier  : <?= $lireDIng->nom_ing; ?>')" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                  <a href="../controller/controllerIngrediant.php?idDelIng=<?= $lireDIng->id_ing; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer l\' ingrédiants': <?= $lireDIng->nom_ing; ?>')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                <td rowspan="<?= $lireDIng->IIng + 1; ?>">
+                  <?= $lireDIng->references_ing; ?>
+
+                  <?= $lireDIng->nom_ing;
+                  $iiii = $lireDIng->nom_ing;
+                  ?>
                 </td>
+
+                <?php
+                $db = dbConnect();
+                $query = $db->prepare("SELECT * FROM ingrediants, fournisseur WHERE ingrediants.id_fou = fournisseur.id_four AND nom_ing LIKE '%" . $iiii . "%'");
+                $query->execute();
+                $echIiing =  $query->fetchall(PDO::FETCH_OBJ);
+
+                foreach ($echIiing as $echoIii) :
+                ?>
+              <tr>
+                <td><?= $echoIii->nom_four; ?></td>
+                <td><?= $echoIii->quantite_dispo; ?> <?= $echoIii->uniteMesure; ?></td>
+                <td><?= $echoIii->prixUnitaire; ?></td>
+                <td><?= $echoIii->quantite_dispo * $echoIii->prixUnitaire; ?></td>
+                <td>
+                  <a href="upIngrediant.php?idUpIng=<?= $echoIii->id_ing; ?>" onclick="return confirm('Êtes-vous sûr de vouloir modifier  : <?= $echoIii->nom_ing; ?>')" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                  <a href="../controller/controllerIngrediant.php?idDelIng=<?= $echoIii->id_ing; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ingrédiants': <?= $echoIii->nom_ing; ?>')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                </td>
+              <?php endforeach; ?>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -135,3 +151,8 @@ require('../controller/controllerFournisseur.php');
   <!-- /row -->
 </section>
 <?php require('foot.php'); ?>
+<script>
+  $(function() {
+    $('#multipleM').multipleSelect();
+  });
+</script>

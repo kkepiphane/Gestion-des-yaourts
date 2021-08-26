@@ -114,7 +114,7 @@ class ModelDistribution
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM commande, produits, clients, yaourt, type_yaout WHERE produits.id_yaourt = yaourt.id_yaourt AND yaourt.idType_yaourt = type_yaout.id_ty AND commande.id_pro = produits.id_prod AND commande.id_clt = clients.id_client AND id_com=?");
+            $query = $db->prepare("SELECT * FROM commande, produits, clients WHERE commande.id_pro = produits.id_prod AND commande.id_clt = clients.id_client AND id_com=?");
             $query->execute(array($idCom));
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);

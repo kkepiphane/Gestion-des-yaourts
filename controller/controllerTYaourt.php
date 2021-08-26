@@ -1,10 +1,15 @@
 <?php
 require  '../models/modelTypeYaourt.php';
 require  '../models/modelIngrediant.php';
+require  '../models/modelCompte.php';
+$nameProGestion = new ModelCompte();
 
 $TYaourt = new ModelTypeY();
 $modelIng = new ModelIngrediant();
 
+
+
+$getN = $nameProGestion->getNameProd();
 /**
  * Cette methode permet d'affichier les ingrédiant
  */
@@ -23,10 +28,12 @@ $allTYaout = $TYaourt->getAllTYaourts();
  * Ajout d'un type de yaourt
  */
 if (isset($_POST['btnAddTypeY'])) {
-
-    $nomUser = $_SESSION['nom_user'];
-    $date = date('Y:m:d');
-    $TYaourt->addTypeY($_POST['typeY'], $_POST['TYIng'], $nomUser, $date);
+    foreach ($_POST['TYIng'] as $key => $value) {
+        $ing = $_POST['TYIng'][$key];
+        $nomUser = $_SESSION['nom_user'];
+        $date = date('Y:m:d');
+        $TYaourt->addTypeY($_POST['typeY'], $ing, $nomUser, $date);
+    }
     header('location:../views/addType_yaourt.php');
 }
 /**
@@ -45,7 +52,7 @@ if (isset($_GET['idDelTY'])) {
 if (isset($_GET['idUpTYa'])) {
     $idUp = $_GET['idUpTYa'];
     if (isset($_POST['btnUpTY'])) {
-        $TYaourt->updateTYaourt($idUp, $_POST['typeY'], $_POST['TYIng'],);
+        $TYaourt->updateTYaourt($idUp, $_POST['typeY'], $_POST['TYIng']);
     }
     $lireTYaoutUp = $TYaourt->TYDetail($idUp);
 }

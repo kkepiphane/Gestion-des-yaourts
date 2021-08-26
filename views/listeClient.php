@@ -1,5 +1,7 @@
 <?php $title = 'Client';
-require('main.php');;
+require('head.php');
+require('header.php');
+require('sibar.php');
 
 require  '../controller/controllerClient.php';
 ?>

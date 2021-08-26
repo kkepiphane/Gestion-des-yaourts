@@ -1,6 +1,8 @@
 <?php
 $title = 'Facture des Achats';
-require('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 
 require('../controller/controllerCompte.php');
 require('../controller/controllerFactureAchat.php');
@@ -13,7 +15,7 @@ require('../controller/controllerFactureAchat.php');
                 <div class="form-panel">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6">
-                            <?php foreach ($aaCompte as $Compte) :; ?>
+                            <?php foreach ($allCompte as $Compte) :; ?>
                                 <div class="row">
                                     <div class="col-xs-6 col-sm-6">
                                         <b><?= $Compte->nom_societe; ?></b>
@@ -30,17 +32,15 @@ require('../controller/controllerFactureAchat.php');
                         </div>
                         <div class="col-xs-6 col-sm-6">
                             <b>Facutre</b>
-                            <?php foreach ($getOneFacture as $FactureD) :; ?>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6">
 
-                                        <b>Référence : </b><?= $FactureD->designation_ach; ?><br>
-                                        <b>Date de Facture : </b> <?= $FactureD->dateFactAchat; ?> <br>
-                                        <b>Fournisseur : </b> <?= $FactureD->nom_four; ?><br>
-                                    </div>
+                                    <b>Référence : </b><?= $getOne->designation_ach; ?><br>
+                                    <b>Date de Facture : </b> <?= $getOne->dateFactAchat; ?> <br>
+                                    <b>Fournisseur : </b> <?= $getOne->nom_four; ?><br>
                                 </div>
-                                <br>
-                            <?php endforeach ?>
+                            </div>
+                            <br>
                         </div>
                     </div>
                     <div class="row mt">

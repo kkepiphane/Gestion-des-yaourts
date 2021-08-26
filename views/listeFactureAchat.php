@@ -1,5 +1,7 @@
 <?php $title = 'Facture des Achats';
-require('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 require('../controller/controllerFactureAchat.php');
 
 ?>
@@ -27,7 +29,8 @@ require('../controller/controllerFactureAchat.php');
                                 <td><?= $echo_fact->nom_four; ?></td>
                                 <td>
                                     <a href="upFactureAcht.php?idUpdFacA=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir apporter la modification à la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                                    <a href="facture_achats.php?idFactureInfo=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir voir et imprimer la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
+                                    <a href="facture_achats.php?idFactureInfo=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir voir et imprimer la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-success btn-xs"><i class="fa fa-print"></i></a>
+                                    <a href="suFactureAchats.php?idFactureInfo=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir voir et imprimer la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

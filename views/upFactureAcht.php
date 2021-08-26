@@ -1,21 +1,9 @@
 <?php $title = 'Facture des Achats';
-require('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 
-require  '../controller/controllerIngrediant.php';
-require('../controller/controllerFournisseur.php');
 require('../controller/controllerFactureAchat.php');
-$cache = " ";
-if (isset($_SESSION['cacheElement'])) {
-    if ($_SESSION['cacheElemment'] == 1) {
-        $cache =  1;
-    } elseif ($_SESSION['cacheElement'] == 2) {
-        $cache =  2;
-    } elseif ($_SESSION['cacheElement'] == 3) {
-        $cache =  3;
-    }
-} else {
-    $cache =  1;
-}
 
 ?>
 <section class="wrapper">
@@ -55,17 +43,6 @@ if (isset($_SESSION['cacheElement'])) {
                                     <label for="cname" class="control-label col-lg-3">N° Facture</label>
                                     <div class="col-lg-7">
                                         <input class=" form-control" id="cname" name="refFact" id="demo" minlength="2" type="text" value="<?= $lireUpdFact->designation_ach; ?>" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4">
-                                <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-3">Listes des Ingrédiants</label>
-                                    <div class="col-lg-7">
-                                        <select multiple="multiple" class=" form-control" name="idIngrd[]" id="ingred" required>
-                                        </select>
                                     </div>
                                 </div>
                             </div>

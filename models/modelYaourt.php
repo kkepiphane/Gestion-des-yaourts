@@ -115,11 +115,23 @@ class ModelYaourt
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT COUNT(prod_fac_achats.id_ingred_achts) AS Compt , SUM(quantite_act) AS Quantite FROM facture_achat,fournisseur,prod_fac_achats,ingrediants WHERE facture_achat.id_fourni = fournisseur.id_four AND facture_achat.id_fac_ach  = prod_fac_achats.idFacAchats  AND prod_fac_achats.id_ingred_achts  = ingrediants.id_ing AND prod_fac_achats.id_ingred_achts = ? GROUP BY prod_fac_achats.id_ingred_achts");
-            $query->execute(array($inG));
+            $query = $db->prepare("SELECT COUNT(prod_fac_achats.id_ingred_achts) AS Compt , SUM(quantite_act) AS Quantite FROM prod_fac_achats WHERE id_ingred_achts LIKE '%" . $inG . "%' GROUP BY id_ingred_achts");
+            $query->execute();
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);
             }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    public function getAllYIng($inG)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM facture_achat,fournisseur,prod_fac_achats,ingrediants WHERE facture_achat.id_fourni = fournisseur.id_four AND facture_achat.id_fac_ach  = prod_fac_achats.idFacAchats  AND prod_fac_achats.id_ingred_achts  = ingrediants.id_ing AND prod_fac_achats.id_ingred_achts = ? GROUP BY prod_fac_achats.id_ingred_achts");
+            $query->execute(array($inG));
+            $query->execute();
+            return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -132,9 +144,21 @@ class ModelYaourt
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("UPDATE prod_fac_achats SET quantite_act = ? WHERE id_ingred_achts  = '" . $idIngd . "'");
+            $query = $db->prepare("UPDATE prod_fac_achats SET quantite_act = ? WHERE id_ingred_achts LIKE '%" . $idIngd . "%'");
             $executYaourt = $query->execute(array($quantiteDY));
             return $executYaourt;
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    public function getAllProdQuantYao($inG)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM facture_achat,fournisseur,prod_fac_achats,ingrediants, type_yaout WHERE facture_achat.id_fourni = fournisseur.id_four AND facture_achat.id_fac_ach  = prod_fac_achats.idFacAchats AND type_yaout.idIngred = ingrediants.id_ing AND type_yaout.nom_yaourt = ? GROUP BY ingrediants.nom_ing");
+            $query->execute(array($inG));
+            $query->execute();
+            return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
             exit($e->getMessage());
         }

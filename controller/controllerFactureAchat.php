@@ -1,27 +1,52 @@
 <?php
 require  '../models/modelFactureAchat.php';
+require  '../models/modelFournisseur.php';
+require  '../models/modelIngrediant.php';
 $factureAchts = new ModelFactureAchats();
+$fourFactA = new ModelFournisseurs();
+$ingredFact = new ModelIngrediant();
+
+/**
+ * Partie affichage
+ */
 
 
+/**
+ * Ici on affichera tous les fournisseurs
+ */
+$allFour = $fourFactA->getAllFournisseurs();
 $getOneFacture = $factureAchts->getFactureAchat();
 /**
  * La liste de les facture achats
  */
 $getAllFactureA = $factureAchts->getFactureAlls();
+
+
+/**
+ * 
+ * Affichage des factures 
+ */
+if (isset($_GET['idFactureInfo'])) {
+    $getOne = $factureAchts->idFactureAchat($_GET['idFactureInfo']);
+    $allFactAch = $factureAchts->getAllFactureAchats($_GET['idFactureInfo']);
+}
+
 /**
  * Onchange de valeurs directement dans la base
  */
 if (isset($_POST['id_fourSS'])) {
     $listeIng = $factureAchts->idFournisseursIng($_POST['id_fourSS']);
 
+    $output = '';
     if ($listeIng > 0) {
-        echo '<option>------------</option>';
+        $output .= '<option>------------</option>';
         foreach ($listeIng as $echoIngredFourn) :;
-            echo ' <option value=' . $echoIngredFourn->id_ing . '>' . $echoIngredFourn->references_ing . '</option>';
+            $output .= ' <option value=' . $echoIngredFourn->id_ing . '>' . $echoIngredFourn->references_ing . '</option>';
         endforeach;
     } else {
-        echo ' <option>Aucun ingrédiant fourni </option>';
+        $output .= ' <option>Aucun ingrédiant fourni </option>';
     }
+    echo $output;
 }
 
 
@@ -37,7 +62,6 @@ if (isset($_POST['btnRef_FacAcht'])) {
     $ingred = implode(",", $_POST['idIngrd']);
 
     $factureAchts->addFactureAchat($_POST['refFact'], $_POST['dateAch'], $_POST['idFour'], $ingred, $nomUser, $date);
-    $_SESSION['cacheElemment'] = 2;
 
     header('location:../views/addFactureAchat.php');
 }
@@ -49,12 +73,12 @@ if (isset($_POST['btnAddFactProd'])) {
     $echoIdF = $idFac->id_fac_ach;
     foreach ($_POST['refIng'] as $key => $val) :;
         $idFacIng =  $_POST['refIng'][$key];
+        $nom = $_POST['nameI'][$key];
         $prixU = $_POST['prixU'][$key];
         $quantiteFac = $_POST['quantiteIng'][$key];
-        $factureAchts->addFactureAchatProduit($echoIdF, $idFacIng, $prixU, $quantiteFac);
+        $factureAchts->addFactureAchatProduit($echoIdF, $nom, $prixU, $quantiteFac);
         $factureAchts->addFactureAchatStock($echoIdF, $idFacIng, $prixU, $quantiteFac);
     endforeach;
-    $_SESSION['cacheElemment'] = 3;
 
     header('location:../views/addFactureAchat.php');
 }
@@ -87,6 +111,10 @@ if (isset($_GET['idUpdFacA'])) {
     }
     $lireUpdFact = $factureAchts->idFactureAchat($idUp);
 }
+
+/**
+ * Modification des la tête de la facture
+ */
 if (isset($_POST['btnupdtFactProd'])) {
     $idFac = $factureAchts->idFact();
     $echoIdF = $idFac->id_fac_ach;
@@ -96,13 +124,4 @@ if (isset($_POST['btnupdtFactProd'])) {
         $quantiteFac = $_POST['quantiteIng'][$key];
         $factureAchts->addFactureAchatProduitM($echoIdF, $idFacIng, $prixU, $quantiteFac);
     endforeach;
-}
-
-
-/**
- * 
- * Affichage des factures 
- */
-if (isset($_GET['idFactureInfo'])) {
-    $allFactAch = $factureAchts->getAllFactureAchats($_GET['idFactureInfo']);
 }

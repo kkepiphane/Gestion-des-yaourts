@@ -14,13 +14,15 @@ class ModelCompte
             exit($e->getMessage());
         }
     }
-    public function getCompte()
+    public function getNameProd()
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM compte");
+            $query = $db->prepare("SELECT produitGest FROM compte");
             $query->execute();
-            return $query->fetchAll(PDO::FETCH_OBJ);
+            if ($query->rowCount() > 0) {
+                return $query->fetch(PDO::FETCH_OBJ);
+            }
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -29,7 +31,7 @@ class ModelCompte
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM compte ORDER BY nom_societe");
+            $query = $db->prepare("SELECT * FROM compte");
             $query->execute();
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $e) {

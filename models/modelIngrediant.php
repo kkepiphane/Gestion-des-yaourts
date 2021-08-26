@@ -18,7 +18,7 @@ class ModelIngrediant
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM ingrediants, fournisseur WHERE ingrediants.id_fou = fournisseur.id_four  ORDER BY id_ing DESC LIMIT 0,10");
+            $query = $db->prepare("SELECT *, COUNT(ingrediants.id_fou) as IIng FROM ingrediants, fournisseur WHERE ingrediants.id_fou = fournisseur.id_four  GROUP BY nom_ing ORDER BY nom_ing");
             $query->execute();
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
@@ -29,7 +29,7 @@ class ModelIngrediant
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM ingrediants, fournisseur WHERE ingrediants.id_fou = fournisseur.id_four ORDER BY nom_ing");
+            $query = $db->prepare("SELECT * FROM ingrediants, fournisseur WHERE ingrediants.id_fou = fournisseur.id_four GROUP BY nom_ing ORDER BY nom_ing");
             $query->execute();
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {

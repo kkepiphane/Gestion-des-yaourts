@@ -1,5 +1,7 @@
 <?php $title = 'Ingrédiant';
-require('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 
 require  '../controller/controllerIngrediant.php';
 require('../controller/controllerFournisseur.php');

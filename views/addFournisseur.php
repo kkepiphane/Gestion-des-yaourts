@@ -1,5 +1,7 @@
 <?php $title = 'Fournisseurs';
-require_once('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 
 require('../controller/controllerFournisseur.php');
 ?>

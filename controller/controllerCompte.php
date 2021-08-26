@@ -5,11 +5,7 @@ $comptes = new ModelCompte();
 
 
 $allCompte = $comptes->getAllCompte();
-/**
- * affichage des derniers ajout
- */
 
-$aaCompte = $comptes->getCompte();
 /**
  * AJOUT DES CLIENTS
  */

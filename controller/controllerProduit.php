@@ -11,7 +11,6 @@ $allProds = $produits->getAllProduits();
 /**
  * affichage des derniers ajout d'un Produits
  */
-$aDproduit = $produits->getProduit();
 
 /**
  * Ici on fait appel à tous les p aprés leurs ajout dans la base de données sans 
@@ -21,11 +20,16 @@ $allGroupPro = $produits->getAllGroupProduits();
  * Ajout d'un type de yaourt
  */
 if (isset($_POST['btnAddProd'])) {
+    foreach ($_POST['yaourt'] as $kePro => $value) {
+        $prod = $_POST['yaourt'][$kePro];
+        $quantitPro = $_POST['quantitePro'][$kePro];
+        $prixUniPro = $_POST['prixUnitaire'][$kePro];
 
-    $nomUser = $_SESSION['nom_user'];
-    $date = date('Y:m:d');
-    $niveau = "no_finish";
-    $produits->addProduit($_POST['yaourt'], $_POST['quantitePro'], $_POST['prixUnitaire'], $niveau, $nomUser, $date);
+        $nomUser = $_SESSION['nom_user'];
+        $date = date('Y:m:d');
+        $niveau = "no_finish";
+        $produits->addProduit($prod, $quantitPro, $prixUniPro, $niveau, $nomUser, $date);
+    }
     header('location:../views/addProduit.php');
 }
 /**

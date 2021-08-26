@@ -1,5 +1,7 @@
 <?php $title = 'Mon Compte';
-require_once('main.php');
+require('head.php');
+require('header.php');
+require('sibar.php');
 
 require('../controller/controllerCompte.php');
 ?>
@@ -10,7 +12,7 @@ require('../controller/controllerCompte.php');
       <div class="form-panel">
         <h4><i class="fa fa-angle-right"></i>Mon Compte</h4>
         <hr>
-        <?php foreach ($aaCompte as $Compte) :; ?>
+        <?php foreach ($allCompte as $Compte) :; ?>
           <div class="row">
             <div class="col-xs-6 col-sm-6">
               <div class="form-group ">
@@ -59,7 +61,7 @@ require('../controller/controllerCompte.php');
     <!-- /col-lg-12 -->
   </div>
   <!-- FORM VALIDATION -->
-  <?php if (empty($aaCompte)) : ?>
+  <?php if (empty($allCompte)) : ?>
     <div class="row mt">
       <div class="col-lg-12">
         <div class="form-panel">

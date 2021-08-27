@@ -7,10 +7,18 @@ $prod = new ModelProduit();
 //Affichage des produits dans le selecteur
 $allProds = $prod->getAllProduits();
 /**
- * affichage des derniers ajout d'un ingrédaint
+ * affichage des commande non livré
  */
 $aDcoms = $commande->getAllCommandes();
+/**
+ * Livré
+ */
+$comlivre = $commande->getAllLivr();
+/**
+ * Liste général de tous les commande non livé ou non
+ */
 
+$n_yLiv = $commande->getAllCommandeliv();
 /**
  * Onchange pour voir la quantité du produit sélectionné restant
  */ $recapCompt = 0;
@@ -30,7 +38,7 @@ if (isset($_POST['btnAddComm'])) {
     $nomUser = $_SESSION['nom_user'];
     $date = date('Y:m:d');
     $livraison = "non_livre";
-    $commande->addCommande($_POST['ref_com'], $_POST['dateCom'], $_POST['nclient'], $livraison, $nomUser, $date);
+    $commande->addCommande($_POST['ref_com'], $_POST['dateCom'], $livraison, $nomUser, $date);
     /**
      * Récupération de la derniére id
      */
@@ -57,12 +65,12 @@ if (isset($_POST['btnAddComm'])) {
         $prod->updateVenduPro($prod_id, $rest);
 
         /**
-         * Modification du nom livré ou non
+         * Modification du fini ou non
          */
         $reupQuant = $prod->produitDetail($prod_id);
         $Condi = $reupQuant->quantite_pro;
         if ($Condi <= 0) {
-            $Livraison = "livre";
+            $Livraison = "fini";
             $prod->updateNivoPro($idCommande, $Livraison);
         }
     }
@@ -81,12 +89,12 @@ if (isset($_GET['idDel_com'])) {
 
 /**Modification et affichage des données à modifiers*/
 
-if (isset($_GET['idUpdCom'])) {
-    $idUp = $_GET['idUpdCom'];
-    if (isset($_POST['btnUpdCom'])) {
-        $commande->updateCommande($idUp, $_POST['ref_com'], $_POST['dateCom'], $_POST['produit'], $_POST['quantite'], $_POST['nclient']);
+if (isset($_GET['id_upd_Com'])) {
+    $idUp = $_GET['id_upd_Com'];
+    if (isset($_POST['btn_upd_com'])) {
+        $commande->updateCommande($idUp, $_POST['ref_com'], $_POST['dateCom']);
     }
-    $lireUpdCom = $commande->commandeDetail($idUp);
+    $lire_upd_com = $commande->commandeDetail($idUp);
 }
 
 
@@ -94,13 +102,22 @@ if (isset($_GET['idUpdCom'])) {
  * Cette partie concerne le livraison via commande
  */
 if (isset($_POST['btnLivraisonIdCom'])) {
-    foreach ($_POST['id_com_liv'] as $key => $value) {
-        $id_comme = $_POST['id_com_liv'][$key];
+    foreach ($_POST['nclient'] as $key => $value) {
+        $id_client = $_POST['nclient'][$key];
 
-        $commande->addLivraisonCommande($id_comme, $_POST['nomLivreur'], $_POST['dateLivraison'], $_POST['datePaie']);
-        $livraison = "livre";
-        $commande->updateLivraisonCom($id_comme, $livraison);
-        header('location:../views/commandLiv.php');
+        $commande->addLivraisonCommande($_POST['id_com_liv'], $id_client, $_POST['nomLivreur'], $_POST['dateLivraison'], $_POST['datePaie']);
     }
+    $livraison = "livre";
+    $commande->updateLivraisonCom($_POST['id_com_liv'], $livraison);
+    header('location:../views/commandLiv.php');
 }
 $echoCom = $commande->getAllCommandeForLiv();
+
+/**
+ * Favture des commandes
+ */
+
+if (isset($_GET['id_fac_paie'])) {
+    echo 11;
+    $comFacturePaie = $commande->getidCltCom($_GET['id_fac_paie']);
+}

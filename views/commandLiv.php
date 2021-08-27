@@ -4,6 +4,7 @@ require('header.php');
 require('sibar.php');
 require('../controller/controllerCommande.php');
 require('../controller/controllerLivreur.php');
+require('../controller/controllerClient.php');
 ?>
 <section class="wrapper">
     <h3><i class="fa fa-angle-right"></i>Livraison par commande - Ajout </h3>
@@ -19,11 +20,11 @@ require('../controller/controllerLivreur.php');
                     <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="../controller/controllerCommande.php">
 
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6">
+                            <div class="col-xs-4 col-sm-4">
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Ref commande</label>
                                     <div class="col-lg-7">
-                                        <select class="form-control" name="id_com_liv[]" multiple id="multipleCom" required>
+                                        <select class="form-control" name="id_com_liv" required>
                                             <?php foreach ($echoCom as $lirCom) : ?>
                                                 <option value="<?= $lirCom->id_com; ?>"><?= $lirCom->reference_commande; ?></option>
                                             <?php endforeach; ?>
@@ -31,7 +32,19 @@ require('../controller/controllerLivreur.php');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6">
+                            <div class="col-xs-4 col-sm-4">
+                                <div class="form-group ">
+                                    <label for="cname" class="control-label col-lg-3">Nom du Client</label>
+                                    <div class="col-lg-7">
+                                        <select class="form-control" name="nclient[]" multiple id="multipleCom">
+                                            <?php foreach ($allClient as $echoForeiKeyClt) : ?>
+                                                <option value="<?= $echoForeiKeyClt->id_client; ?>"><?= $echoForeiKeyClt->nom_client; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4">
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Nom du Livreur</label>
                                     <div class="col-lg-7">

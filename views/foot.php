@@ -59,27 +59,6 @@
       load_unseen_notification();
     }, 5000);
 
-
-    /**
-     * Ici cette methode c'est pour lire 
-     */
-    // onchange: function(option, checked) {
-    //   var selected = this.$select.val();
-    //   if (selected.length > 0) {
-    //     $.ajax({
-    //       type: 'POST',
-    //       url: '../controller/controllerFactureAchat.php',
-    //       data: {
-    //         id_fourSS: selected
-    //       },
-    //       success: function(data) {
-    //         $('#ingred').html(data);
-    //         $('#ingred').multipleSelect();
-    //       }
-    //     })
-    //   }
-    // }
-
   });
 </script>
 </body>

@@ -15,69 +15,51 @@ $allDiss = $distribution->getAllDistributions();
 /**
  * affichage des derniers ajout d'un ingrédaint
  */
-$aDdis = $distribution->getDistibution();
+$aDdis = $distribution->getAllDistributions();
 
-/**
- * AJOUT DES CLIENTS
- */
-if (isset($_POST['btnAddLivraison'])) {
 
-    $nomUser = $_SESSION['nom_user'];
-    $date = date('Y:m:d');
-    //Récupération de id
-    $idCommande = $_GET['idADLivraison'];
-    $QuanLivrer = $_POST['quantitePro'];
-    $distribution->addDistibution($_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $idCommande, $QuanLivrer, $nomUser, $date);
-
-    /**
-     * Vérification npuis récupertation de la quantité
-     */
-    $recupData = $distribution->commandeVerification($idCommande);
-    $calQuant = $recupData->quantite;
-    /**
-     * Soustration et Modification de la quantité du commande
-     */
-    $rest = $calQuant - $QuanLivrer;
-    $distribution->updateCom($idCommande, $rest);
-
-    /**
-     * Modification du nom livré ou non
-     */
-    $reupQuant = $distribution->commandeVerification($idCommande);
-    $Condi = $reupQuant->quantite;
-    if ($Condi <= 0) {
-        $Livraison = "livre";
-        $distribution->updateLivraisonCom($idCommande, $Livraison);
-    }
-    header('location:../views/listeCommande.php');
-}
 /**
  * Dsitribution avec clients
  */
 if (isset($_POST['btnAddDistribution'])) {
     $nomUser = $_SESSION['nom_user'];
     $date = date('Y:m:d');
-    $quatiteLivrer = $_POST['quantitePro'];
-    $typeIdPro = $_POST['typeProd'];
-    $distribution->addDisSeconde($_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $_POST['nomClient'], $typeIdPro, $quatiteLivrer, $nomUser, $date);
-
+    $livraison = "non_livre";
+    $distribution->addDistibution($_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $_POST['nomClient'], $nomUser, $date);
     /**
-     * Récupération
+     * Récupération de la derniére id
      */
-    $RecuPRODUIT = $ProduitModel->produitDetail($typeIdPro);
-    $dataPro = $RecuPRODUIT->quantite_pro;
-    //calcul et Modification d'un Produit
-    $restePro = $dataPro - $quatiteLivrer;
-
-    $ProduitModel->updateVenduPro($typeIdPro, $restePro);
+    $recapIdDis = $distribution->getDerniersIdDis();
+    $idDispro = $recapIdDis->idDis;
+    foreach ($_POST['produit'] as $key => $value) {
+        $prod_idd = $_POST['produit'][$key];
+        $quantCOM = $_POST['quantite'][$key];
+        $distribution->addDisProduit($idDispro, $prod_idd, $quantCOM);
+    }
     /**
-     * Vérification si la quantité d'un Produit est fini ou pas
+     * Vérification et calculé le reste de la quantité dans la tableau produit
      */
-    $RecuPRODUIT = $ProduitModel->produitDetail($typeIdPro);
-    $condiPro = $RecuPRODUIT->quantite_pro;
-    if ($condiPro <= 0) {
-        $Livraison = "fini";
-        $ProduitModel->updateNivoPro($typeIdPro, $Livraison);
+    foreach ($_POST['produit'] as $ke => $valuePro) {
+        $prod_id = $_POST['produit'][$ke];
+        $addQ = $_POST['quantite'][$ke];
+
+        $recupData = $ProduitModel->produitDetail($prod_id);
+        $calQuant = $recupData->quantite_pro;
+        /**
+         * Soustration et Modification de la quantité du commande
+         */
+        $rest = $calQuant - $addQ;
+        $ProduitModel->updateVenduPro($prod_id, $rest);
+
+        /**
+         * Modification du fini ou non
+         */
+        $reupQuant = $ProduitModel->produitDetail($prod_id);
+        $Condi = $reupQuant->quantite_pro;
+        if ($Condi <= 0) {
+            $Livraison = "fini";
+            $ProduitModel->updateNivoPro($idCommande, $Livraison);
+        }
     }
     header('location:../views/addLivraison.php');
 }
@@ -94,10 +76,10 @@ if (isset($_GET['idDel_Dis'])) {
 
 /**Modification et affichage des données à modifiers*/
 
-if (isset($_GET['idUpdDis'])) {
-    $idUp = $_GET['idUpdDis'];
-    if (isset($_POST['btnUpdDis'])) {
-        $distribution->updateDistribution($idUp, $_POST['dateCom'], $_POST['produit'], $_POST['quantite'], $_POST['nclient']);
+if (isset($_GET['id_upd_livraison'])) {
+    $idUp = $_GET['id_upd_livraison'];
+    if (isset($_POST['upLivraison'])) {
+        $distribution->updateDistribution($idUp, $_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $_POST['nomClient']);
     }
-    $lireUpdDis = $distribution->detailDistribution($idUp);
+    $lire_upd_livraison = $distribution->detailDistribution($idUp);
 }

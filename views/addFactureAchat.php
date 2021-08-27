@@ -22,7 +22,7 @@ require('../controller/controllerFactureAchat.php');
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Fournisseurs</label>
                                     <div class="col-lg-7">
-                                        <select class=" form-control" name="idFour" id="fournisseur" onchange="myFunction(this.value)">
+                                        <select class=" form-control" name="idFour" id="fournisseur">
                                             <option>------------</option>
                                             <?php foreach ($allFour as $FourniLire) : ?>
                                                 <option value="<?= $FourniLire->id_four; ?>"><?= $FourniLire->nom_four; ?></option>
@@ -53,7 +53,7 @@ require('../controller/controllerFactureAchat.php');
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Listes des Ingrédiants</label>
                                     <div class="col-lg-7">
-                                        <select multiple="multiple" class=" form-control" name="idIngrd[]" id="ingred">
+                                        <select multiple="multiple" class=" form-control multipleM" name="idIngrd[]" id="ingred">
                                         </select>
                                     </div>
                                 </div>
@@ -161,20 +161,85 @@ require('../controller/controllerFactureAchat.php');
     </div>
     <!-- /row -->
 </section>
-<?php require('foot.php'); ?>
+</section>
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="lib/jquery/jquery.min.js"></script>
+
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../public/multiple-select.min.js"></script>
+<script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+<script src="lib/jquery.scrollTo.min.js"></script>
+<script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="lib/jquery.sparkline.js"></script>
+<!--common script for all pages-->
+<script src="lib/common-scripts.js"></script>
+<script type="text/javascript" src="lib/gritter/js/jquery.gritter.js"></script>
+<script type="text/javascript" src="lib/gritter-conf.js"></script>
+<!--script for this page-->
+
 <script>
-    //cette fonction permet de selectionné et de mettre les données dans les champs
-    function myFunction(id) {
-        $('#ingred').html('');
-        $.ajax({
-            type: 'POST',
-            url: '../controller/controllerFactureAchat.php',
-            data: {
-                id_fourSS: id
-            },
-            success: function(data) {
-                $('#ingred').html(data);
+    $(document).ready(function() {
+        function load_unseen_notification(view = '') {
+            $.ajax({
+                url: "../controller/controllerNotification.php",
+                method: "POST",
+                data: {
+                    view: view
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('.dropdown-menu').html(data.notification);
+                    if (data.unseen_notification > 0) {
+                        $('.count').html(data.unseen_notification);
+                    }
+                }
+            });
+        }
+        load_unseen_notification();
+        $('#notifFom').on('submit', function(event) {
+            event.preventDefault();
+            if ($('#sujet').val() != '' && $('#dateAvnt').val() != '') {
+                var form_data = $(this).serialize();
+                $.ajax({
+                    url: "../controller/controllerNotification.php",
+                    method: "POST",
+                    data: form_data,
+                    success: function() {
+                        $('#notifFom')[0].reset();
+                        load_unseen_notification();
+                    }
+                })
+            } else {
+                alert("les Données sont pas entrées veuiller vérifié les champs");
             }
+        });
+        //Lorsqu on click on a affiche plus la notification
+        $(document).on('click', '.dropdown-toggle', function() {
+            $('.count').html('');
+            load_unseen_notification('yes');
         })
-    }
+        setInterval(function() {
+            load_unseen_notification();
+        }, 5000);
+
+
+        $('#fournisseur').change(function() {
+            var idFourn = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '../controller/controllerFactureAchat.php',
+                data: {
+                    id_fourSS: idFourn
+                },
+                dataType: "text",
+                success: function(data) {
+                    $('#ingred').html(data);
+                    $('#ingred').multipleSelect();
+                }
+            });
+        });
+    });
 </script>
+</body>
+
+</html>

@@ -6,7 +6,7 @@ require('../controller/controllerCommande.php');
 ?>
 
 <section class="wrapper">
-  <h3><i class="fa fa-angle-right"></i> Commande - Liste</h3>
+  <h3><i class="fa fa-angle-right"></i> Commande - Liste des Commandes</h3>
   <!-- row -->
   <div class="row mt">
     <div class="col-md-12">
@@ -16,7 +16,7 @@ require('../controller/controllerCommande.php');
             <i class="fa fa-angle-right"></i><b>Listes des commande disponible</b>
           </div>
           <div class="col-lg-4-right">
-            <a href="commandLiv.php" class="btn btn-success btn-xs">Livrasion des Commande</a>
+            <a href="commandLiv.php" class="btn btn-success btn-xs" title="Cliqué pour faire livré">faire Livré</a>
           </div>
         </h4>
         <hr>
@@ -26,28 +26,29 @@ require('../controller/controllerCommande.php');
             <tr>
               <th>Référence</th>
               <th>Date Commande</th>
-              <th> Client</th>
-              <th>Livraison</th>
+              <th>Status</th>
               <th> Produit</th>
               <th> Quantité</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($aDcoms as $echoComD) : ?>
+            <?php foreach ($n_yLiv as $echoComD) : ?>
               <tr>
                 <td rowspan="<?= $echoComD->comptDate + 1; ?>"><?= $echoComD->reference_commande ?></td>
                 <td rowspan="<?= $echoComD->comptDate + 1; ?>"><?= $echoComD->date_com ?></td>
-                <td rowspan="<?= $echoComD->comptDate + 1; ?>"><?= $echoComD->nom_client ?></td>
                 <td rowspan="<?= $echoComD->comptDate + 1; ?>">
-                  <a href="upCommande.php?idUpdCom=<?= $echoComD->id_com ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                  <?php
+                  $liv = $echoComD->livraison;
+                  if ($liv == "non_livre") :; ?>
+                    <span class="label label-warning label-mini">Non Livré</span>
+                  <?php else : ?>
+                    <span class="label label-info label-mini">Livré</span>
+                  <?php endif; ?>
                 </td>
                 <?php
-                $echoComD->comptDate;
-                $dateCom = $echoComD->date_com;
-                $cltCom = $echoComD->id_clt;
+                $cltComid = $echoComD->id_com;
                 $db = dbConnect();
-                $query = $db->prepare("SELECT * FROM commande, produits, clients, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND commande.id_clt = clients.id_client AND livraison like '%non_livre%' AND commande.date_com = '" . $dateCom . "' AND commande.id_clt = '" . $cltCom . "'");
+                $query = $db->prepare("SELECT * FROM commande, produits, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND commande.id_com  = '" . $cltComid . "'");
                 $query->execute();
                 $idCltDate = $query->fetchall(PDO::FETCH_OBJ);
 
@@ -56,9 +57,6 @@ require('../controller/controllerCommande.php');
               <tr>
                 <td><?= $dayClt->id_yaourt ?></td>
                 <td><?= $dayClt->quantite_com ?></td>
-                <td>
-                  <a href="../controller/controllerCommande.php?idDel_com=<?= $dayClt->id_prd_q_com ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce produit : <?= $dayClt->id_yaourt; ?> dans les commandes')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
-                </td>
               </tr>
             <?php endforeach; ?>
             </tr>

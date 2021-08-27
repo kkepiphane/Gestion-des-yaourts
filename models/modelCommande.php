@@ -3,12 +3,12 @@
 require_once '../db/bdd.php';
 class ModelCommande
 {
-    public function addCommande($ref_com, $dateCom, $idClt, $livraison, $user_create, $date_create)
+    public function addCommande($ref_com, $dateCom, $livraison, $user_create, $date_create)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("INSERT INTO commande(reference_commande, date_com, id_clt, livraison, user_create, dateCreate) VALUES (?,?,?,?,?,?)");
-            $executCom = $query->execute(array($ref_com, $dateCom, $idClt, $livraison, $user_create, $date_create));
+            $query = $db->prepare("INSERT INTO commande(reference_commande, date_com, livraison, user_create, dateCreate) VALUES (?,?,?,?,?)");
+            $executCom = $query->execute(array($ref_com, $dateCom, $livraison, $user_create, $date_create));
             return $executCom;
         } catch (PDOException $e) {
             exit($e->getMessage());
@@ -18,7 +18,7 @@ class ModelCommande
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM commande, clients WHERE commande.id_clt = clients.id_client ORDER BY id_com DESC LIMIT 0,1");
+            $query = $db->prepare("SELECT * FROM commande ORDER BY id_com DESC LIMIT 0,1");
             $query->execute();
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);
@@ -38,14 +38,70 @@ class ModelCommande
             exit($e->getMessage());
         }
     }
-
+    //Non Livré
     public function getAllCommandes()
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT *, COUNT(prod_commande.id_comma_pro) AS comptDate FROM commande, produits, clients, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND commande.id_clt = clients.id_client AND livraison like '%non_livre%' GROUP BY id_com");
+            $query = $db->prepare("SELECT *, COUNT(prod_commande.id_comma_pro) AS comptDate FROM commande, produits, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND livraison like '%non_livre%' GROUP BY id_com");
             $query->execute();
             return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    /**
+     * Livré ou non livré
+     */
+    public function getAllCommandeliv()
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT *, COUNT(prod_commande.id_comma_pro) AS comptDate FROM commande, produits, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod GROUP BY id_com");
+            $query->execute();
+            return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    /**
+     * Livré
+     */
+    public function getAllLivr()
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT *, COUNT(distribu_com.id_com_liv) AS comptDate FROM commande, distribu_com,clients WHERE distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND livraison like '%livre%' GROUP BY id_com");
+            $query->execute();
+            return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    /**
+     * Facture des client
+     */
+    public function getidCltCom($idClientCom)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM commande, distribu_com,clients WHERE distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND distribu_com.id_clt = ? AND commande.livraison like '%livre%'");
+            $query->execute(array($idClientCom));
+            if ($query->rowCount() > 0) {
+                return $query->fetch(PDO::FETCH_OBJ);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }public function getidCltFac($idClientCom)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM commande, distribu_com,clients WHERE distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND distribu_com.id_clt = ? AND commande.livraison like '%livre%'");
+            $query->execute(array($idClientCom));
+            if ($query->rowCount() > 0) {
+                return $query->fetch(PDO::FETCH_OBJ);
+            }
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -54,7 +110,7 @@ class ModelCommande
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM commande, produits, clients WHERE commande.id_pro = produits.id_prod AND commande.id_clt = clients.id_client AND id_com=?");
+            $query = $db->prepare("SELECT * FROM commande WHERE id_com=?");
             $query->execute(array($idCom));
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);
@@ -63,13 +119,13 @@ class ModelCommande
             exit($e->getMessage());
         }
     }
-    public function updateCommande($idCom, $refCom, $dateCom, $idPro, $quantit, $idClt)
+    public function updateCommande($idCom, $refCom, $dateCom)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("UPDATE commande SET reference_commande =?, date_com = ?, id_pro = ?, quantite =?, id_clt=? WHERE id_com = '" . $idCom . "'");
-            $executIngrediant = $query->execute(array($refCom, $dateCom, $idPro, $quantit, $idClt));
-            return $executIngrediant;
+            $query = $db->prepare("UPDATE commande SET reference_commande =?, date_com = ? WHERE id_com = '" . $idCom . "'");
+            $executCom = $query->execute(array($refCom, $dateCom));
+            return $executCom;
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -106,12 +162,12 @@ class ModelCommande
      * 
      */
 
-    public function addLivraisonCommande($idCom, $idlivreur, $dateLiv, $datePai)
+    public function addLivraisonCommande($idCom, $clt, $idlivreur, $dateLiv, $datePai)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("INSERT INTO distribu_com(id_com_liv, id_livreurCom, date_livraison,date_paiment_com) VALUES (?,?,?,?)");
-            $executCom = $query->execute(array($idCom, $idlivreur, $dateLiv, $datePai));
+            $query = $db->prepare("INSERT INTO distribu_com(id_com_liv, id_clt, id_livreurCom, date_livraison,date_paiment_com) VALUES (?,?,?,?,?)");
+            $executCom = $query->execute(array($idCom, $clt, $idlivreur, $dateLiv, $datePai));
             return $executCom;
         } catch (PDOException $e) {
             exit($e->getMessage());

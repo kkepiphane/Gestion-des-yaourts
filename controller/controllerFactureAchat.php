@@ -39,7 +39,6 @@ if (isset($_POST['id_fourSS'])) {
 
     $output = '';
     if ($listeIng > 0) {
-        $output .= '<option>------------</option>';
         foreach ($listeIng as $echoIngredFourn) :;
             $output .= ' <option value=' . $echoIngredFourn->id_ing . '>' . $echoIngredFourn->references_ing . '</option>';
         endforeach;

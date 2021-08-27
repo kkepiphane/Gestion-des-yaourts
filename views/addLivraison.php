@@ -114,6 +114,72 @@ require('../controller/controllerClient.php');
     </div>
     <!-- /col-lg-12 -->
   </div>
+
+  <div class="row mt">
+    <div class="col-md-12">
+      <div class="content-panel">
+        <h4>
+          <i class="fa fa-angle-right"></i>Listes des Livraisons directes
+        </h4>
+        <hr>
+        <table class="table table-striped table-advance table-hover">
+          <thead>
+            <tr>
+              <th>Date Livraison</th>
+              <th>Date Paiement</th>
+              <th> Client</th>
+              <th>Fournisseur</th>
+              <th>Edité</th>
+              <th> Produit</th>
+              <th> Quantité</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($allDiss as $echoDistribut) : ?>
+              <tr>
+                <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->date_livraison ?></td>
+                <td rowspan="<?= $echoDistribut->comId + 1; ?>">
+                  <?php
+                  if (is_null($echoDistribut->date_paiment)) {
+                    echo "pas de date fixé";
+                  } else {
+                    echo $echoDistribut->date_paiment;
+                  }
+
+                  ?>
+                </td>
+                <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_client ?></td>
+                <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_dis ?></td>
+                <td rowspan="<?= $echoDistribut->comId + 1; ?>">
+                  <a href="upLivraison.php?id_upd_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                </td>
+                <?php
+                $idD = $echoDistribut->idDis;
+                $db = dbConnect();
+                $query = $db->prepare("SELECT * FROM distributions, livreur, clients, distribu_produit, produits WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distributions.idDis = ? AND distribu_produit.idProduits_dis = produits.id_prod");
+                $query->execute(array($idD));
+                $proDis = $query->fetchall(PDO::FETCH_OBJ);
+
+                foreach ($proDis as $produitD) :;
+                ?>
+              <tr>
+                <td><?= $produitD->id_yaourt ?></td>
+                <td><?= $produitD->quantite_venduPro ?></td>
+                <td>
+                  <a href="../controller/controllerLivraison.php?idDel_com=<?= $produitD->id_dis_prod  ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce produit : <?= $produitD->id_yaourt; ?> dans les commandes')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+      <!-- /content-panel -->
+    </div>
+    <!-- /col-md-12 -->
+  </div>
   <!-- /row -->
   <!-- /row -->
 </section>

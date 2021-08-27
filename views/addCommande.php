@@ -3,7 +3,6 @@ require('head.php');
 require('header.php');
 require('sibar.php');
 require('../controller/controllerCommande.php');
-require('../controller/controllerClient.php');
 ?>
 
 <section class="wrapper">
@@ -17,7 +16,7 @@ require('../controller/controllerClient.php');
         <div class=" form">
           <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="../controller/controllerCommande.php">
             <div class="row">
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-6 col-sm-6">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Reférence Commande</label>
                   <div class="col-lg-7">
@@ -25,24 +24,11 @@ require('../controller/controllerClient.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-6 col-sm-6">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Date Commande</label>
                   <div class="col-lg-7">
                     <input class=" form-control" id="cname" name="dateCom" minlength="2" type="date" />
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-4 col-sm-4">
-                <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-3">Nom du Client</label>
-                  <div class="col-lg-7">
-                    <select class="form-control" name="nclient">
-                      <option>------------</option>
-                      <?php foreach ($allClient as $echoForeiKeyClt) : ?>
-                        <option value="<?= $echoForeiKeyClt->id_client; ?>"><?= $echoForeiKeyClt->nom_client; ?></option>
-                      <?php endforeach; ?>
-                    </select>
                   </div>
                 </div>
               </div>
@@ -52,9 +38,8 @@ require('../controller/controllerClient.php');
                 <div class="input-field">
                   <table id="row_input">
                     <tr>
-                      <th width="35%"></th>
-                      <th width="34%"></th>
-                      <th width="28%"></th>
+                      <th width="40%"></th>
+                      <th width="40%"></th>
                       <th width="28%"></th>
                     </tr>
                     <tr>
@@ -111,7 +96,7 @@ require('../controller/controllerClient.php');
             <i class="fa fa-angle-right"></i>Listes des Commandes
           </div>
           <div class="col-lg-4-right">
-            <a href="commandLiv.php" class="btn btn-success btn-xs">Livrasion des Commande</a>
+            <a href="commandLiv.php" class="btn btn-success btn-xs">Faire Livrer</a>
           </div>
         </h4>
         <hr>
@@ -120,7 +105,6 @@ require('../controller/controllerClient.php');
             <tr>
               <th>Référence</th>
               <th>Date Commande</th>
-              <th> Client</th>
               <th>Editer</th>
               <th> Produit</th>
               <th> Quantité</th>
@@ -132,16 +116,13 @@ require('../controller/controllerClient.php');
               <tr>
                 <td rowspan="<?= $echoComD->comptDate + 1; ?>"><?= $echoComD->reference_commande ?></td>
                 <td rowspan="<?= $echoComD->comptDate + 1; ?>"><?= $echoComD->date_com ?></td>
-                <td rowspan="<?= $echoComD->comptDate + 1; ?>"><?= $echoComD->nom_client ?></td>
                 <td rowspan="<?= $echoComD->comptDate + 1; ?>">
-                  <a href="upCommande.php?idUpdCom=<?= $echoComD->id_com ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                  <a href="upCommande.php?id_upd_Com=<?= $echoComD->id_com ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                 </td>
                 <?php
-                $echoComD->comptDate;
-                $dateCom = $echoComD->date_com;
-                $cltCom = $echoComD->id_clt;
+                $cltComid = $echoComD->id_com;
                 $db = dbConnect();
-                $query = $db->prepare("SELECT * FROM commande, produits, clients, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND commande.id_clt = clients.id_client AND livraison like '%non_livre%' AND commande.date_com = '" . $dateCom . "' AND commande.id_clt = '" . $cltCom . "'");
+                $query = $db->prepare("SELECT * FROM commande, produits, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND livraison like '%non_livre%' AND commande.id_com = '" . $cltComid . "'");
                 $query->execute();
                 $idCltDate = $query->fetchall(PDO::FETCH_OBJ);
 

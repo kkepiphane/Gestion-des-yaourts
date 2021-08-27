@@ -45,7 +45,7 @@ require('../controller/controllerCommande.php');
                         <div class="col-md-12">
                             <div class="content-panel">
                                 <h4>
-                                    <i class="fa fa-angle-right"></i><b> Facutre du Client :</b> <?= $comFacturePaie->nom_client; ?>
+                                    <i class="fa fa-angle-right"></i><b>Bon de Livraison :</b> <?= $comFacturePaie->nom_client; ?>
                                 </h4>
                                 <hr>
                                 <table class="table table-striped table-advance table-hover">
@@ -58,24 +58,32 @@ require('../controller/controllerCommande.php');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($aDcoms as $echoComD) : ?>
-                                            <tr>
-                                                <?php
-                                                $cltComid = $echoComD->id_com;
-                                                $db = dbConnect();
-                                                $query = $db->prepare("SELECT * FROM commande, produits, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND livraison like '%non_livre%' AND commande.id_com = '" . $cltComid . "'");
-                                                $query->execute();
-                                                $idCltDate = $query->fetchall(PDO::FETCH_OBJ);
+                                        <?php
 
-                                                foreach ($idCltDate as $dayClt) :;
-                                                ?>
+                                        $sommeT = 0;
+                                        foreach ($proBonLiv as $echoBnLiv) : ?>
                                             <tr>
-                                                <td><?= $dayClt->id_yaourt ?></td>
-                                                <td><?= $dayClt->quantite_com ?></td>
+                                                <td><?= $echoBnLiv->id_yaourt ?></td>
+                                                <td><?= $echoBnLiv->quantite_com ?></td>
+                                                <td><?= $echoBnLiv->prix_produit ?></td>
+                                                <td><?= $echoBnLiv->prix_produit * $echoBnLiv->quantite_com;
+                                                    $sommeT = $echoBnLiv->prix_produit * $echoBnLiv->quantite_com + $sommeT;
+
+                                                    ?></td>
                                             </tr>
                                         <?php endforeach; ?>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
-                                    <?php endforeach; ?>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Montant Total</th>
+                                            <th><?= $sommeT; ?></th>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -95,11 +103,11 @@ require('../controller/controllerCommande.php');
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-sm-7"></div>
-        <div class="col-xs-6 col-sm-3">
-            <a href="addFactureAchat.php" class="btn btn-theme04 btn-xs">Retour</a>
+        <div class="col-xs-3 col-sm-6"></div>
+        <div class="col-xs-5 col-sm-3">
+            <a href="bon_de_livraison.php" class="btn btn-theme04 btn-xs">Retour</a>
         </div>
-        <div class="col-xs-6 col-sm-2">
+        <div class="col-xs-3 col-sm-2">
             <button onClick="imprimer('sectionAimprimer')" class="btn btn-success btn-xs">Imprimer</button>
         </div>
     </div>

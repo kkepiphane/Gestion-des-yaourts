@@ -126,11 +126,11 @@
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-credit-card"></i>
-              <span>Paiement</span>
+              <span>Facture Paiement</span>
             </a>
             <ul class="sub">
-              <li><a href="addFacture.php">Facture</a></li>
-              <li><a href="advanced_form_components.html">Advanced Components</a></li>
+              <li><a href="addFacture.php">Facture Paie</a></li>
+              <li><a href="fact_commmde.php">Facture Commande</a></li>
             </ul>
           </li>
         </ul>

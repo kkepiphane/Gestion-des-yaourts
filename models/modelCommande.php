@@ -79,6 +79,20 @@ class ModelCommande
         }
     }
     /**
+     * Produit livré à un client
+     */
+    public function getProLiv($idProCleint)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM commande, distribu_com,clients, prod_commande,produits WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod  AND distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND distribu_com.id_clt = ? AND livraison like '%livre%' GROUP BY id_com");
+            $query->execute(array($idProCleint));
+            return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    /**
      * Facture des client
      */
     public function getidCltCom($idClientCom)
@@ -93,7 +107,8 @@ class ModelCommande
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
-    }public function getidCltFac($idClientCom)
+    }
+    public function getidCltFac($idClientCom)
     {
         try {
             $db = dbConnect();

@@ -104,7 +104,7 @@ require('../controller/controllerFactureAchat.php');
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-sm-7"></div>
+        <div class="col-xs-6 col-sm-6"></div>
         <div class="col-xs-6 col-sm-3">
             <a href="addFactureAchat.php" class="btn btn-theme04 btn-xs">Retour</a>
         </div>

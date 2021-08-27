@@ -37,8 +37,7 @@ require('../controller/controllerClient.php');
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-4">Nom du Client</label>
                   <div class="col-lg-7">
-                    <select class="form-control" name="nomClient">
-                      <option>------------</option>
+                    <select class="form-control" name="nomClient[]" multiple id="multipleM">
                       <?php foreach ($allClient as $echoFoerIng) : ?>
                         <option value="<?= $echoFoerIng->id_client; ?>"><?= $echoFoerIng->nom_client; ?></option>
                       <?php endforeach; ?>
@@ -128,7 +127,7 @@ require('../controller/controllerClient.php');
               <th>Date Livraison</th>
               <th>Date Paiement</th>
               <th> Client</th>
-              <th>Fournisseur</th>
+              <th>Livreur</th>
               <th>Edité</th>
               <th> Produit</th>
               <th> Quantité</th>
@@ -141,7 +140,7 @@ require('../controller/controllerClient.php');
                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->date_livraison ?></td>
                 <td rowspan="<?= $echoDistribut->comId + 1; ?>">
                   <?php
-                  if (is_null($echoDistribut->date_paiment)) {
+                  if ($echoDistribut->date_paiment === '0000-00-00') {
                     echo "pas de date fixé";
                   } else {
                     echo $echoDistribut->date_paiment;
@@ -188,6 +187,7 @@ require('../controller/controllerClient.php');
 <script src="lib/jquery/jquery.min.js"></script>
 
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../public/multiple-select.min.js"></script>
 <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
 <script src="lib/jquery.scrollTo.min.js"></script>
 <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
@@ -263,6 +263,7 @@ require('../controller/controllerClient.php');
     $("#row_input").on('click', '#delFac', function() {
       $(this).closest('tr').remove();
     });
+
   });
 
 
@@ -292,7 +293,6 @@ require('../controller/controllerClient.php');
       });
     });
   });
-
   $(function() {
     $('#multipleM').multipleSelect();
   });

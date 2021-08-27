@@ -22,45 +22,51 @@ $aDdis = $distribution->getAllDistributions();
  * Dsitribution avec clients
  */
 if (isset($_POST['btnAddDistribution'])) {
-    $nomUser = $_SESSION['nom_user'];
-    $date = date('Y:m:d');
-    $livraison = "non_livre";
-    $distribution->addDistibution($_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $_POST['nomClient'], $nomUser, $date);
-    /**
-     * Récupération de la derniére id
-     */
-    $recapIdDis = $distribution->getDerniersIdDis();
-    $idDispro = $recapIdDis->idDis;
-    foreach ($_POST['produit'] as $key => $value) {
-        $prod_idd = $_POST['produit'][$key];
-        $quantCOM = $_POST['quantite'][$key];
-        $distribution->addDisProduit($idDispro, $prod_idd, $quantCOM);
-    }
-    /**
-     * Vérification et calculé le reste de la quantité dans la tableau produit
-     */
-    foreach ($_POST['produit'] as $ke => $valuePro) {
-        $prod_id = $_POST['produit'][$ke];
-        $addQ = $_POST['quantite'][$ke];
 
-        $recupData = $ProduitModel->produitDetail($prod_id);
-        $calQuant = $recupData->quantite_pro;
+    foreach ($_POST['nomClient'] as $keyClien => $value) {
+        $client = $_POST['nomClient'][$keyClien];
+        $nomUser = $_SESSION['nom_user'];
+        $date = date('Y:m:d');
+        $livraison = "non_livre";
+        $distribution->addDistibution($_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $client, $nomUser, $date);
         /**
-         * Soustration et Modification de la quantité du commande
+         * Récupération de la derniére id
          */
-        $rest = $calQuant - $addQ;
-        $ProduitModel->updateVenduPro($prod_id, $rest);
+        $recapIdDis = $distribution->getDerniersIdDis();
+        $idDispro = $recapIdDis->idDis;
+        foreach ($_POST['produit'] as $key => $value) {
+            $prod_idd = $_POST['produit'][$key];
+            $quantCOM = $_POST['quantite'][$key];
+            $distribution->addDisProduit($idDispro, $prod_idd, $quantCOM);
+        }
 
         /**
-         * Modification du fini ou non
+         * Vérification et calculé le reste de la quantité dans la tableau produit
          */
-        $reupQuant = $ProduitModel->produitDetail($prod_id);
-        $Condi = $reupQuant->quantite_pro;
-        if ($Condi <= 0) {
-            $Livraison = "fini";
-            $ProduitModel->updateNivoPro($idCommande, $Livraison);
+        foreach ($_POST['produit'] as $ke => $valuePro) {
+            $prod_id = $_POST['produit'][$ke];
+            $addQ = $_POST['quantite'][$ke];
+
+            $recupData = $ProduitModel->produitDetail($prod_id);
+            $calQuant = $recupData->quantite_pro;
+            /**
+             * Soustration et Modification de la quantité du commande
+             */
+            $rest = $calQuant - $addQ;
+            $ProduitModel->updateVenduPro($prod_id, $rest);
+
+            /**
+             * Modification du fini ou non
+             */
+            $reupQuant = $ProduitModel->produitDetail($prod_id);
+            $Condi = $reupQuant->quantite_pro;
+            if ($Condi <= 0) {
+                $Livraison = "fini";
+                $ProduitModel->updateNivoPro($idCommande, $Livraison);
+            }
         }
     }
+
     header('location:../views/addLivraison.php');
 }
 /**

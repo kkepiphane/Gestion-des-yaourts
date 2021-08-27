@@ -118,6 +118,6 @@ $echoCom = $commande->getAllCommandeForLiv();
  */
 
 if (isset($_GET['id_fac_paie'])) {
-    echo 11;
     $comFacturePaie = $commande->getidCltCom($_GET['id_fac_paie']);
+    $proBonLiv = $commande->getProLiv($_GET['id_fac_paie']);
 }

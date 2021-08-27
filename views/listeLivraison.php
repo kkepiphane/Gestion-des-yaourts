@@ -21,11 +21,10 @@ require('../controller/controllerClient.php');
                             <th>Date Livraison</th>
                             <th>Date Paiement</th>
                             <th> Client</th>
-                            <th>Fournisseur</th>
-                            <th>Edité</th>
+                            <th>Livreur</th>
+                            <th>Bon de Livraison</th>
                             <th> Produit</th>
                             <th> Quantité</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,7 +33,7 @@ require('../controller/controllerClient.php');
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->date_livraison ?></td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>">
                                     <?php
-                                    if (is_null($echoDistribut->date_paiment)) {
+                                    if ($echoDistribut->date_paiment === '0000-00-00') {
                                         echo "pas de date fixé";
                                     } else {
                                         echo $echoDistribut->date_paiment;
@@ -59,9 +58,6 @@ require('../controller/controllerClient.php');
                             <tr>
                                 <td><?= $produitD->id_yaourt ?></td>
                                 <td><?= $produitD->quantite_venduPro ?></td>
-                                <td>
-                                    <a href="../controller/controllerLivraison.php?idDel_com=<?= $produitD->id_dis_prod  ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce produit : <?= $produitD->id_yaourt; ?> dans les commandes')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                         </tr>

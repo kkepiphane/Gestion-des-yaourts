@@ -138,6 +138,7 @@ require('../controller/controllerProduit.php');
 <script src="lib/jquery/jquery.min.js"></script>
 
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../public/multiple-select.min.js"></script>
 <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
 <script src="lib/jquery.scrollTo.min.js"></script>
 <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>

@@ -29,10 +29,41 @@ if (isset($_POST['id_IDclient'])) {
     echo $output;
 }
 /**
- * Onchange de valeurs directement dans la base
+ * Onchange récupère la date lié à la commande
  */
 if (isset($_POST['dateComPaie'])) {
     $getDatePaie = $facPaie->getClientDATE($_POST['dateComPaie']);
+
+    $output = '';
+    if ($getDatePaie->id_dis_com  > 0) {
+        $output .= ' <input class=" form-control" id="datePaieDis" name="dateLivraison" minlength="2" type="date"  value=' . $getDatePaie->date_paiment_com . '>';
+    } else {
+        $output .= ' <input class=" form-control" id="cname" name="dateLivraison" minlength="2" type="date" >';
+    }
+    echo $output;
+}
+
+/**
+ * Récupération des clients lié à la reférence de distribution
+ */
+if (isset($_POST['clientDiss'])) {
+    $listeID_client = $facPaie->getClientIDN($_POST['clientDiss']);
+
+    $output = '';
+    if ($listeID_client > 0) {
+        foreach ($listeID_client as $lire_clientID) :;
+            $output .= ' <option value=' . $lire_clientID->id_client  . '>' . $lire_clientID->nom_client . '</option>';
+        endforeach;
+    } else {
+        $output .= ' <option>Aucun ingrédiant fourni </option>';
+    }
+    echo $output;
+}
+/**
+ * Onchange récupère la date lié à la livraison direct
+ */
+if (isset($_POST['datePaieDissss'])) {
+    $getDatePaie = $facPaie->getClientDATE($_POST['datePaieDissss']);
 
     $output = '';
     if ($getDatePaie->id_dis_com  > 0) {

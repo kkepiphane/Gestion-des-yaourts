@@ -12,19 +12,27 @@ require('../controller/controllerClient.php');
         <div class="col-md-12">
             <div class="content-panel">
                 <h4>
-                    <i class="fa fa-angle-right"></i>Listes des Livraisons directes
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <i class="fa fa-angle-right"></i><b>Listes des distributions</b>
+                        </div>
+                        <div class="col-lg-2">
+                            <a href="addFacture_distribution.php" class="btn btn-warning outline" title="Cliqué pour faire la Facture"><i class="fa fa-hand-o-right"></i> faire La facture</a>
+                        </div>
+                    </div>
                 </h4>
                 <hr>
                 <table class="table table-striped table-advance table-hover">
                     <thead>
                         <tr>
-                            <th>Date Livraison</th>
-                            <th>Date Paiement</th>
-                            <th> Client</th>
-                            <th>Livreur</th>
-                            <th>Bon de Livraison</th>
-                            <th> Produit</th>
-                            <th> Quantité</th>
+                            <th width="6%">Date Livraison</th>
+                            <th width="6%">Date Paiement</th>
+                            <th width="5%"> Client</th>
+                            <th width="5%">Livreur</th>
+                            <th width="6%">Bon de Livraison</th>
+                            <th width="5%">Facture</th>
+                            <th width="10%"> Produit</th>
+                            <th width="10%"> Quantité</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +51,9 @@ require('../controller/controllerClient.php');
                                 </td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_client ?></td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_dis ?></td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>">
+                                    <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-success btn-xs"><i class="fa fa-building-o"></i></a>
+                                </td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>">
                                     <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-success btn-xs"><i class="fa fa-building-o"></i></a>
                                 </td>

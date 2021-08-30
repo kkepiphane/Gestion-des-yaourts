@@ -17,7 +17,15 @@ require('../controller/controllerClient.php');
         <div class=" form">
           <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="../controller/controllerLivraison.php">
             <div class="row">
-              <div class="col-xs-3 col-sm-3">
+              <div class="col-xs-4 col-sm-4">
+                <div class="form-group ">
+                  <label for="cname" class="control-label col-lg-3">Ref Distribution</label>
+                  <div class="col-lg-7">
+                    <input class=" form-control" id="cname" name="ref_dis" minlength="2" type="text" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Date Livraison</label>
                   <div class="col-lg-7">
@@ -25,7 +33,7 @@ require('../controller/controllerClient.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-3 col-sm-3">
+              <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Date Paiment</label>
                   <div class="col-lg-7">
@@ -33,9 +41,11 @@ require('../controller/controllerClient.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-3 col-sm-3">
+            </div>
+            <div class="row">
+              <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-4">Nom du Client</label>
+                  <label for="cname" class="control-label col-lg-3">Nom du Client</label>
                   <div class="col-lg-7">
                     <select class="form-control" name="nomClient[]" multiple id="multipleM">
                       <?php foreach ($allClient as $echoFoerIng) : ?>
@@ -45,9 +55,9 @@ require('../controller/controllerClient.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-3 col-sm-3">
+              <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-4">Nom du Livreur</label>
+                  <label for="cname" class="control-label col-lg-3">Nom du Livreur</label>
                   <div class="col-lg-7">
                     <select class="form-control" name="nomLivreur">
                       <option>------------</option>
@@ -64,10 +74,9 @@ require('../controller/controllerClient.php');
                 <div class="input-field">
                   <table id="row_input">
                     <tr>
+                      <th width="55%"></th>
                       <th width="35%"></th>
-                      <th width="34%"></th>
-                      <th width="28%"></th>
-                      <th width="28%"></th>
+                      <th width="15%"></th>
                     </tr>
                     <tr>
                       <td>
@@ -76,7 +85,7 @@ require('../controller/controllerClient.php');
                           <div class="col-lg-7">
                             <select name="produit[]" class="form-control" onchange="selectIngrediant(this.value)">
                               <?php foreach ($allProds as $echoForeiKeyClt) : ?>
-                                <option value=" <?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->id_yaourt; ?> --(<?= $echoForeiKeyClt->quantite_pro; ?>)</option>
+                                <option value=" <?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->id_yaourt; ?> -(Qte = <?= $echoForeiKeyClt->quantite_pro; ?>)</option>
                               <?php endforeach; ?>
                             </select>
                           </div>
@@ -92,7 +101,7 @@ require('../controller/controllerClient.php');
                       </td>
                       <td>
                         <div class="form-group ">
-                          <input class="btn btn-theme" type="button" name="addFactA" id="addFactA" value="Ajout une ligne" />
+                          <input class="btn btn-theme btn-xs" type="button" name="addFactA" id="addFactA" value="Ajout une ligne" />
                         </div>
                       </td>
                     </tr>
@@ -103,7 +112,7 @@ require('../controller/controllerClient.php');
             <div class="form-group">
               <div class="col-lg-offset col-lg-8">
                 <input class="btn btn-success" type="submit" name="btnAddDistribution" id="btnAddLivraison" value="Enregistrer" />
-                <button class="btn btn-theme04" type="reset">Cancel</button>
+                <button class="btn btn-theme04" onclick="document.location.reload()" type="reset">Annuler</button>
               </div>
             </div>
           </form>

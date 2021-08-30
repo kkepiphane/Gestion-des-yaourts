@@ -27,8 +27,8 @@ if (isset($_POST['btnAddDistribution'])) {
         $client = $_POST['nomClient'][$keyClien];
         $nomUser = $_SESSION['nom_user'];
         $date = date('Y:m:d');
-        $livraison = "non_livre";
-        $distribution->addDistibution($_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $client, $nomUser, $date);
+        $etat = "non_paye";
+        $distribution->addDistibution($_POST['ref_dis'], $_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $client, $etat, $nomUser, $date);
         /**
          * Récupération de la derniére id
          */
@@ -85,7 +85,7 @@ if (isset($_GET['idDel_Dis'])) {
 if (isset($_GET['id_upd_livraison'])) {
     $idUp = $_GET['id_upd_livraison'];
     if (isset($_POST['upLivraison'])) {
-        $distribution->updateDistribution($idUp, $_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $_POST['nomClient']);
+        $distribution->updateDistribution($idUp, $_POST['ref_dis'], $_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $_POST['nomClient']);
     }
     $lire_upd_livraison = $distribution->detailDistribution($idUp);
 }

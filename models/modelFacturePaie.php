@@ -59,7 +59,21 @@ class ModelFacturePaie
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT *, COUNT(distribu_com.id_com_liv) AS comptDate FROM commande, distribu_com,clients WHERE distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND livraison like '%livre%' AND etat_paiement LIKE '%non_paye%' GROUP BY id_com");
+            $query = $db->prepare("SELECT *, COUNT(distribu_com.id_com_liv) AS comptDate FROM commande, distribu_com,clients WHERE distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND livraison like '%livre%' AND etat_paiement LIKE '%non_payer%' GROUP BY id_com");
+            $query->execute();
+            return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    /**
+     * Clients 
+     */
+    public function getAllDistributions()
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT *, COUNT(idDis) AS comId FROM distributions, livreur, clients, distribu_produit WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND etat_paie_Dis LIKE '%non_payer%' GROUP BY idDis");
             $query->execute();
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {

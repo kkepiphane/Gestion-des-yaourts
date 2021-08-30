@@ -3,12 +3,12 @@
 require_once '../db/bdd.php';
 class ModelDistribution
 {
-    public function addDistibution($dateDis, $datePai, $idLivreur, $client, $user_create, $date_create)
+    public function addDistibution($ref_dis, $dateDis, $datePai, $idLivreur, $client, $etatDis, $user_create, $date_create)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("INSERT INTO distributions(date_livraison, date_paiment, id_livreur,idClient, user_create, dateCreate) VALUES (?,?,?,?,?,?)");
-            $executDis = $query->execute(array($dateDis, $datePai, $idLivreur, $client, $user_create, $date_create));
+            $query = $db->prepare("INSERT INTO distributions(ref_dis, date_livraison, date_paiment, id_livreur, idClient, etat_paie_Dis, user_create, dateCreate) VALUES (?,?,?,?,?,?,?,?)");
+            $executDis = $query->execute(array($ref_dis, $dateDis, $datePai, $idLivreur, $client, $etatDis, $user_create, $date_create));
             return $executDis;
         } catch (PDOException $e) {
             exit($e->getMessage());
@@ -66,7 +66,7 @@ class ModelDistribution
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT *, COUNT(idDis) AS comId FROM distributions, livreur, clients, distribu_produit WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis GROUP BY idDis");
+            $query = $db->prepare("SELECT *, COUNT(idDis) AS comId FROM distributions, livreur, clients, distribu_produit WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND etat_paie_Dis LIKE '%non_payer%' GROUP BY idDis");
             $query->execute();
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
@@ -86,12 +86,12 @@ class ModelDistribution
             exit($e->getMessage());
         }
     }
-    public function updateDistribution($idDis, $dateDis, $datePai, $idLivreur, $idClient)
+    public function updateDistribution($idDis, $ref_dis, $dateDis, $datePai, $idLivreur, $idClient)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("UPDATE distributions SET date_livraison = ?, date_paiment = ?, id_livreur =?, idClient=? WHERE idDis = '" . $idDis . "'");
-            $executIngrediant = $query->execute(array($dateDis, $datePai, $idLivreur, $idClient));
+            $query = $db->prepare("UPDATE distributions SET ref_dis = ? date_livraison = ?, date_paiment = ?, id_livreur =?, idClient=? WHERE idDis = '" . $idDis . "'");
+            $executIngrediant = $query->execute(array($ref_dis, $dateDis, $datePai, $idLivreur, $idClient));
             return $executIngrediant;
         } catch (PDOException $e) {
             exit($e->getMessage());

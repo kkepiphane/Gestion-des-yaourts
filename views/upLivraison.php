@@ -3,6 +3,8 @@ require('head.php');
 require('header.php');
 require('sibar.php');
 require('../controller/controllerLivraison.php');
+require('../controller/controllerLivreur.php');
+require('../controller/controllerClient.php');
 ?>
 <section class="wrapper">
     <h3><i class="fa fa-angle-right"></i>Livraison - Modification </h3>
@@ -15,26 +17,36 @@ require('../controller/controllerLivraison.php');
                 <div class=" form">
                     <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="upLivraison.php?id_upd_livraison=<?= $lire_upd_livraison->idDis; ?>">
                         <div class="row">
-                            <div class="col-xs-3 col-sm-3">
+                            <div class="col-xs-4 col-sm-4">
                                 <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-3">Date Livraison</label>
+                                    <label for="cname" class="control-label col-lg-4">Ref Distribution</label>
+                                    <div class="col-lg-7">
+                                        <input class=" form-control" id="cname" name="ref_dis" minlength="2" type="text" value="<?= $lire_upd_livraison->ref_dis; ?>" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4">
+                                <div class="form-group ">
+                                    <label for="cname" class="control-label col-lg-4">Date Livraison</label>
                                     <div class="col-lg-7">
                                         <input class=" form-control" id="cname" name="dateLivraison" minlength="2" type="date" value="<?= $lire_upd_livraison->date_livraison; ?>" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-sm-3">
+                            <div class="col-xs-4 col-sm-4">
                                 <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-3">Date Paiment</label>
+                                    <label for="cname" class="control-label col-lg-4">Date Paiment</label>
                                     <div class="col-lg-7">
                                         <input class=" form-control" id="cname" name="datePaie" minlength="2" type="date" value="<?= $lire_upd_livraison->date_paiment; ?>" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-sm-3">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6">
                                 <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-4">Nom du Client</label>
-                                    <div class="col-lg-7">
+                                    <label for="cname" class="control-label col-lg-3">Nom du Client</label>
+                                    <div class="col-lg-6">
                                         <select class="form-control" name="nomClient">
                                             <option value="<?= $lire_upd_livraison->id_client; ?>"><?= $lire_upd_livraison->nom_client; ?></option>
                                             <?php foreach ($allClient as $echoFoerIng) : ?>
@@ -44,12 +56,12 @@ require('../controller/controllerLivraison.php');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-3 col-sm-3">
+                            <div class="col-xs-6 col-sm-6">
                                 <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-4">Nom du Livreur</label>
-                                    <div class="col-lg-7">
+                                    <label for="cname" class="control-label col-lg-3">Nom du Livreur</label>
+                                    <div class="col-lg-6">
                                         <select class="form-control" name="nomLivreur">
-                                            <option value="<?= $lire_upd_livraison->idLivreur; ?>"><?= $lire_upd_livraison->idLivreur; ?></option>
+                                            <option value="<?= $lire_upd_livraison->idLivreur; ?>"><?= $lire_upd_livraison->nom_dis; ?></option>
                                             <?php foreach ($allLiv as $echoForLivreur) : ?>
                                                 <option value="<?= $echoForLivreur->idLivreur; ?>"><?= $echoForLivreur->nom_dis; ?></option>
                                             <?php endforeach; ?>

@@ -95,8 +95,8 @@ require('../controller/controllerCommande.php');
           <div class="col-lg-6">
             <i class="fa fa-angle-right"></i>Listes des Commandes
           </div>
-          <div class="col-lg-4-right">
-            <a href="commandLiv.php" class="btn btn-success btn-xs">Faire Livrer</a>
+          <div class="col-lg-2-right">
+            <a href="commandLiv.php" class="btn btn-success outline" title="Cliqué pour faire livré"><i class="fa fa-hand-o-right"></i> faire Livré</a>
           </div>
         </h4>
         <hr>

@@ -18,7 +18,15 @@ require('../controller/controllerTYaourt.php');
             <div class="row">
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-3">Type Yaourt</label>
+                  <label for="cname" class="control-label col-lg-3">Ref <?= $getN->produitGest; ?></label>
+                  <div class="col-lg-7">
+                    <input class=" form-control" id="cname" name="Refy" minlength="2" type="text" value="<?= $lireTYaoutUp->ref_yaourt; ?>" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4">
+                <div class="form-group ">
+                  <label for="cname" class="control-label col-lg-3">Type <?= $getN->produitGest; ?></label>
                   <div class="col-lg-7">
                     <input class=" form-control" id="cname" name="typeY" minlength="2" type="text" value="<?= $lireTYaoutUp->nom_yaourt; ?>" />
                   </div>

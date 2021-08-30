@@ -32,7 +32,7 @@ if (isset($_POST['btnAddTypeY'])) {
         $ing = $_POST['TYIng'][$key];
         $nomUser = $_SESSION['nom_user'];
         $date = date('Y:m:d');
-        $TYaourt->addTypeY($_POST['typeY'], $ing, $nomUser, $date);
+        $TYaourt->addTypeY($_POST['Refy'], $_POST['typeY'], $ing, $nomUser, $date);
     }
     header('location:../views/addType_yaourt.php');
 }
@@ -52,7 +52,7 @@ if (isset($_GET['idDelTY'])) {
 if (isset($_GET['idUpTYa'])) {
     $idUp = $_GET['idUpTYa'];
     if (isset($_POST['btnUpTY'])) {
-        $TYaourt->updateTYaourt($idUp, $_POST['typeY'], $_POST['TYIng']);
+        $TYaourt->updateTYaourt($idUp, $_POST['Refy'], $_POST['typeY'], $_POST['TYIng']);
     }
     $lireTYaoutUp = $TYaourt->TYDetail($idUp);
 }

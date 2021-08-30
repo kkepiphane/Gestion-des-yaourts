@@ -177,12 +177,12 @@ class ModelCommande
      * 
      */
 
-    public function addLivraisonCommande($idCom, $clt, $idlivreur, $dateLiv, $datePai)
+    public function addLivraisonCommande($idCom, $clt, $idlivreur, $dateLiv, $datePai, $etatPaie)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("INSERT INTO distribu_com(id_com_liv, id_clt, id_livreurCom, date_livraison,date_paiment_com) VALUES (?,?,?,?,?)");
-            $executCom = $query->execute(array($idCom, $clt, $idlivreur, $dateLiv, $datePai));
+            $query = $db->prepare("INSERT INTO distribu_com(id_com_liv, id_clt, id_livreurCom, date_livraison,date_paiment_com, etat_paiement) VALUES (?,?,?,?,?,?)");
+            $executCom = $query->execute(array($idCom, $clt, $idlivreur, $dateLiv, $datePai, $etatPaie));
             return $executCom;
         } catch (PDOException $e) {
             exit($e->getMessage());

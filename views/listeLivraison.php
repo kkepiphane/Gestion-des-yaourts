@@ -44,7 +44,7 @@ require('../controller/controllerClient.php');
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_client ?></td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_dis ?></td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>">
-                                    <a href="upLivraison.php?id_upd_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                                    <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-success btn-xs"><i class="fa fa-building-o"></i></a>
                                 </td>
                                 <?php
                                 $idD = $echoDistribut->idDis;

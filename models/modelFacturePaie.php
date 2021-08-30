@@ -3,24 +3,65 @@
 require_once '../db/bdd.php';
 class ModelFacturePaie
 {
-    public function addFacturePaie($montant, $etatPaie, $datePaie, $idDistribution, $userCreate, $dateCreate)
+    public function addFactCommande($designFact, $idComFact, $idFactClient, $datePaie, $etatPaie, $userCreate, $dateCreate)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("INSERT INTO facture_paie(montant, etat_paiment, date_paiement,id_distribution, user_create,date_create) VALUES (?,?,?,?,?,?)");
-            $executPaie = $query->execute(array($montant, $etatPaie, $datePaie, $idDistribution, $userCreate, $dateCreate));
+            $query = $db->prepare("INSERT INTO fact_com_paie(designation_paie, id_com_fact, id_fact_client,date_FactPaie,etat_paiment, user_create,date_create) VALUES (?,?,?,?,?,?,?)");
+            $executPaie = $query->execute(array($designFact, $idComFact, $idFactClient, $datePaie, $etatPaie, $userCreate, $dateCreate));
             return $executPaie;
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
-    public function getFacturePaie()
+    /**
+     * La facturation des produit pour la distribution
+     */
+    public function addFactDistribution($designFact, $idComFact, $idFactClient, $datePaie, $etatPaie, $userCreate, $dateCreate)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM facture_paie ORDER BY id_fact DESC LIMIT 0,10");
-            $query->execute();
+            $query = $db->prepare("INSERT INTO fact_dis_paie(designationPaie, dateFactDis, id_dis,id_client_dis,etat_paie, user_create,date_create) VALUES (?,?,?,?,?,?,?)");
+            $executPaie = $query->execute(array($designFact, $idComFact, $idFactClient, $datePaie, $etatPaie, $userCreate, $dateCreate));
+            return $executPaie;
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    public function getClientIDN($IDClicli)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM distribu_com, clients, commande WHERE distribu_com.id_com_liv = commande.id_com AND  distribu_com.id_clt = clients.id_client AND distribu_com.id_com_liv = ? ");
+            $query->execute(array($IDClicli));
             return $query->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    public function getClientDATE($IDClicli)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM distribu_com, clients, commande WHERE distribu_com.id_com_liv = commande.id_com AND  distribu_com.id_clt = clients.id_client AND distribu_com.id_com_liv = ? ");
+            $query->execute(array($IDClicli));
+            if ($query->rowCount() > 0) {
+                return $query->fetch(PDO::FETCH_OBJ);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    /**
+     * Livré
+     */
+    public function getAllLivr()
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT *, COUNT(distribu_com.id_com_liv) AS comptDate FROM commande, distribu_com,clients WHERE distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND livraison like '%livre%' AND etat_paiement LIKE '%non_paye%' GROUP BY id_com");
+            $query->execute();
+            return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -49,23 +90,22 @@ class ModelFacturePaie
             exit($e->getMessage());
         }
     }
-    public function updateFacturePaies($idPaie, $montant, $etatPaie, $datePaie, $idDistribution)
+    public function updateFactCom($idPaieCom, $designFact, $idComFact, $idFactClient, $datePaie, $etatPaie)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("UPDATE facture_paie SET montant = ?, etat_paiment = ?, date_paiement = ?, id_distribution = ? WHERE id_fact = '" . $idPaie . "'");
-            $updateFourni = $query->execute(array($montant, $etatPaie, $datePaie, $idDistribution));
-            return $updateFourni;
+            $query = $db->prepare("UPDATE fact_com_paie SET designation_paie = ?, id_com_fact = ?, id_fact_client = ?, date_FactPaie = ?, etat_paiment = ? WHERE id_fact = '" . $idPaieCom . "'");
+            $updateFactCom = $query->execute(array($designFact, $idComFact, $idFactClient, $datePaie, $etatPaie));
+            return $updateFactCom;
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
-
     public function deleteFacturePaie($idPaie)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("DELETE FROM facture_paie WHERE id_fact=?");
+            $query = $db->prepare("DELETE FROM fact_com_paie WHERE id_fact=?");
             $delFacPaie = $query->execute(array($idPaie));
             return $delFacPaie;
         } catch (PDOException $e) {

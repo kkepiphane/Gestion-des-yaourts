@@ -3,7 +3,6 @@
         MAIN SIDEBAR MENU
         *********************************************************************************************************************************************************** -->
 <!--sidebar start-->
-<?php $nav_en_cours = 'rubrique1'; ?>
 <aside>
   <div id="sidebar" class="nav-collapse ">
     <!-- sidebar menu start-->

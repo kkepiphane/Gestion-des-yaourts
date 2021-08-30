@@ -18,6 +18,14 @@ require('../controller/controllerTYaourt.php');
             <div class="row">
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
+                  <label for="cname" class="control-label col-lg-3">Ref <?= $getN->produitGest; ?></label>
+                  <div class="col-lg-7">
+                    <input class=" form-control" id="cname" name="Refy" minlength="2" type="text" required />
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4">
+                <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Type <?= $getN->produitGest; ?></label>
                   <div class="col-lg-7">
                     <input class=" form-control" id="cname" name="typeY" minlength="2" type="text" required />
@@ -40,7 +48,7 @@ require('../controller/controllerTYaourt.php');
             <div class="form-group">
               <div class="col-lg-offset col-lg-8">
                 <button class="btn btn-theme" type="submit" name="btnAddTypeY">Ajouter</button>
-                <button class="btn btn-theme04" type="reset">Cancel</button>
+                <a href="#" class="btn btn-theme04" type="reset">Annuler</a>
               </div>
             </div>
           </form>

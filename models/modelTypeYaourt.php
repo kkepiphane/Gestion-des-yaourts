@@ -3,12 +3,12 @@
 require_once '../db/bdd.php';
 class ModelTypeY
 {
-    public function addTypeY($nomTY, $TyIng, $user_create, $date_create)
+    public function addTypeY($ref_y, $nomTY, $TyIng, $user_create, $date_create)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("INSERT INTO type_yaout(nom_yaourt, idIngred, user_create, dateCreate) VALUES (?,?,?,?)");
-            $executTY = $query->execute(array($nomTY, $TyIng, $user_create, $date_create));
+            $query = $db->prepare("INSERT INTO type_yaout(ref_yaourt, nom_yaourt, idIngred, user_create, dateCreate) VALUES (?,?,?,?,?)");
+            $executTY = $query->execute(array($ref_y, $nomTY, $TyIng, $user_create, $date_create));
             return $executTY;
         } catch (PDOException $e) {
             exit($e->getMessage());
@@ -38,12 +38,12 @@ class ModelTypeY
             exit($e->getMessage());
         }
     }
-    public function updateTYaourt($dTY, $nomTY, $ingdI)
+    public function updateTYaourt($dTY, $ref_yt, $nomTY, $ingdI)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("UPDATE type_yaout SET nom_yaourt = ?, idIngred = ? WHERE id_ty = '" . $dTY . "'");
-            $executIngrediant = $query->execute(array($nomTY, $ingdI));
+            $query = $db->prepare("UPDATE type_yaout SET ref_yaourt = ?, nom_yaourt = ?, idIngred = ? WHERE id_ty = '" . $dTY . "'");
+            $executIngrediant = $query->execute(array($ref_yt, $nomTY, $ingdI));
             return $executIngrediant;
         } catch (PDOException $e) {
             exit($e->getMessage());

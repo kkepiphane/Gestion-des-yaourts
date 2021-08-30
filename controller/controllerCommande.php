@@ -104,8 +104,8 @@ if (isset($_GET['id_upd_Com'])) {
 if (isset($_POST['btnLivraisonIdCom'])) {
     foreach ($_POST['nclient'] as $key => $value) {
         $id_client = $_POST['nclient'][$key];
-
-        $commande->addLivraisonCommande($_POST['id_com_liv'], $id_client, $_POST['nomLivreur'], $_POST['dateLivraison'], $_POST['datePaie']);
+        $etat = "non_paye";
+        $commande->addLivraisonCommande($_POST['id_com_liv'], $id_client, $_POST['nomLivreur'], $_POST['dateLivraison'], $_POST['datePaie'], $etat);
     }
     $livraison = "livre";
     $commande->updateLivraisonCom($_POST['id_com_liv'], $livraison);

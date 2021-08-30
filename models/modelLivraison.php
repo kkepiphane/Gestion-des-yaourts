@@ -38,6 +38,30 @@ class ModelDistribution
             exit($e->getMessage());
         }
     }
+    public function getID_clientDis($ID_dis)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM distributions, livreur, clients WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND idDis = ?");
+            $query->execute(array($ID_dis));
+            if ($query->rowCount() > 0) {
+                return $query->fetch(PDO::FETCH_OBJ);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    public function getBon_DisID($ID_dis)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM distributions, livreur, clients, distribu_produit, produits WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distribu_produit.id_distribu = ? AND distribu_produit.idProduits_dis = produits.id_prod");
+            $query->execute(array($ID_dis));
+            return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
     public function getAllDistributions()
     {
         try {

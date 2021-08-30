@@ -89,3 +89,11 @@ if (isset($_GET['id_upd_livraison'])) {
     }
     $lire_upd_livraison = $distribution->detailDistribution($idUp);
 }
+/**
+ * Affichage des bon de livraison
+ */
+if (isset($_GET['id_bon_livraison'])) {
+
+    $head_bn_livraison = $distribution->getID_clientDis($_GET['id_bon_livraison']);
+    $body_bn_Liv = $distribution->getBon_DisID($_GET['id_bon_livraison']);
+}

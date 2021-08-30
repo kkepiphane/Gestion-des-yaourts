@@ -6,13 +6,20 @@ require('../controller/controllerCommande.php');
 ?>
 
 <section class="wrapper">
-    <h3><i class="fa fa-angle-right"></i> Commande - Liste des Commandes</h3>
+    <h3><i class="fa fa-angle-right"></i> Commande - Liste des Commandes Livré</h3>
     <!-- row -->
     <div class="row mt">
         <div class="col-md-12">
             <div class="content-panel">
                 <h4>
-                    <i class="fa fa-angle-right"></i><b>Listes des commande disponible</b>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <i class="fa fa-angle-right"></i><b>Listes des commande Livré</b>
+                        </div>
+                        <div class="col-lg-2">
+                            <a href="addFacture.php" class="btn btn-warning outline" title="Cliqué pour faire la Facture"><i class="fa fa-hand-o-right"></i> faire La facture</a>
+                        </div>
+                    </div>
                 </h4>
                 <hr>
 
@@ -23,6 +30,7 @@ require('../controller/controllerCommande.php');
                             <th>Date Commande</th>
                             <th> Produit</th>
                             <th> Bon de Livraison</th>
+                            <th> Facture</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +49,9 @@ require('../controller/controllerCommande.php');
                                 ?>
                             <tr>
                                 <td><?= $dayClt->nom_client ?></td>
+                                <td>
+                                    <a href="factureComPaie.php?id_fac_paie=<?= $dayClt->id_clt  ?>" class="btn btn-info btn-xs" title="Cliqué pour faire livré"><i class="fa fa-shopping-cart"></i></a>
+                                </td>
                                 <td>
                                     <a href="factureComPaie.php?id_fac_paie=<?= $dayClt->id_clt  ?>" class="btn btn-success btn-xs" title="Cliqué pour faire livré"><i class="fa fa-building-o"></i></a>
                                 </td>

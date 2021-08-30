@@ -12,15 +12,19 @@ require('../controller/controllerCommande.php');
     <div class="col-md-12">
       <div class="content-panel">
         <h4>
-          <div class="col-lg-6">
-            <i class="fa fa-angle-right"></i><b>Listes des commande disponible</b>
-          </div>
-          <div class="col-lg-4-right">
-            <a href="commandLiv.php" class="btn btn-success btn-xs" title="Cliqué pour faire livré">faire Livré</a>
+          <div class="row">
+            <div class="col-lg-6">
+              <i class="fa fa-angle-right"></i><b>Listes des commande disponible</b>
+            </div>
+            <div class="col-lg-3">
+              <a href="commandLiv.php" class="btn btn-success outline" title="Cliqué pour faire livré"><i class="fa fa-hand-o-right"></i> faire Livré</a>
+            </div>
+            <div class="col-lg-2">
+              <a href="addFacture.php" class="btn btn-warning outline" title="Cliqué pour faire la Facture"><i class="fa fa-hand-o-right"></i> faire La facture</a>
+            </div>
           </div>
         </h4>
         <hr>
-
         <table class="table table-striped table-advance table-hover">
           <thead>
             <tr>

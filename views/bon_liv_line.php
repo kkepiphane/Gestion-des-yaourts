@@ -5,7 +5,7 @@ require('header.php');
 require('sibar.php');
 
 require('../controller/controllerCompte.php');
-require('../controller/controllerCommande.php');
+require('../controller/controllerLivraison.php');
 ?>
 
 <section class="wrapper">
@@ -33,9 +33,7 @@ require('../controller/controllerCommande.php');
                         <div class="col-xs-6 col-sm-6">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6">
-                                    <b>Référence Commande : </b><?= $comFacturePaie->reference_commande; ?><br>
-                                    <b>Date du Commande : </b> <?= $comFacturePaie->date_com; ?> <br>
-                                    <b>Date Livraison : </b> <?= $comFacturePaie->date_livraison; ?> <br>
+                                    <b>Date du Livraison : </b> <?= $head_bn_livraison->date_livraison; ?> <br>
                                 </div>
                             </div>
                             <br>
@@ -46,13 +44,13 @@ require('../controller/controllerCommande.php');
                         <div class="col-md-12">
                             <div class="content-panel">
                                 <h4>
-                                    <i class="fa fa-angle-right"></i><b>Bon de Livraison :</b> <?= $comFacturePaie->nom_client; ?>
+                                    <i class="fa fa-angle-right"></i><b>Bon de Livraison du Client:</b> <?= $head_bn_livraison->nom_client; ?>
                                 </h4>
                                 <hr>
                                 <table class="table table-striped table-advance table-hover">
                                     <thead>
                                         <tr>
-                                            <th> Produit Ref</th>
+                                            <th> Ref Produit</th>
                                             <th> Produit</th>
                                             <th> Quantité</th>
                                             <th>Prix Unitaire</th>
@@ -63,14 +61,14 @@ require('../controller/controllerCommande.php');
                                         <?php
 
                                         $sommeT = 0;
-                                        foreach ($proBonLiv as $echoBnLiv) : ?>
+                                        foreach ($body_bn_Liv as $echoBnLiv) : ?>
                                             <tr>
                                                 <td><?= $echoBnLiv->id_yaourt ?></td>
                                                 <td><?= $echoBnLiv->id_yaourt ?></td>
-                                                <td><?= $echoBnLiv->quantite_com ?></td>
+                                                <td><?= $echoBnLiv->quantite_venduPro ?></td>
                                                 <td><?= $echoBnLiv->prix_produit ?></td>
-                                                <td><?= $echoBnLiv->prix_produit * $echoBnLiv->quantite_com;
-                                                    $sommeT = $echoBnLiv->prix_produit * $echoBnLiv->quantite_com + $sommeT;
+                                                <td><?= $echoBnLiv->prix_produit * $echoBnLiv->quantite_venduPro;
+                                                    $sommeT = $echoBnLiv->prix_produit * $echoBnLiv->quantite_venduPro + $sommeT;
 
                                                     ?></td>
                                             </tr>
@@ -110,7 +108,7 @@ require('../controller/controllerCommande.php');
     <div class="row">
         <div class="col-xs-3 col-sm-6"></div>
         <div class="col-xs-5 col-sm-3">
-            <a href="bon_de_livraison.php" class="btn btn-theme04 btn-xs">Retour</a>
+            <a href="listeLivraison.php" class="btn btn-theme04 btn-xs">Retour</a>
         </div>
         <div class="col-xs-3 col-sm-2">
             <button onClick="imprimer('sectionAimprimer')" class="btn btn-success btn-xs">Imprimer</button>

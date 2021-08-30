@@ -62,7 +62,7 @@ require('../controller/controllerFactureAchat.php');
                         <div class="form-group">
                             <div class="col-lg-offset-1 col-lg-8">
                                 <button class="btn btn-theme" type="submit" name="btnRef_FacAcht">Suivant</button>
-                                <button class="btn btn-theme04" type="reset">Cancel</button>
+                                <button class="btn btn-theme04" type="reset" onclick="document.location.reload()">Annuler</button>
                             </div>
                         </div>
                     </form>
@@ -115,7 +115,7 @@ require('../controller/controllerFactureAchat.php');
                         <div class="form-group">
                             <div class="col-lg-offset-1 col-lg-8">
                                 <button class="btn btn-theme" type="submit" name="btnAddFactProd">Ajouter</button>
-                                <button class="btn btn-theme04" type="reset">Cancel</button>
+                                <button class="btn btn-theme04" onclick="document.location.reload()" type="reset">Annuler</button>
                             </div>
                         </div>
                     </form>

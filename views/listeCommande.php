@@ -31,6 +31,7 @@ require('../controller/controllerCommande.php');
               <th>Référence</th>
               <th>Date Commande</th>
               <th>Status</th>
+              <th> Ref Produit</th>
               <th> Produit</th>
               <th> Quantité</th>
             </tr>
@@ -59,6 +60,7 @@ require('../controller/controllerCommande.php');
                 foreach ($idCltDate as $dayClt) :;
                 ?>
               <tr>
+                <td><?= $dayClt->ref_Pro ?></td>
                 <td><?= $dayClt->id_yaourt ?></td>
                 <td><?= $dayClt->quantite_com ?></td>
               </tr>

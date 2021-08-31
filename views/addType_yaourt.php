@@ -48,7 +48,7 @@ require('../controller/controllerTYaourt.php');
             <div class="form-group">
               <div class="col-lg-offset col-lg-8">
                 <button class="btn btn-theme" type="submit" name="btnAddTypeY">Ajouter</button>
-                <a href="#" class="btn btn-theme04" type="reset">Annuler</a>
+                <a href="#" class="btn btn-theme04" onclick="document.location.reload()" type="reset">Annuler</a>
               </div>
             </div>
           </form>

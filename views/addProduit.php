@@ -19,12 +19,20 @@ require('../controller/controllerProduit.php');
                 <div class="input-field">
                   <table id="row_input">
                     <tr>
-                      <th width="35%"></th>
-                      <th width="34%"></th>
-                      <th width="28%"></th>
-                      <th width="28%"></th>
+                      <th width="20%"></th>
+                      <th width="20%"></th>
+                      <th width="20%"></th>
+                      <th width="20%"></th>
                     </tr>
                     <tr>
+                      <td>
+                        <div class="form-group ">
+                          <label for="cname" class="control-label col-lg-3">Ref Produit</label>
+                          <div class="col-lg-7">
+                            <input class=" form-control" id="ref_Prod" name="ref_Prod[]" min="1" minlength="2" type="text" required="" />
+                          </div>
+                        </div>
+                      </td>
                       <td>
                         <div class="form-group ">
                           <label for="cname" class="control-label col-lg-3">Produit</label>
@@ -42,7 +50,7 @@ require('../controller/controllerProduit.php');
                         <div class="form-group ">
                           <label for="cname" class="control-label col-lg-3">P Unitaire</label>
                           <div class="col-lg-7">
-                            <input class=" form-control" id="prixUnitaire" name="prixUnitaire[]" min="1" minlength="2" type="number" required="" />
+                            <input class=" form-control" id="prixUnitaire" name="prixUnitaire[]" min="1" minlength="2" type="text" required="" />
                           </div>
                         </div>
                       </td>
@@ -56,7 +64,7 @@ require('../controller/controllerProduit.php');
                       </td>
                       <td>
                         <div class="form-group ">
-                          <input class="btn btn-theme" type="button" name="addFactA" id="addFactA" value="Ajout" />
+                          <input class="btn btn-theme btn-xs" type="button" name="addFactA" id="addFactA" value="Ajout une ligne" />
                         </div>
                       </td>
                     </tr>
@@ -67,7 +75,7 @@ require('../controller/controllerProduit.php');
             <div class="form-group">
               <div class="col-lg-offset col-lg-8">
                 <input class="btn btn-success" type="submit" name="btnAddProd" id="btnAddProd" value="Enregistrer" />
-                <button class="btn btn-theme04" type="reset">Annuler</button>
+                <button class="btn btn-theme04" onclick="document.location.reload()" type="reset">Annuler</button>
               </div>
             </div>
           </form>
@@ -87,7 +95,8 @@ require('../controller/controllerProduit.php');
         <table class="table table-striped table-advance table-hover">
           <thead>
             <tr>
-              <th>Yaourt</th>
+              <th>Ref</th>
+              <th>Produit</th>
               <th>Quantité Produit</th>
               <th>Prix</th>
               <th>Total</th>
@@ -99,6 +108,7 @@ require('../controller/controllerProduit.php');
             $som = 0;
             foreach ($allProds as $echoLirePro) :; ?>
               <tr>
+                <td><?= $echoLirePro->ref_Pro; ?></td>
                 <td><?= $echoLirePro->id_yaourt; ?></td>
                 <td><?= $echoLirePro->quantite_pro; ?></td>
                 <td><?= $echoLirePro->prix_produit; ?></td>
@@ -117,8 +127,10 @@ require('../controller/controllerProduit.php');
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th>Montant Total</th>
@@ -142,11 +154,8 @@ require('../controller/controllerProduit.php');
 <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
 <script src="lib/jquery.scrollTo.min.js"></script>
 <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
-<script src="lib/jquery.sparkline.js"></script>
 <!--common script for all pages-->
 <script src="lib/common-scripts.js"></script>
-<script type="text/javascript" src="lib/gritter/js/jquery.gritter.js"></script>
-<script type="text/javascript" src="lib/gritter-conf.js"></script>
 <!--script for this page-->
 
 <script>
@@ -199,14 +208,14 @@ require('../controller/controllerProduit.php');
 
 
     /**
-     * Ici cette methode c'est pour d'ajouter les input pour l'ajout des ingrédiant et la quantité
+     * Ici cette methode c est pour d ajouter les input pour l ajout des ingrédiant et la quantité
      * 
      */
-    var html = '<tr><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Produit</label><div class="col-lg-7"><select class="form-control" name="yaourt[]"><option>------------</option><?php foreach ($allGroupPro as $echoProY) :; ?><option value="<?= $echoProY->idType_yaourt; ?>"><?= $echoProY->idType_yaourt; ?></option><?php endforeach; ?></select></div></div></td> <td><div class="form-group "><label for="cname" class="control-label col-lg-3">P Unitaire</label><div class="col-lg-7"><input class=" form-control" id="prixUnitaire" name="prixUnitaire[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Quantité</label><div class="col-lg-7"><input class=" form-control" id="quantitePro" name="quantitePro[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><input class="btn btn-danger btn-xs" type="button" name="delFac" id="delFac" value="Supprimer" /></div></td></tr>';
+    var html = '<tr><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Ref Produit</label><div class="col-lg-7"><input class=" form-control" id="ref_Prod" name="ref_Prod[]" min="1" minlength="2" type="text" required="" /></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Produit</label><div class="col-lg-7"><select class="form-control" name="yaourt[]"><option>------------</option><?php foreach ($allGroupPro as $echoProY) :; ?><option value="<?= $echoProY->idType_yaourt; ?>"><?= $echoProY->idType_yaourt; ?></option><?php endforeach; ?></select></div></div></td> <td><div class="form-group "><label for="cname" class="control-label col-lg-3">P Unitaire</label><div class="col-lg-7"><input class=" form-control" id="prixUnitaire" name="prixUnitaire[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Quantité</label><div class="col-lg-7"><input class=" form-control" id="quantitePro" name="quantitePro[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><input class="btn btn-danger btn-xs" type="button" name="delFac" id="delFac" value="Supprimer" /></div></td></tr>';
 
     var x = 1;
     /**
-     * Cette fonction permet d'ajouter 
+     * Cette fonction permet d ajouter 
      */
     $("#addFactA").click(function() {
       $("#row_input").append(html);

@@ -53,7 +53,7 @@ require('../controller/controllerFacturePaie.php');
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Date Paiement</label>
                   <div class="col-lg-8" id="datePaieDis">
-                    <input class=" form-control" id="cname" name="dateLivraison" minlength="2" type="date" />
+                    <input class=" form-control" id="cname" name="datePaie" minlength="2" type="date" />
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@ require('../controller/controllerFacturePaie.php');
                     <div class="col-xs-4 col-sm-3">
                       <div class="radio">
                         <label>
-                          <input type="radio" name="etat_paie" id="etat_paie" value="payer">
+                          <input type="radio" name="etat_paie" id="etat_paie" value="payer" checked>
                           Payé
                         </label>
                       </div>
@@ -72,7 +72,7 @@ require('../controller/controllerFacturePaie.php');
                     <div class="col-xs-4 col-sm-5">
                       <div class="radio">
                         <label>
-                          <input type="radio" name="etat_paie" id="etat_paie" value="non_payer" checked>
+                          <input type="radio" name="etat_paie" id="etat_paie" value="non_payer">
                           Non Payé
                         </label>
                       </div>

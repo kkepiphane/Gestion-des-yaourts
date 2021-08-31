@@ -29,16 +29,13 @@ require('../controller/controllerYaourt.php');
             $som = 0;
             foreach ($allProds as $echoListPro) :; ?>
               <tr>
+                <td><?= $echoListPro->ref_Pro; ?></td>
                 <td><?= $echoListPro->id_yaourt; ?></td>
                 <td><?= $echoListPro->quantite_pro; ?></td>
                 <td><?= $echoListPro->prix_produit; ?></td>
                 <td><?= $echoListPro->quantite_pro * $echoListPro->prix_produit;
                     $som = $echoListPro->quantite_pro * $echoListPro->prix_produit + $som;
                     ?></td>
-                <td>
-                  <a href="upProduit.php?idUpdProd=<?= $echoListPro->id_prod; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                  <a href="../controller/controllerProduit.php?idDel_listePro=<?= $echoListPro->id_prod; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
-                </td>
               </tr>
             <?php endforeach; ?>
             <tr>

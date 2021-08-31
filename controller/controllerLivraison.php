@@ -11,6 +11,9 @@ $ProduitModel = new ModelProduit();
 $allProds = $ProduitModel->getAllProduits();
 $allDiss = $distribution->getAllDistributions();
 
+//la liste de tous les livraison
+
+$tousDis = $distribution->getTousDistributions();
 
 /**
  * affichage des derniers ajout d'un ingrédaint
@@ -27,7 +30,7 @@ if (isset($_POST['btnAddDistribution'])) {
         $client = $_POST['nomClient'][$keyClien];
         $nomUser = $_SESSION['nom_user'];
         $date = date('Y:m:d');
-        $etat = "non_paye";
+        $etat = "non_payer";
         $distribution->addDistibution($_POST['ref_dis'], $_POST['dateLivraison'], $_POST['datePaie'], $_POST['nomLivreur'], $client, $etat, $nomUser, $date);
         /**
          * Récupération de la derniére id

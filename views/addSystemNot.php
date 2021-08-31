@@ -44,7 +44,7 @@ require('sibar.php');
                         <div class="form-group">
                             <div class="col-lg-offset col-lg-8">
                                 <input type="submit" name="ajouter" id="ajouter" value="Ajouter" class="btn btn-theme">
-                                <button class="btn btn-theme04" type="reset">Cancel</button>
+                                <button class="btn btn-theme04" onclick="document.location.reload()" type="reset">Annuler</button>
                             </div>
                         </div>
                     </form>

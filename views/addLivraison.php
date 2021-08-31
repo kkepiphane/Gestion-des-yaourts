@@ -85,7 +85,7 @@ require('../controller/controllerClient.php');
                           <div class="col-lg-7">
                             <select name="produit[]" class="form-control" onchange="selectIngrediant(this.value)">
                               <?php foreach ($allProds as $echoForeiKeyClt) : ?>
-                                <option value=" <?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->id_yaourt; ?> -(Qte = <?= $echoForeiKeyClt->quantite_pro; ?>)</option>
+                                <option value=" <?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->id_yaourt; ?> - <?= $echoForeiKeyClt->ref_Pro; ?></option>
                               <?php endforeach; ?>
                             </select>
                           </div>
@@ -200,11 +200,8 @@ require('../controller/controllerClient.php');
 <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
 <script src="lib/jquery.scrollTo.min.js"></script>
 <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
-<script src="lib/jquery.sparkline.js"></script>
 <!--common script for all pages-->
 <script src="lib/common-scripts.js"></script>
-<script type="text/javascript" src="lib/gritter/js/jquery.gritter.js"></script>
-<script type="text/javascript" src="lib/gritter-conf.js"></script>
 <!--script for this page-->
 
 <script>
@@ -260,7 +257,7 @@ require('../controller/controllerClient.php');
      * Ici cette methode c'est pour d'ajouter les input pour l'ajout des ingrédiant et la quantité
      * 
      */
-    var html = '<tr><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Produit</label><div class="col-lg-7"><select name="produit[]" class="form-control" required><?php foreach ($allProds as $echoForeiKeyClt) : ?><option value="<?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->id_yaourt; ?> </option><?php endforeach; ?></select></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Quantité</label><div class="col-lg-7"><input class=" form-control" id="quantiteIng" name="quantite[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><input class="btn btn-danger btn-xs" type="button" name="delFac" id="delFac" value="Supprimer" /></div></td></tr>';
+    var html = '<tr><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Produit</label><div class="col-lg-7"><select name="produit[]" class="form-control" required><?php foreach ($allProds as $echoForeiKeyClt) : ?><option value="<?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->id_yaourt; ?> - <?= $echoForeiKeyClt->ref_Pro; ?> </option><?php endforeach; ?></select></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Quantité</label><div class="col-lg-7"><input class=" form-control" id="quantiteIng" name="quantite[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><input class="btn btn-danger btn-xs" type="button" name="delFac" id="delFac" value="Supprimer" /></div></td></tr>';
 
     var x = 1;
     /**

@@ -4,12 +4,12 @@ require_once '../db/bdd.php';
 
 class ModelProduit
 {
-    public function addProduit($nomPro, $quantitPro, $prixUnitairePro, $niv, $user_create, $date_create)
+    public function addProduit($refPro, $nomPro, $quantitPro, $prixUnitairePro, $niv, $user_create, $date_create)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("INSERT INTO produits(id_yaourt, quantite_pro, prix_produit, niveauPro, user_create, date_create) VALUES (?,?,?,?,?,?)");
-            $executProd = $query->execute(array($nomPro, $quantitPro, $prixUnitairePro, $niv, $user_create, $date_create));
+            $query = $db->prepare("INSERT INTO produits(ref_Pro, id_yaourt, quantite_pro, prix_produit, niveauPro, user_create, date_create) VALUES (?,?,?,?,?,?,?)");
+            $executProd = $query->execute(array($refPro, $nomPro, $quantitPro, $prixUnitairePro, $niv, $user_create, $date_create));
             return $executProd;
         } catch (PDOException $e) {
             exit($e->getMessage());
@@ -56,12 +56,12 @@ class ModelProduit
             exit($e->getMessage());
         }
     }
-    public function updateProduit($idProd, $nomY, $prixUniatre, $quantite)
+    public function updateProduit($idProd, $refPro, $nomY, $prixUniatre, $quantite)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("UPDATE produits SET id_yaourt = ?, quantite_pro = ?, prix_produit =? WHERE id_prod = '" . $idProd . "'");
-            $executProd = $query->execute(array($nomY, $prixUniatre, $quantite));
+            $query = $db->prepare("UPDATE produits SET ref_Pro =?, id_yaourt = ?, quantite_pro = ?, prix_produit =? WHERE id_prod = '" . $idProd . "'");
+            $executProd = $query->execute(array($refPro, $nomY, $prixUniatre, $quantite));
             return $executProd;
         } catch (PDOException $e) {
             exit($e->getMessage());

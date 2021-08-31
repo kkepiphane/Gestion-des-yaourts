@@ -32,7 +32,9 @@ require('../controller/controllerFacturePaie.php');
                                     <div class="col-lg-8">
                                         <select class="form-control" name="dis_prod" id="dis_prod">
                                             <option>------------</option>
-                                            <option Value=""> </option>
+                                            <?php foreach ($LireDis as $keyDis) : ?>
+                                                <option Value="<?= $keyDis->idDis; ?>"><?= $keyDis->ref_dis; ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -52,7 +54,7 @@ require('../controller/controllerFacturePaie.php');
                             <div class="col-xs-6 col-sm-6">
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-3">Date Paiement</label>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" id="dateLpaie">
                                         <input class=" form-control" id="dateLiv" name="dateLiv" minlength="2" type="date" />
                                     </div>
                                 </div>
@@ -83,7 +85,7 @@ require('../controller/controllerFacturePaie.php');
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset col-lg-8">
-                                <button class="btn btn-theme" type="submit">Ajouter</button>
+                                <button class="btn btn-theme" type="submit" name="bttAddFactDisDirect">Ajouter</button>
                                 <button class="btn btn-theme04" onclick="document.location.reload()" type="reset">Annuler</button>
                             </div>
                         </div>
@@ -184,7 +186,7 @@ require('../controller/controllerFacturePaie.php');
                 },
                 dataType: "text",
                 success: function(data) {
-                    $('#dateLiv').html(data);
+                    $('#dateLpaie').html(data);
                 }
             });
         });

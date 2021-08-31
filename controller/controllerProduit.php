@@ -21,6 +21,8 @@ $allGroupPro = $produits->getAllGroupProduits();
  */
 if (isset($_POST['btnAddProd'])) {
     foreach ($_POST['yaourt'] as $kePro => $value) {
+
+        $refPro = $_POST['ref_Prod'][$kePro];
         $prod = $_POST['yaourt'][$kePro];
         $quantitPro = $_POST['quantitePro'][$kePro];
         $prixUniPro = $_POST['prixUnitaire'][$kePro];
@@ -28,7 +30,7 @@ if (isset($_POST['btnAddProd'])) {
         $nomUser = $_SESSION['nom_user'];
         $date = date('Y:m:d');
         $niveau = "no_finish";
-        $produits->addProduit($prod, $quantitPro, $prixUniPro, $niveau, $nomUser, $date);
+        $produits->addProduit($refPro, $prod, $quantitPro, $prixUniPro, $niveau, $nomUser, $date);
     }
     header('location:../views/addProduit.php');
 }
@@ -48,7 +50,7 @@ if (isset($_GET['idDel_Prod'])) {
 if (isset($_GET['idUpdProd'])) {
     $idUp = $_GET['idUpdProd'];
     if (isset($_POST['btnUpdProd'])) {
-        $produits->updateProduit($idUp, $_POST['yaourt'], $_POST['quantitePro'], $_POST['prixUnitaire']);
+        $produits->updateProduit($idUp, $_POST['ref_Prod'], $_POST['yaourt'], $_POST['quantitePro'], $_POST['prixUnitaire']);
     }
     $lireUpdProd = $produits->produitDetail($idUp);
 }

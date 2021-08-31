@@ -16,7 +16,15 @@ require('../controller/controllerYaourt.php');
         <div class=" form">
           <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="upProduit.php?idUpdProd=<?= $lireUpdProd->id_prod; ?>">
             <div class="row">
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-3 col-sm-3">
+                <div class="form-group ">
+                  <label for="cname" class="control-label col-lg-2">Ref Produit</label>
+                  <div class="col-lg-8">
+                    <input class=" form-control" id="cname" name="quantitePro" minlength="2" type="text" value="<?= $lireUpdProd->ref_Pro; ?>" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-3 col-sm-3">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-2">Yaourt</label>
                   <div class="col-lg-8">
@@ -29,7 +37,7 @@ require('../controller/controllerYaourt.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-3 col-sm-3">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-2">Quantité</label>
                   <div class="col-lg-8">
@@ -37,7 +45,7 @@ require('../controller/controllerYaourt.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-3 col-sm-3">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Prix Unitaire</label>
                   <div class="col-lg-8">
@@ -49,7 +57,7 @@ require('../controller/controllerYaourt.php');
             <div class="form-group">
               <div class="col-lg-offset col-lg-8">
                 <button class="btn btn-theme" type="submit" name="btnUpdProd">Modifier</button>
-                <a href="listeProduit.php" class="btn btn-theme04" type="reset">Retour</a>
+                <a href="addProduit.php" class="btn btn-theme04" type="reset">Retour</a>
               </div>
             </div>
           </form>

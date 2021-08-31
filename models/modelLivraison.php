@@ -73,6 +73,18 @@ class ModelDistribution
             exit($e->getMessage());
         }
     }
+    
+    public function getTousDistributions()
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT *, COUNT(idDis) AS comId FROM distributions, livreur, clients, distribu_produit WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis GROUP BY idDis");
+            $query->execute();
+            return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
     public function detailDistribution($idLivraison)
     {
         try {
@@ -90,7 +102,7 @@ class ModelDistribution
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("UPDATE distributions SET ref_dis = ? date_livraison = ?, date_paiment = ?, id_livreur =?, idClient=? WHERE idDis = '" . $idDis . "'");
+            $query = $db->prepare("UPDATE distributions SET ref_dis = ?, date_livraison = ?, date_paiment = ?, id_livreur =?, idClient=? WHERE idDis = '" . $idDis . "'");
             $executIngrediant = $query->execute(array($ref_dis, $dateDis, $datePai, $idLivreur, $idClient));
             return $executIngrediant;
         } catch (PDOException $e) {

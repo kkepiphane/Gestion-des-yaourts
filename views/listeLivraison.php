@@ -3,8 +3,6 @@ require('head.php');
 require('header.php');
 require('sibar.php');
 require('../controller/controllerLivraison.php');
-require('../controller/controllerLivreur.php');
-require('../controller/controllerClient.php');
 ?>
 <section class="wrapper">
     <h3><i class="fa fa-angle-right"></i>Livraison - Liste </h3>
@@ -30,13 +28,14 @@ require('../controller/controllerClient.php');
                             <th width="5%"> Client</th>
                             <th width="5%">Livreur</th>
                             <th width="6%">Bon de Livraison</th>
+                            <th width="5%">Etat Paiement</th>
                             <th width="5%">Facture</th>
                             <th width="10%"> Produit</th>
                             <th width="10%"> Quantité</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($allDiss as $echoDistribut) : ?>
+                        <?php foreach ($tousDis as $echoDistribut) : ?>
                             <tr>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->date_livraison ?></td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>">
@@ -52,10 +51,26 @@ require('../controller/controllerClient.php');
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_client ?></td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_dis ?></td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>">
-                                    <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-success btn-xs"><i class="fa fa-building-o"></i></a>
+                                    <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart"></i></a>
                                 </td>
                                 <td rowspan="<?= $echoDistribut->comId + 1; ?>">
-                                    <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-success btn-xs"><i class="fa fa-building-o"></i></a>
+
+                                    <?php
+                                    $etatPaieEt = $echoDistribut->etat_paie_Dis;
+                                    if ($etatPaieEt == "payer") :; ?>
+                                        <span class="label label-primary label-mini">Payé</span>
+                                    <?php else : ?>
+                                        <span class="label label-danger label-mini">Non Payé</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>">
+                                    <?php
+                                    $etatPaieEt = $echoDistribut->etat_paie_Dis;
+                                    if ($etatPaieEt == "payer") :; ?>
+                                        <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-success btn-xs"><i class="fa fa-building-o"></i></a>
+                                    <?php else : ?>
+                                        <a href="addFacture_distribution.php" class="btn btn-warning btn-xs" title="Cliqué pour faire la Facture"><i class="fa fa-hand-o-right"></i> faire La facture</a>
+                                    <?php endif; ?>
                                 </td>
                                 <?php
                                 $idD = $echoDistribut->idDis;

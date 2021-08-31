@@ -23,12 +23,13 @@ require('../controller/controllerCommande.php');
                 </h4>
                 <hr>
 
-                <table class="table table-striped table-advance table-hover">
+                <table class="table table-striped table-hover" id="myTable">
                     <thead>
                         <tr>
                             <th>Référence</th>
                             <th>Date Commande</th>
-                            <th> Produit</th>
+                            <th> Client</th>
+                            <th> Etat Paiement</th>
                             <th> Bon de Livraison</th>
                             <th> Facture</th>
                         </tr>
@@ -50,10 +51,26 @@ require('../controller/controllerCommande.php');
                             <tr>
                                 <td><?= $dayClt->nom_client ?></td>
                                 <td>
-                                    <a href="factureComPaie.php?id_fac_paie=<?= $dayClt->id_clt  ?>" class="btn btn-info btn-xs" title="Cliqué pour faire livré"><i class="fa fa-shopping-cart"></i></a>
+                                    <?php
+                                    $etatPaie = $dayClt->etat_paiement;
+                                    if ($etatPaie == "payer") :; ?>
+                                        <span class="label label-primary label-mini">Payé</span>
+                                    <?php else : ?>
+                                        <span class="label label-danger label-mini">Non Payé</span>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
-                                    <a href="factureComPaie.php?id_fac_paie=<?= $dayClt->id_clt  ?>" class="btn btn-success btn-xs" title="Cliqué pour faire livré"><i class="fa fa-building-o"></i></a>
+                                    <a href="factureComPaie.php?id_fac_paie=<?= $dayClt->id_dis_com; ?>" class="btn btn-info btn-xs" title="Cliqué pour faire livré"><i class="fa fa-shopping-cart"></i></a>
+                                </td>
+                                <td>
+
+                                    <?php
+                                    $etatPaie = $dayClt->etat_paiement;
+                                    if ($etatPaie == "payer") :; ?>
+                                        <a href="factureCommandePaie.php?id_fac_paie=<?= $dayClt->id_dis_com ?>" class="btn btn-success btn-xs" title="Cliqué pour faire livré"><i class="fa fa-building-o"></i></a>
+                                    <?php else : ?>
+                                        <a href="addFacture.php" class="btn btn-warning btn-xs" title="Cliqué pour faire la Facture"><i class="fa fa-hand-o-right"></i> faire La facture</a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -68,4 +85,67 @@ require('../controller/controllerCommande.php');
     </div>
     <!-- /row -->
 </section>
-<?php require('foot.php'); ?>
+</section>
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="lib/jquery/jquery.min.js"></script>
+
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../public/DataTables/datatables.min.js"></script>
+<script src="../public/DataTables/DataTables-1.11.0/js/dataTables.jqueryui.min.js"></script>
+<script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+<script src="lib/jquery.scrollTo.min.js"></script>
+<!--common script for all pages-->
+<script src="lib/common-scripts.js"></script>
+<!--script for this page-->
+<script>
+    $(document).ready(function() {
+        function load_unseen_notification(view = '') {
+            $.ajax({
+                url: "../controller/controllerNotification.php",
+                method: "POST",
+                data: {
+                    view: view
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('.dropdown-menu').html(data.notification);
+                    if (data.unseen_notification > 0) {
+                        $('.count').html(data.unseen_notification);
+                    }
+                }
+            });
+        }
+        load_unseen_notification();
+        $('#notifFom').on('submit', function(event) {
+            event.preventDefault();
+            if ($('#sujet').val() != '' && $('#dateAvnt').val() != '') {
+                var form_data = $(this).serialize();
+                $.ajax({
+                    url: "../controller/controllerNotification.php",
+                    method: "POST",
+                    data: form_data,
+                    success: function() {
+                        $('#notifFom')[0].reset();
+                        load_unseen_notification();
+                    }
+                })
+            } else {
+                alert("les Données sont pas entrées veuillet vérifié les champs");
+            }
+        });
+        //Lorsqu on click on a affiche plus la notification
+        $(document).on('click', '.dropdown-toggle', function() {
+            $('.count').html('');
+            load_unseen_notification('yes');
+        })
+        setInterval(function() {
+            load_unseen_notification();
+        }, 5000);
+
+        $('#myTable').DataTable();
+
+    });
+</script>
+</body>
+
+</html>

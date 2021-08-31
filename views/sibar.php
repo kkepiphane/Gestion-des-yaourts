@@ -103,7 +103,7 @@
         <ul class="sub">
           <li class="sub-menu">
             <a href="javascript:;">
-              <i class="fa fa-truck"></i>
+              <i class="fa fa-tags"></i>
               <span>Commande</span>
             </a>
             <ul class="sub">
@@ -115,7 +115,7 @@
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-truck"></i>
-              <span>Livraison</span>
+              <span>Livraison Direct</span>
             </a>
             <ul class="sub">
               <li><a href="addLivraison.php">Livraison</a></li>
@@ -128,8 +128,8 @@
               <span>Facture Paiement</span>
             </a>
             <ul class="sub">
-              <li><a href="addFacture.php">Facture Paie</a></li>
-              <li><a href="fact_commmde.php">Facture Commande</a></li>
+              <li><a href="fact_commmde.php">Fact Commande</a></li>
+              <li><a href="fact_distribution.php">Fact Livraison direct</a></li>
             </ul>
           </li>
         </ul>
@@ -140,7 +140,7 @@
           <span>Paramètre</span>
         </a>
         <ul class="sub">
-          <li><a href="addFacture.php">Vérification des stock</a></li>
+          <li><a href="verification_stock.php">Vérification des stock</a></li>
           <li><a href="addSystemNot.php">Système de Notifications</a></li>
         </ul>
       </li>

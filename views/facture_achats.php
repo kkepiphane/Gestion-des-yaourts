@@ -31,21 +31,19 @@ require('../controller/controllerFactureAchat.php');
                             <?php endforeach ?>
                         </div>
                         <div class="col-xs-6 col-sm-6">
-                            <b>Facutre</b>
                             <div class="row">
-                                <div class="col-xs-6 col-sm-6">
-
-                                    <b>Référence : </b><?= $getOne->designation_ach; ?><br>
-                                    <b>Date de Facture : </b> <?= $getOne->dateFactAchat; ?> <br>
-                                    <b>Fournisseur : </b> <?= $getOne->nom_four; ?><br>
-                                </div>
+                                <b>Facutre</b><br>
+                                <b>Ref Facture : </b><?= $getOne->designation_ach; ?><br>
+                                <b>Date de Facture : </b> <?= $getOne->dateFactAchat; ?> <br>
                             </div>
                             <br>
                         </div>
                     </div>
                     <div class="row mt">
                         <div class="col-md-12">
-                            <h4><i></i> </h4>
+                            <h4>
+                                <i class="fa fa-angle-right"></i><b>Fournisseur :</b> <?= $getOne->nom_four; ?>
+                            </h4>
                             <hr>
                             <table class="table table-striped table-advance table-hover">
                                 <thead>
@@ -106,7 +104,7 @@ require('../controller/controllerFactureAchat.php');
     <div class="row">
         <div class="col-xs-6 col-sm-6"></div>
         <div class="col-xs-6 col-sm-3">
-            <a href="addFactureAchat.php" class="btn btn-theme04 btn-xs">Retour</a>
+            <a href="listeFactureAchat.php" class="btn btn-theme04 btn-xs">Retour</a>
         </div>
         <div class="col-xs-6 col-sm-2">
             <button onClick="imprimer('sectionAimprimer')" class="btn btn-success btn-xs">Imprimer</button>

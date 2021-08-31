@@ -141,4 +141,64 @@ class ModelFacturePaie
             exit($e->getMessage());
         }
     }
+
+    /**
+     * Affichage des factures pour les commandes
+     */
+
+
+    public function FactureCommandeHead($idFactCom)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM  distribu_com,clients, fact_com_paie WHERE distribu_com.id_clt = clients.id_client AND fact_com_paie.id_DisCom_fact = distribu_com.id_dis_com  AND distribu_com.id_dis_com = ?");
+            $query->execute(array($idFactCom));
+            if ($query->rowCount() > 0) {
+                return $query->fetch(PDO::FETCH_OBJ);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function FactureCommandeBody($idFactCom)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM  distribu_com,commande, prod_commande,produits WHERE prod_commande.id_comma_pro  = commande.id_com  AND prod_commande.id_produit_com  = produits.id_prod AND distribu_com.id_com_liv = commande.id_com AND distribu_com.id_dis_com = ?");
+            $query->execute(array($idFactCom));
+            return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * Affichage des factures pour les distributions
+     */
+
+    public function factureDistributionDirectH($disH)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM distributions, clients, fact_dis_paie WHERE fact_dis_paie.id_dis_line  = distributions.idDis  AND  distributions.idClient = clients.id_client AND distributions.idDis  =? ");
+            $query->execute(array($disH));
+            if ($query->rowCount() > 0) {
+                return $query->fetch(PDO::FETCH_OBJ);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    public function factureDistributionDirectB($disBdy)
+    {
+        try {
+            $db = dbConnect();
+            $query = $db->prepare("SELECT * FROM distributions, clients, distribu_produit, produits WHERE  distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distribu_produit.idProduits_dis = produits.id_prod  AND distributions.idDis  = ?");
+            $query->execute(array($disBdy));
+            return $query->fetchall(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
 }

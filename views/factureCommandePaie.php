@@ -5,7 +5,7 @@ require('header.php');
 require('sibar.php');
 
 require('../controller/controllerCompte.php');
-require('../controller/controllerCommande.php');
+require('../controller/controllerFacturePaie.php');
 ?>
 
 <section class="wrapper">
@@ -33,9 +33,8 @@ require('../controller/controllerCommande.php');
                         <div class="col-xs-6 col-sm-6">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6">
-                                    <b>Facture : </b><?= $comFacturePaie->reference_commande; ?><br>
-                                    <b>Date du Paiment : </b> <?= $comFacturePaie->date_com; ?> <br>
-                                    <b>Date </b> <?= $comFacturePaie->date_livraison; ?> <br>
+                                    <b>Facture : </b><?= $factCommmm->designation_paie; ?><br>
+                                    <b>Date du Paiment : </b> <?= $factCommmm->date_paiment_com; ?> <br>
                                 </div>
                             </div>
                             <br>
@@ -46,7 +45,7 @@ require('../controller/controllerCommande.php');
                         <div class="col-md-12">
                             <div class="content-panel">
                                 <h4>
-                                    <i class="fa fa-angle-right"></i><b>Facture du Client :</b> <?= $comFacturePaie->nom_client; ?>
+                                    <i class="fa fa-angle-right"></i><b>Facture du Client :</b> <?= $factCommmm->nom_client; ?>
                                 </h4>
                                 <hr>
                                 <table class="table table-striped table-advance table-hover">
@@ -63,14 +62,14 @@ require('../controller/controllerCommande.php');
                                         <?php
 
                                         $sommeT = 0;
-                                        foreach ($proBonLiv as $echoBnLiv) : ?>
+                                        foreach ($factprooodFactt as $echoFacCom) : ?>
                                             <tr>
-                                                <td><?= $echoBnLiv->ref_Pro; ?></td>
-                                                <td><?= $echoBnLiv->id_yaourt ?></td>
-                                                <td><?= $echoBnLiv->quantite_com ?></td>
-                                                <td><?= $echoBnLiv->prix_produit ?></td>
-                                                <td><?= $echoBnLiv->prix_produit * $echoBnLiv->quantite_com;
-                                                    $sommeT = $echoBnLiv->prix_produit * $echoBnLiv->quantite_com + $sommeT;
+                                                <td><?= $echoFacCom->ref_Pro; ?></td>
+                                                <td><?= $echoFacCom->id_yaourt ?></td>
+                                                <td><?= $echoFacCom->quantite_com ?></td>
+                                                <td><?= $echoFacCom->prix_produit ?></td>
+                                                <td><?= $echoFacCom->prix_produit * $echoFacCom->quantite_com;
+                                                    $sommeT = $echoFacCom->prix_produit * $echoFacCom->quantite_com + $sommeT;
 
                                                     ?></td>
                                             </tr>

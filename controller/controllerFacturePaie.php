@@ -18,6 +18,7 @@ $lireComm = $facPaie->getAllLivr();
  */
 $LireDis = $facPaie->getAllDistributions();
 
+
 /**
  * 
  * Partie | Commande par un Client
@@ -131,4 +132,28 @@ if (isset($_POST['bttAddFactDisDirect'])) {
     $facPaie->addFactDistribution($_POST['ref_fact_dis'], $_POST['dis_prod'], $nomUser, $date);
     $facPaie->updFactDisss($_POST['dis_prod'], $_POST['dateLiv'], $_POST['etat_paie']);
     header('location:../views/addFacture_distribution.php');
+}
+
+
+
+/**
+ * Affichage de la facture Partie des commandes
+ */
+
+if (isset($_GET['id_fac_paie_com'])) {
+
+    $factCommmm = $facPaie->FactureCommandeHead($_GET['id_fac_paie_com']);
+    
+    $factprooodFactt = $facPaie->FactureCommandeBody($_GET['id_fac_paie_com']);
+}
+
+/**
+ * Affichage de la facture Partie des commandes
+ */
+
+if (isset($_GET['id_fact_livraison'])) {
+
+    $factDissH = $facPaie->factureDistributionDirectH($_GET['id_fact_livraison']);
+    
+    $factprooodDisBy = $facPaie->factureDistributionDirectB($_GET['id_fact_livraison']);
 }

@@ -30,13 +30,15 @@ require('../controller/controllerLivraison.php');
                             <th width="6%">Bon de Livraison</th>
                             <th width="5%">Etat Paiement</th>
                             <th width="5%">Facture</th>
+                            <th width="10%"> Produit</th>
+                            <th width="10%"> Quantité</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($tousDis as $echoDistribut) : ?>
                             <tr>
-                                <td><?= $echoDistribut->date_livraison ?></td>
-                                <td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->date_livraison ?></td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>">
                                     <?php
                                     if ($echoDistribut->date_paiment === '0000-00-00') {
                                         echo "pas de date fixé";
@@ -46,12 +48,12 @@ require('../controller/controllerLivraison.php');
 
                                     ?>
                                 </td>
-                                <td><?= $echoDistribut->nom_client ?></td>
-                                <td><?= $echoDistribut->nom_dis ?></td>
-                                <td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_client ?></td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>"><?= $echoDistribut->nom_dis ?></td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>">
                                     <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart"></i></a>
                                 </td>
-                                <td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>">
                                     <?php
                                     $etatPaieEt = $echoDistribut->etat_paie_Dis;
                                     if ($etatPaieEt == "payer") :; ?>
@@ -61,17 +63,32 @@ require('../controller/controllerLivraison.php');
                                     <?php endif; ?>
                                 </td>
 
-                                <td>
+                                <td rowspan="<?= $echoDistribut->comId + 1; ?>">
                                     <?php
                                     $etatPaieEt = $echoDistribut->etat_paie_Dis;
                                     if ($etatPaieEt == "payer") :; ?>
-                                        <a href="factureDistribution.php?id_fact_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-success btn-xs"><i class="fa fa-building-o"></i></a>
+                                        <a href="bon_liv_line.php?id_fact_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-success btn-xs"><i class="fa fa-building-o"></i></a>
                                     <?php else : ?>
                                         <a href="addFacture_distribution.php" class="btn btn-warning btn-xs" title="Cliqué pour faire la Facture"><i class="fa fa-hand-o-right"></i> faire La facture</a>
                                     <?php endif; ?>
                                 </td>
+
+                                <?php
+                                $idD = $echoDistribut->idDis;
+                                $db = dbConnect();
+                                $query = $db->prepare("SELECT * FROM distributions, livreur, clients, distribu_produit, produits WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distributions.idDis = ? AND distribu_produit.idProduits_dis = produits.id_prod");
+                                $query->execute(array($idD));
+                                $proDis = $query->fetchall(PDO::FETCH_OBJ);
+
+                                foreach ($proDis as $produitD) :;
+                                ?>
+                            <tr>
+                                <td><?= $produitD->id_yaourt ?></td>
+                                <td><?= $produitD->quantite_venduPro ?></td>
                             </tr>
                         <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

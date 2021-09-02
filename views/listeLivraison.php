@@ -27,8 +27,8 @@ require('../controller/controllerLivraison.php');
                             <th width="6%">Date Paiement</th>
                             <th width="5%"> Client</th>
                             <th width="5%">Livreur</th>
-                            <th width="6%">Bon de Livraison</th>
                             <th width="5%">Etat Paiement</th>
+                            <th width="6%">Bon de Livraison</th>
                             <th width="5%">Facture</th>
                         </tr>
                     </thead>
@@ -49,9 +49,6 @@ require('../controller/controllerLivraison.php');
                                 <td><?= $echoDistribut->nom_client ?></td>
                                 <td><?= $echoDistribut->nom_dis ?></td>
                                 <td>
-                                    <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart"></i></a>
-                                </td>
-                                <td>
                                     <?php
                                     $etatPaieEt = $echoDistribut->etat_paie_Dis;
                                     if ($etatPaieEt == "payer") :; ?>
@@ -61,6 +58,9 @@ require('../controller/controllerLivraison.php');
                                     <?php endif; ?>
                                 </td>
 
+                                <td>
+                                    <a href="bon_liv_line.php?id_bon_livraison=<?= $echoDistribut->idDis ?>" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart"></i></a>
+                                </td>
                                 <td>
                                     <?php
                                     $etatPaieEt = $echoDistribut->etat_paie_Dis;

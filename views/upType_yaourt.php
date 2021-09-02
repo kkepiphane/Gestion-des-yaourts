@@ -14,42 +14,29 @@ require('../controller/controllerTYaourt.php');
         <h4><i class="fa fa-angle-right"></i> Form Yaourt</h4>
         <hr>
         <div class=" form">
-          <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="upType_yaourt.php?idUpTYa=<?= $lireTYaoutUp->id_ty; ?>">
+          <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="upType_yaourt.php?id_upd_TY=<?= $lireTYaoutUp->id_ty; ?>">
             <div class="row">
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-6 col-sm-6">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Ref <?= $getN->produitGest; ?></label>
-                  <div class="col-lg-7">
+                  <div class="col-lg-6">
                     <input class=" form-control" id="cname" name="Refy" minlength="2" type="text" value="<?= $lireTYaoutUp->ref_yaourt; ?>" />
                   </div>
                 </div>
               </div>
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-6 col-sm-6">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-3">Type <?= $getN->produitGest; ?></label>
-                  <div class="col-lg-7">
+                  <div class="col-lg-6">
                     <input class=" form-control" id="cname" name="typeY" minlength="2" type="text" value="<?= $lireTYaoutUp->nom_yaourt; ?>" />
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-4 col-sm-4">
-                <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-4">Type d'ingrédiant</label>
-                  <div class="col-lg-7">
-                    <select class="form-control" name="TYIng">
-                      <option value="<?= $lireTYaoutUp->id_ing; ?>"><?= $lireTYaoutUp->nom_ing; ?></option>
-                      <?php foreach ($affichIn as $echoFoerIng) : ?>
-                        <option value=" <?= $echoFoerIng->id_ing; ?>"><?= $echoFoerIng->nom_ing; ?></option>
-                      <?php endforeach; ?>
-                    </select>
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <div class="col-lg-offset col-lg-8">
-                <button class="btn btn-theme" type="submit" name="btnUpTY">Modifier</button>
-                <a href="listeType_yaourt.php" class="btn btn-theme04" type="reset">Cancel</a>
+                <button class="btn btn-theme" type="submit" name="btn_upd_TY">Modifier</button>
+                <a href="addType_yaourt.php" class="btn btn-theme04" type="reset">Retour</a>
               </div>
             </div>
           </form>

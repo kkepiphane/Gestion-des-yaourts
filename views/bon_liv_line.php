@@ -95,9 +95,9 @@ require('../controller/controllerLivraison.php');
                         <!-- /col-md-12 -->
                     </div>
                     <div class="row">
-                        <div class="col-xs-6 col-sm-7"></div>
+                        <div class="col-xs-6 col-sm-5"></div>
+                        <div class="col-xs-6 col-sm-3">Livré par : </div>
                         <div class="col-xs-6 col-sm-3">Signature : </div>
-                        <div class="col-xs-6 col-sm-2"></div>
                     </div>
                     &copy;<?= $Compte->nom_societe; ?>
                 </div>

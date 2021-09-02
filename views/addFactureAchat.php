@@ -10,156 +10,157 @@ require('../controller/controllerFactureAchat.php');
 <section class="wrapper">
     <h3><i class="fa fa-angle-right"></i>Facture Achats - Ajout</h3>
     <!-- FORM VALIDATION -->
-    <div class="row mt">
-        <div class="col-lg-12">
-            <div class="form-panel">
-                <h4><i class="fa fa-angle-right"></i> Formulaire de Validations</h4>
-                <hr>
-                <div class=" form">
-                    <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="../controller/controllerFactureAchat.php">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4">
-                                <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-3">Fournisseurs</label>
-                                    <div class="col-lg-7">
-                                        <select class=" form-control" name="idFour" id="fournisseur">
-                                            <option>------------</option>
-                                            <?php foreach ($allFour as $FourniLire) : ?>
-                                                <option value="<?= $FourniLire->id_four; ?>"><?= $FourniLire->nom_four; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-4 col-sm-4">
-                                <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-3">Date</label>
-                                    <div class="col-lg-7">
-                                        <input class=" form-control" id="cname" name="dateAch" minlength="2" type="date" required />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-4 col-sm-4">
-                                <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-4">N° Facture</label>
-                                    <div class="col-lg-7">
-                                        <input class=" form-control" id="cname" name="refFact" id="demo" minlength="2" type="text" required />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4">
-                                <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-3">Listes des Ingrédiants</label>
-                                    <div class="col-lg-7">
-                                        <select multiple="multiple" class=" form-control multipleM" name="idIngrd[]" id="ingred">
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-offset-1 col-lg-8">
-                                <button class="btn btn-theme" type="submit" name="btnRef_FacAcht">Suivant</button>
-                                <button class="btn btn-theme04" type="reset" onclick="document.location.reload()">Annuler</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /form-panel -->
-        </div>
-        <!-- /col-lg-12 -->
-    </div>
-    <!-- /row -->
-    <!-- row -->
-    <!-- FORM VALIDATION -->
-    <div class="row mt">
-        <div class="col-lg-12">
-            <div class="form-panel">
-                <h4><i class="fa fa-angle-right"></i> Formulaire de Validations Produit</h4>
-                <hr>
-                <div class=" form">
-                    <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="../controller/controllerFactureAchat.php">
-                        <?php foreach ($lisIng as $echoRefF) :; ?>
+    <?php if (!isset($_POST['btnRef_FacAcht'])) :; ?>
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="form-panel">
+                    <h4><i class="fa fa-angle-right"></i> Formulaire de Validations</h4>
+                    <hr>
+                    <div class=" form">
+                        <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4">
                                     <div class="form-group ">
-                                        <label for="cname" class="control-label col-lg-3">Ingrédiant</label>
-                                        <div class="col-lg-7"> <input class=" form-control" id="cname" name="nameI[]" minlength="2" type="hidden" value="<?= $echoRefF->nom_ing; ?>" />
-                                            <select name="refIng[]" class=" form-control">
-                                                <option value="<?= $echoRefF->id_ing; ?>"><?= $echoRefF->references_ing; ?></option>
+                                        <label for="cname" class="control-label col-lg-3">Fournisseurs</label>
+                                        <div class="col-lg-7">
+                                            <select class=" form-control" name="idFour" id="fournisseur">
+                                                <option>------------</option>
+                                                <?php foreach ($allFour as $FourniLire) : ?>
+                                                    <option value="<?= $FourniLire->id_four; ?>"><?= $FourniLire->nom_four; ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4">
                                     <div class="form-group ">
-                                        <label for="cname" class="control-label col-lg-3">Prix Unitaire</label>
+                                        <label for="cname" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-7">
-                                            <input class=" form-control" id="cname" name="prixU[]" minlength="2" type="number" value="<?= $echoRefF->prixUnitaire; ?>" />
+                                            <input class=" form-control" id="cname" name="dateAch" minlength="2" type="date" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-4">
                                     <div class="form-group ">
-                                        <label for="cname" class="control-label col-lg-3">Quantité</label>
+                                        <label for="cname" class="control-label col-lg-4">N° Facture</label>
                                         <div class="col-lg-7">
-                                            <input class=" form-control" id="cname" name="quantiteIng[]" minlength="2" type="number" value="<?= $echoRefF->quantite_dispo; ?>" />
+                                            <input class=" form-control" id="cname" name="refFact" id="demo" minlength="2" type="text" required />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-                        <div class="form-group">
-                            <div class="col-lg-offset-1 col-lg-8">
-                                <button class="btn btn-theme" type="submit" name="btnAddFactProd">Ajouter</button>
-                                <button class="btn btn-theme04" onclick="document.location.reload()" type="reset">Annuler</button>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4">
+                                    <div class="form-group ">
+                                        <label for="cname" class="control-label col-lg-3">Listes des Ingrédiants</label>
+                                        <div class="col-lg-7">
+                                            <select multiple="multiple" class=" form-control multipleM" name="idIngrd[]" id="ingred">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <div class="col-lg-offset-1 col-lg-8">
+                                    <button class="btn btn-theme" type="submit" id="btnRef_FacAcht" name="btnRef_FacAcht">Suivant</button>
+                                    <button class="btn btn-theme04" type="reset" onclick="document.location.reload()">Annuler</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+                <!-- /form-panel -->
             </div>
-            <!-- /form-panel -->
+            <!-- /col-lg-12 -->
         </div>
-        <!-- /col-lg-12 -->
-    </div>
-    <div class="row mt">
-        <div class="col-md-12">
-            <div class="content-panel">
-                <h4><i class="fa fa-angle-right"></i> Listes de dernière ajout d'un Fournisseur</h4>
-                <hr>
-                <table class="table table-striped table-advance table-hover">
-                    <thead>
-                        <tr>
-                            <th>Désignation Facture</th>
-                            <th>Date Facture</th>
-                            <th>Fournisseur</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($getOneFacture as $echo_fact) : ?>
+        <!-- /row -->
+        <!-- row -->
+        <!-- FORM VALIDATION -->
+    <?php else :; ?>
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="form-panel">
+                    <h4><i class="fa fa-angle-right"></i> Formulaire de Validations</h4>
+                    <hr>
+                    <div class=" form">
+                        <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="">
+                            <?php foreach ($lisIngQuantit as $echoRefF) :; ?>
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4">
+                                        <div class="form-group ">
+                                            <label for="cname" class="control-label col-lg-4">Ingrédiant</label>
+                                            <div class="col-lg-7">
+                                                <input class=" form-control" id="cname" name="refIng[]" minlength="2" type="hidden" value="<?= $echoRefF->id_TIng; ?>" />
+                                                <input class=" form-control" id="cname" minlength="2" type="text" value="<?= $echoRefF->nom_ing; ?> - <?= $echoRefF->references_ing; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        <div class="form-group ">
+                                            <label for="cname" class="control-label col-lg-4">Prix Unitaire</label>
+                                            <div class="col-lg-7">
+                                                <input class=" form-control" id="prixU[]" name="prixU[]" minlength="2" type="number" value="<?= $echoRefF->prixUnitaireIng; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4">
+                                        <div class="form-group ">
+                                            <label for="cname" class="control-label col-lg-4">Quantité</label>
+                                            <div class="col-lg-7">
+                                                <input class=" form-control" id="quantiteIng[]" name="quantiteIng[]" minlength="2" type="number" value="<?= $echoRefF->quantiteIng; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            <div class="form-group">
+                                <div class="col-lg-offset col-lg-8">
+                                    <button class="btn btn-theme" type="submit" id="btnAddFactProd" name="btnAddFactProd">Ajouter</button>
+                                    <button class="btn btn-theme04" type="reset" onclick="document.location.reload()">Annuler</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /form-panel -->
+            </div>
+            <!-- /col-lg-12 -->
+        <?php endif; ?>
+        </div>
+        <div class="row mt">
+            <div class="col-md-12">
+                <div class="content-panel">
+                    <h4><i class="fa fa-angle-right"></i> Listes de dernière ajout d'un Fournisseur</h4>
+                    <hr>
+                    <table class="table table-striped table-advance table-hover">
+                        <thead>
                             <tr>
-                                <td><?= $echo_fact->designation_ach; ?></td>
-                                <td><?= $echo_fact->dateFactAchat; ?></td>
-                                <td><?= $echo_fact->nom_four; ?></td>
-                                <td>
-                                    <a href="upFactureAcht.php?idUpdFacA=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir apporter la modification à la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                                    <a href="facture_achats.php?idFactureInfo=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir voir et imprimer la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-success btn-xs"><i class="fa fa-print"></i></a>
-                                    <a href="suFactureAchats.php?idFactureInfo=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir voir et imprimer la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                                </td>
+                                <th>Désignation Facture</th>
+                                <th>Date Facture</th>
+                                <th>Fournisseur</th>
+                                <th>Action</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($getOneFacture as $echo_fact) : ?>
+                                <tr>
+                                    <td><?= $echo_fact->designation_ach; ?></td>
+                                    <td><?= $echo_fact->dateFactAchat; ?></td>
+                                    <td><?= $echo_fact->nom_four; ?></td>
+                                    <td>
+                                        <a href="upFactureAcht.php?idUpdFacA=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir apporter la modification à la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                                        <a href="facture_achats.php?idFactureInfo=<?= $echo_fact->id_fac_ach; ?>" onclick="return confirm('Etes-vous sûr de vouloir voir et imprimer la factutre : <?= $echo_fact->designation_ach; ?>')" class="btn btn-success btn-xs"><i class="fa fa-print"></i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /content-panel -->
             </div>
-            <!-- /content-panel -->
+            <!-- /col-md-12 -->
         </div>
-        <!-- /col-md-12 -->
-    </div>
-    <!-- /row -->
+        <!-- /row -->
 </section>
 </section>
 <!-- js placed at the end of the document so the pages load faster -->

@@ -109,7 +109,7 @@
             <ul class="sub">
               <li><a href="addCommande.php">add Commandes</a></li>
               <li><a href="listeCommande.php">Listes Commandes</a></li>
-              <li><a href="bon_de_livraison.php">Bon de Livraison</a></li>
+              <li><a href="bon_de_livraison.php">Fact & Bon Livraison</a></li>
             </ul>
           </li>
           <li class="sub-menu">

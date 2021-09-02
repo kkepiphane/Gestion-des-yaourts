@@ -77,7 +77,7 @@ class ModelFactureAchats
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM facture_achat,fournisseur,stock_facture_acht,ingrediants WHERE facture_achat.id_fourni = fournisseur.id_four AND facture_achat.id_fac_ach  = stock_facture_acht.id_fact_ach  AND stock_facture_acht.id_ing_pro  = ingrediants.id_ing AND stock_facture_acht.id_fact_ach  = '" . $FacD . "' ORDER BY designation_ach");
+            $query = $db->prepare("SELECT * FROM facture_achat,stock_facture_acht,type_ingrediant WHERE facture_achat.id_fac_ach  = stock_facture_acht.id_fact_ach  AND stock_facture_acht.id_ing_pro  = type_ingrediant.id_TIng   AND stock_facture_acht.id_fact_ach  = '" . $FacD . "' ORDER BY designation_ach");
             $query->execute();
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
@@ -87,11 +87,11 @@ class ModelFactureAchats
     /**
      * Dernier sajout pour faire la modification de la factures
      */
-    public function idFactureAchat($idFacht)
+    public function idFactureAchatHead($idFacht)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM facture_achat,fournisseur,stock_facture_acht,ingrediants WHERE facture_achat.id_fourni = fournisseur.id_four AND facture_achat.id_fac_ach  = stock_facture_acht.id_fact_ach  AND stock_facture_acht.id_ing_pro  = ingrediants.id_ing AND stock_facture_acht.id_fact_ach = ?");
+            $query = $db->prepare("SELECT * FROM facture_achat,fournisseur WHERE facture_achat.id_fourni = fournisseur.id_four AND facture_achat.id_fac_ach  = ?");
             $query->execute(array($idFacht));
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);
@@ -103,12 +103,12 @@ class ModelFactureAchats
     /**
      * Modification de la factures
      */
-    public function updateFactureAchats($idFacAchat, $designa, $dateFaAch, $idFourni, $ing)
+    public function updateFactureAchats($idFacAchat, $designa, $dateFaAch, $idFourni)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("UPDATE facture_achat SET designation_ach = ?, dateFactAchat = ?, id_fourni = ?, id_ing = ? WHERE id_fac_ach = '" . $idFacAchat . "'");
-            $updateFourni = $query->execute(array($designa, $dateFaAch, $idFourni, $ing));
+            $query = $db->prepare("UPDATE facture_achat SET designation_ach = ?, dateFactAchat = ?, id_fourni = ? WHERE id_fac_ach = '" . $idFacAchat . "'");
+            $updateFourni = $query->execute(array($designa, $dateFaAch, $idFourni));
             return $updateFourni;
         } catch (PDOException $e) {
             exit($e->getMessage());
@@ -148,7 +148,7 @@ class ModelFactureAchats
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM ingrediants, fournisseur WHERE ingrediants.id_fou = fournisseur.id_four AND ingrediants.id_fou  = '" . $idFournisseur . "'");
+            $query = $db->prepare("SELECT * FROM type_ingrediant, ingrediants, fournisseur WHERE type_ingrediant.id_TIng = ingrediants.id_type_ing  AND ingrediants.id_fou = fournisseur.id_four  AND ingrediants.id_fou  = '" . $idFournisseur . "'  GROUP BY ingrediants.id_type_ing");
             $query->execute();
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
@@ -171,7 +171,7 @@ class ModelFactureAchats
             $array = array_map('intval', explode(',', $chaine));
             $idArray = implode("','", $array);
 
-            $sql = $db->prepare("SELECT * FROM ingrediants, fournisseur WHERE ingrediants.id_fou = fournisseur.id_four AND ingrediants.id_ing IN ('" . $idArray . "')");
+            $sql = $db->prepare("SELECT * FROM  type_ingrediant WHERE  type_ingrediant.id_TIng  IN ('" . $idArray . "')");
 
             $sql->execute();
             return $sql->fetchAll(PDO::FETCH_OBJ);

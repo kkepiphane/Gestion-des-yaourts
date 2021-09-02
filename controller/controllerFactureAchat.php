@@ -27,7 +27,7 @@ $getAllFactureA = $factureAchts->getFactureAlls();
  * Affichage des factures 
  */
 if (isset($_GET['idFactureInfo'])) {
-    $getOne = $factureAchts->idFactureAchat($_GET['idFactureInfo']);
+    $getOne = $factureAchts->idFactureAchatHead($_GET['idFactureInfo']);
     $allFactAch = $factureAchts->getAllFactureAchats($_GET['idFactureInfo']);
 }
 
@@ -40,7 +40,7 @@ if (isset($_POST['id_fourSS'])) {
     $output = '';
     if ($listeIng > 0) {
         foreach ($listeIng as $echoIngredFourn) :;
-            $output .= ' <option value=' . $echoIngredFourn->id_ing . '>' . $echoIngredFourn->references_ing . '</option>';
+            $output .= ' <option value=' . $echoIngredFourn->id_TIng  . '>' . $echoIngredFourn->nom_ing . ' - ' . $echoIngredFourn->references_ing . '</option>';
         endforeach;
     } else {
         $output .= ' <option>Aucun ingrédiant fourni </option>';
@@ -61,8 +61,6 @@ if (isset($_POST['btnRef_FacAcht'])) {
     $ingred = implode(",", $_POST['idIngrd']);
 
     $factureAchts->addFactureAchat($_POST['refFact'], $_POST['dateAch'], $_POST['idFour'], $ingred, $nomUser, $date);
-
-    header('location:../views/addFactureAchat.php');
 }
 
 
@@ -72,14 +70,11 @@ if (isset($_POST['btnAddFactProd'])) {
     $echoIdF = $idFac->id_fac_ach;
     foreach ($_POST['refIng'] as $key => $val) :;
         $idFacIng =  $_POST['refIng'][$key];
-        $nom = $_POST['nameI'][$key];
         $prixU = $_POST['prixU'][$key];
         $quantiteFac = $_POST['quantiteIng'][$key];
-        $factureAchts->addFactureAchatProduit($echoIdF, $nom, $prixU, $quantiteFac);
+        $factureAchts->addFactureAchatProduit($echoIdF, $idFacIng, $prixU, $quantiteFac);
         $factureAchts->addFactureAchatStock($echoIdF, $idFacIng, $prixU, $quantiteFac);
     endforeach;
-
-    header('location:../views/addFactureAchat.php');
 }
 
 /**
@@ -88,7 +83,7 @@ if (isset($_POST['btnAddFactProd'])) {
  */
 
 
-$lisIng = $factureAchts->idDernierAdd();
+$lisIngQuantit = $factureAchts->idDernierAdd();
 /**
  * Supression d'une 
  */
@@ -105,10 +100,9 @@ if (isset($_GET['idUpdFacA'])) {
     $idUp = $_GET['idUpdFacA'];
     if (isset($_POST['idUpdFactAcha'])) {
 
-        $ingred = implode(",", $_POST['idIngrd']);
-        $factureAchts->updateFactureAchats($idUp, $_POST['refFact'], $_POST['dateAch'], $_POST['idFour'], $ingred);
+        $factureAchts->updateFactureAchats($idUp, $_POST['refFact'], $_POST['dateAch'], $_POST['idFour']);
     }
-    $lireUpdFact = $factureAchts->idFactureAchat($idUp);
+    $lireUpdFact = $factureAchts->idFactureAchatHead($idUp);
 }
 
 /**

@@ -49,4 +49,7 @@ $user = $app->UserDetails($_SESSION['id']); // get user details
     <!-- Liens pour le multiSelect-->
     <link rel="stylesheet" href="../public/bootstrap.min.css">
     <link rel="stylesheet" href="../public/multiple-select.min.css">
-    <link rel="stylesheet" href="../public/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="../public/js-ui/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="../public/js-ui/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="../public/js-ui/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+    <!-- <link rel="stylesheet" href="../public/js-ui/Customizable-Analog-Clock-with-jQuery/css/main.css"> -->

@@ -33,7 +33,7 @@ class ModelProduit
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM yaourt GROUP BY idType_yaourt");
+            $query = $db->prepare("SELECT * FROM yaourt, type_yaout WHERE yaourt.yaourt_id = type_yaout.id_ty  GROUP BY yaourt_id ");
             $query->execute();
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {

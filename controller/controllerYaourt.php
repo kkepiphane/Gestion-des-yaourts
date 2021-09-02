@@ -3,13 +3,18 @@ require  '../models/modelYaourt.php';
 $yaourts = new ModelYaourt();
 
 
+/**
+ * Tous les yaourts
+ */
+$allTYa = $yaourts->getCompositions();
 
-
-if (isset($_POST['typeYaourt'])) {
-    $_SESSION['idY'] = $_POST['typeYaourt'];
+if (isset($_POST['btnIdYa'])) {
+    echo $_SESSION['idY'] = $_POST['typeYaourt'];
     $lisIng = $yaourts->getAllProdQuantYao($_POST['typeYaourt']);
 } else {
-    $lisIng = $yaourts->getAllProdQuantYao($_SESSION['idY']);
+    if (isset($_POST)) {
+        $lisIng = $yaourts->getAllProdQuantYao($_SESSION['idY']);
+    }
 }
 
 
@@ -17,17 +22,17 @@ if (isset($_POST['typeYaourt'])) {
 /**
  * Affichage des composition
  */
-$allYaoComp = $yaourts->getAllYaourtAProduit();
+// $allYaoComp = $yaourts->getAllYaourtAProduit();
 
 /**
  * Affichage de tout les de Yaourt
  * 
  */
-$allYaourts = $yaourts->getAllYaourts();
+// $allYaourts = $yaourts->getAllYaourts();
 /**
  * Récupération des ingrediant saisi dans la base des factures
  */
-$allIngred = $yaourts->getAllIngrediantsAchats();
+// $allIngred = $yaourts->getAllIngrediantsAchats();
 /**
  * affichage des derniers ajout de yaourt
  */
@@ -48,18 +53,20 @@ if (isset($_POST['btnAddYa'])) {
 
         $nomUser = 'Epiphane';
         $date = date('Y:m:d');
+
         $idY = $_SESSION['idY'];
         $nmeIng = $_POST['typeIng'][$key];
         $quantite = $_POST['quantiteY'][$key];
-        $yaourts->addYaourt($idY, $nmeIng, $quantite, $nomUser, $date);
+
+        $yaourts->addYaourt($nmeIng, $idY, $quantite, $nomUser, $date);
     }
     /**
      * Aprés soutraction on fait le divison
      */
     $echoRecpName =  $yaourts->getAllProdQuantYao($_SESSION['idY']);
     foreach ($echoRecpName as $ke => $recPValue) {
-        $namIng = $recPValue->nom_ing;
-        $compteName = $yaourts->getAllQuantiteIng($recPValue->nom_ing);
+        $namIng = $recPValue->id_typeI;
+        $compteName = $yaourts->getAllQuantiteIng($recPValue->id_typeI);
         $recapCompt = $compteName->Compt;
 
         $quantiteRes = $_POST['quantiteSou'][$ke] - $_POST['quantiteY'][$ke];
@@ -87,7 +94,7 @@ if (isset($_GET['idUpYa'])) {
         /**
          * Dans cette condition si l'utilisateur décide de modifier seulement la quantité dans la base
          */
-        if ($lireYaoutUps->id_ty == $_POST['typeYaourt'] && $lireYaoutUps->id_ing == $_POST['typeIng'] && $lireYaoutUps->quantiteDispoY != $_POST['quantiteY'] && !isset($_POST['quantiteSou'])) {
+        if ($lireYaoutUps->id_ty == $_POST['typeYaourt'] && $lireYaoutUps->id_typeI == $_POST['typeIng'] && $lireYaoutUps->quantiteDispoY != $_POST['quantiteY'] && !isset($_POST['quantiteSou'])) {
 
             if ($lireYaoutUps->quantiteDispoY < $_POST['quantiteY']) {
                 //Ici on fait la soustration
@@ -115,7 +122,7 @@ if (isset($_GET['idUpYa'])) {
                 $quantiteDiv = $retsFinal / $recapCompt;
                 $yaourts->updateQuantiteProd($_POST['typeIng'], $quantiteDiv);
             }
-        } elseif ($lireYaoutUps->id_ty == $_POST['typeYaourt'] && $lireYaoutUps->id_ing == $_POST['typeIng'] && $lireYaoutUps->quantiteDispoY != $_POST['quantiteY'] && isset($_POST['quantiteSou'])) {
+        } elseif ($lireYaoutUps->id_ty == $_POST['typeYaourt'] && $lireYaoutUps->id_typeI == $_POST['typeIng'] && $lireYaoutUps->quantiteDispoY != $_POST['quantiteY'] && isset($_POST['quantiteSou'])) {
 
             if ($lireYaoutUps->quantiteDispoY < $_POST['quantiteY']) {
                 //Ici on fait la soustration

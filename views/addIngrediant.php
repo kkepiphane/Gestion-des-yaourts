@@ -210,9 +210,6 @@ require('../controller/controllerFournisseur.php');
               <th>Réf Ingrédiant</th>
               <th>Ingrédiant</th>
               <th>Fournisseurs</th>
-              <th>Quantité</th>
-              <th> Prix Unitaire</th>
-              <th>Total</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -239,9 +236,6 @@ require('../controller/controllerFournisseur.php');
                 ?>
               <tr>
                 <td><?= $echoIii->nom_four; ?></td>
-                <td><?= $echoIii->quantiteIng; ?></td>
-                <td><?= $echoIii->prixUnitaireIng; ?></td>
-                <td><?= $echoIii->quantiteIng * $echoIii->prixUnitaireIng; ?></td>
                 <td>
                   <a href="../controller/controllerIngrediant.php?id_del_four_typeI=<?= $echoIii->id_ingrediant; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ingrédiants : <?= $echoIii->nom_ing; ?>')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                 </td>

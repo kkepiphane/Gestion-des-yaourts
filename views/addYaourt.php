@@ -14,77 +14,81 @@ require('../controller/controllerTYaourt.php');
       <div class="form-panel">
         <h4><i class="fa fa-angle-right"></i> Formulaire de Validations</h4>
         <hr>
-        <div class=" form">
-          <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="">
-            <div class="row">
-              <div class="col-xs-4 col-sm-4">
-                <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-4">Type Produit</label>
-                  <div class="col-lg-7">
-                    <select class="form-control" name="typeYaourt">
-                      <option>------------</option>
-                      <?php foreach ($allTYaout as $echoFoerTypeY) : ?>
-                        <option value="<?= $echoFoerTypeY->nom_yaourt; ?>"><?= $echoFoerTypeY->nom_yaourt; ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-4 col-sm-4">
-                <div class="form-group">
-                  <div class="col-lg-offset-1 col-lg-8">
-                    <button class="btn btn-theme" type="submit" name="btnIdYa">Ajouter</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="">
-            <?php foreach ($lisIng as $echoFoerIng) : ?>
+        <?php if (!isset($_POST['btnIdYa'])) :; ?>
+          <div class=" form">
+            <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="">
               <div class="row">
                 <div class="col-xs-4 col-sm-4">
                   <div class="form-group ">
-                    <label for="cname" class="control-label col-lg-4">Type d'ingrédiant</label>
-                    <div class="col-lg-7" id="idTIii">
-                      <select class="form-control" name="typeIng[]" onchange="selectIngrediant(this.value)">
-                        <option value=" <?= $echoFoerIng->id_ing; ?>"><?= $echoFoerIng->nom_ing; ?></option>
+                    <label for="cname" class="control-label col-lg-4">Type Produit</label>
+                    <div class="col-lg-7">
+                      <select class="form-control" name="typeYaourt">
+                        <option>------------</option>
+                        <?php foreach ($allTYa as $echoFoerTypeY) : ?>
+                          <option value="<?= $echoFoerTypeY->id_typeY; ?>"><?= $echoFoerTypeY->nom_yaourt; ?> - <?= $echoFoerTypeY->ref_yaourt; ?></option>
+                        <?php endforeach; ?>
                       </select>
                     </div>
                   </div>
                 </div>
-                <?php
-                $inG = $echoFoerIng->nom_ing;
-                $db = dbConnect();
-                $query = $db->prepare("SELECT COUNT(prod_fac_achats.id_ingred_achts) AS Compt , SUM(quantite_act) AS Quantite FROM prod_fac_achats WHERE id_ingred_achts LIKE '%" . $inG . "%' GROUP BY id_ingred_achts");
-                $query->execute();
-                $recapQauntite = $query->fetch(PDO::FETCH_OBJ);
-                ?>
                 <div class="col-xs-4 col-sm-4">
-                  <div class="form-group ">
-                    <label for="cname" class="control-label col-lg-5">Quantité Disponible</label>
-                    <div class="col-lg-3" id="quantiteDispo">
-                      <input class=" form-control" minlength="2" id="QuantiteD" name="quantiteSou[]" type="text" value="<?= $recapQauntite->Quantite; ?>">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-4 col-sm-4">
-                  <div class="form-group ">
-                    <label for="cname" class="control-label col-lg-5">Quantité à Produit</label>
-                    <div class="col-lg-7">
-                      <input class=" form-control" id="recap" name="quantiteY[]" minlength="2" min="1" max="" type="number" required />
+                  <div class="form-group">
+                    <div class="col-lg-offset-1 col-lg-8">
+                      <button class="btn btn-theme" type="submit" name="btnIdYa">Ajouter</button>
                     </div>
                   </div>
                 </div>
               </div>
-            <?php endforeach; ?>
-            <div class="form-group">
-              <div class="col-lg-offset col-lg-8">
-                <button class="btn btn-theme" type="submit" name="btnAddYa">Enregistrer</button>
-                <button class="btn btn-theme04" onclick="document.location.reload()" type="reset">Annuler</button>
+            </form>
+          <?php else :; ?>
+            <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="">
+              <?php
+              foreach ($lisIng as $echoFoerIng) : ?>
+                <div class="row">
+                  <div class="col-xs-4 col-sm-4">
+                    <div class="form-group ">
+                      <label for="cname" class="control-label col-lg-4">Type d'ingrédiant</label>
+                      <div class="col-lg-7" id="idTIii">
+                        <select class="form-control" name="typeIng[]" onchange="selectIngrediant(this.value)">
+                          <option value=" <?= $echoFoerIng->id_typeI; ?>"><?= $echoFoerIng->nom_ing; ?></option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <?php
+                  $inG = $echoFoerIng->id_typeI;
+                  $db = dbConnect();
+                  $query = $db->prepare("SELECT COUNT(prod_fac_achats.id_ingred_achts) AS Compt , SUM(quantite_act) AS Quantite FROM prod_fac_achats WHERE id_ingred_achts = '" . $inG . "' GROUP BY id_ingred_achts");
+                  $query->execute();
+                  $recapQauntite = $query->fetch(PDO::FETCH_OBJ);
+                  ?>
+                  <div class="col-xs-4 col-sm-4">
+                    <div class="form-group ">
+                      <label for="cname" class="control-label col-lg-5">Quantité Disponible</label>
+                      <div class="col-lg-3" id="quantiteDispo">
+                        <input class=" form-control" minlength="2" id="QuantiteD" name="quantiteSou[]" type="text" value="<?= $recapQauntite->Quantite; ?>">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-4 col-sm-4">
+                    <div class="form-group ">
+                      <label for="cname" class="control-label col-lg-5">Quantité à Produit</label>
+                      <div class="col-lg-7">
+                        <input class=" form-control" id="recap" name="quantiteY[]" minlength="2" min="1" max="" type="number" required />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+              <div class="form-group">
+                <div class="col-lg-offset col-lg-8">
+                  <button class="btn btn-theme" type="submit" name="btnAddYa">Enregistrer</button>
+                  <button class="btn btn-theme04" name="annuler">Annuler</button>
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        <?php endif; ?>
       </div>
       <!-- /form-panel -->
     </div>

@@ -27,20 +27,12 @@ require('../controller/controllerProduit.php');
                     <tr>
                       <td>
                         <div class="form-group ">
-                          <label for="cname" class="control-label col-lg-3">Ref Produit</label>
-                          <div class="col-lg-7">
-                            <input class=" form-control" id="ref_Prod" name="ref_Prod[]" min="1" minlength="2" type="text" required="" />
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="form-group ">
                           <label for="cname" class="control-label col-lg-3">Produit</label>
                           <div class="col-lg-7">
                             <select class="form-control" name="yaourt[]">
                               <option>------------</option>
                               <?php foreach ($allGroupPro as $echoProY) :; ?>
-                                <option value="<?= $echoProY->idType_yaourt; ?>"><?= $echoProY->idType_yaourt; ?></option>
+                                <option value="<?= $echoProY->yaourt_id; ?>"><?= $echoProY->nom_yaourt; ?> - <?= $echoProY->ref_yaourt; ?></option>
                               <?php endforeach; ?>
                             </select>
                           </div>
@@ -211,7 +203,7 @@ require('../controller/controllerProduit.php');
      * Ici cette methode c est pour d ajouter les input pour l ajout des ingrédiant et la quantité
      * 
      */
-    var html = '<tr><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Ref Produit</label><div class="col-lg-7"><input class=" form-control" id="ref_Prod" name="ref_Prod[]" min="1" minlength="2" type="text" required="" /></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Produit</label><div class="col-lg-7"><select class="form-control" name="yaourt[]"><option>------------</option><?php foreach ($allGroupPro as $echoProY) :; ?><option value="<?= $echoProY->idType_yaourt; ?>"><?= $echoProY->idType_yaourt; ?></option><?php endforeach; ?></select></div></div></td> <td><div class="form-group "><label for="cname" class="control-label col-lg-3">P Unitaire</label><div class="col-lg-7"><input class=" form-control" id="prixUnitaire" name="prixUnitaire[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Quantité</label><div class="col-lg-7"><input class=" form-control" id="quantitePro" name="quantitePro[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><input class="btn btn-danger btn-xs" type="button" name="delFac" id="delFac" value="Supprimer" /></div></td></tr>';
+    var html = '<tr><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Produit</label><div class="col-lg-7"><select class="form-control" name="yaourt[]"><option>------------</option><?php foreach ($allGroupPro as $echoProY) :; ?><option value="<?= $echoProY->yaourt_id; ?>"><?= $echoProY->nom_yaourt; ?> - <?= $echoProY->ref_yaourt; ?></option><?php endforeach; ?></select></div></div></td> <td><div class="form-group "><label for="cname" class="control-label col-lg-3">P Unitaire</label><div class="col-lg-7"><input class=" form-control" id="prixUnitaire" name="prixUnitaire[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Quantité</label><div class="col-lg-7"><input class=" form-control" id="quantitePro" name="quantitePro[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><input class="btn btn-danger btn-xs" type="button" name="delFac" id="delFac" value="Supprimer" /></div></td></tr>';
 
     var x = 1;
     /**

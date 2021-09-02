@@ -7,7 +7,7 @@ $produits = new ModelProduit();
  */
 
 $allProds = $produits->getAllProduits();
-
+ 
 /**
  * affichage des derniers ajout d'un Produits
  */

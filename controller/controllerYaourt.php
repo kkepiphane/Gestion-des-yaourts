@@ -57,8 +57,8 @@ if (isset($_POST['btnAddYa'])) {
         $idY = $_SESSION['idY'];
         $nmeIng = $_POST['typeIng'][$key];
         $quantite = $_POST['quantiteY'][$key];
-
-        $yaourts->addYaourt($nmeIng, $idY, $quantite, $nomUser, $date);
+        $nivo_pro = "non";
+        $yaourts->addYaourt($nmeIng, $idY, $quantite, $nivo_pro, $nomUser, $date);
     }
     /**
      * Aprés soutraction on fait le divison

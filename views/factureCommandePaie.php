@@ -60,12 +60,11 @@ require('../controller/controllerFacturePaie.php');
                                     </thead>
                                     <tbody>
                                         <?php
-
                                         $sommeT = 0;
                                         foreach ($factprooodFactt as $echoFacCom) : ?>
                                             <tr>
-                                                <td><?= $echoFacCom->ref_Pro; ?></td>
-                                                <td><?= $echoFacCom->id_yaourt ?></td>
+                                                <td><?= $echoFacCom->ref_yaourt; ?></td>
+                                                <td><?= $echoFacCom->nom_yaourt ?></td>
                                                 <td><?= $echoFacCom->quantite_com ?></td>
                                                 <td><?= $echoFacCom->prix_produit ?></td>
                                                 <td><?= $echoFacCom->prix_produit * $echoFacCom->quantite_com;

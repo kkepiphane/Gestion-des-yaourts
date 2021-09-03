@@ -16,20 +16,12 @@ require('../controller/controllerYaourt.php');
         <div class=" form">
           <form class="cmxform form-horizontal style-form" id="commentForm" method="POST" action="upProduit.php?idUpdProd=<?= $lireUpdProd->id_prod; ?>">
             <div class="row">
-              <div class="col-xs-3 col-sm-3">
-                <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-2">Ref Produit</label>
-                  <div class="col-lg-8">
-                    <input class=" form-control" id="cname" name="quantitePro" minlength="2" type="text" value="<?= $lireUpdProd->ref_Pro; ?>" />
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-3 col-sm-3">
+              <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-2">Yaourt</label>
                   <div class="col-lg-8">
                     <select class="form-control" name="yaourt">
-                      <option value="<?= $lireUpdProd->id_yaourt; ?>"><?= $lireUpdProd->id_yaourt; ?></option>
+                      <option value="<?= $lireUpdProd->id_yaourt; ?>"><?= $lireUpdProd->ref_yaourt; ?> - <?= $lireUpdProd->nom_yaourt; ?></option>
                       <?php foreach ($allYaourts as $echoProY) :; ?>
                         <option value="<?= $echoProY->id_yaourt; ?>"><?= $echoProY->id_yaourt; ?></option>
                       <?php endforeach; ?>
@@ -37,7 +29,7 @@ require('../controller/controllerYaourt.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-3 col-sm-3">
+              <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
                   <label for="cname" class="control-label col-lg-2">Quantité</label>
                   <div class="col-lg-8">
@@ -45,9 +37,9 @@ require('../controller/controllerYaourt.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-3 col-sm-3">
+              <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-3">Prix Unitaire</label>
+                  <label for="cname" class="control-label col-lg-4">Prix Unitaire</label>
                   <div class="col-lg-8">
                     <input class=" form-control" id="cname" name="prixUnitaire" minlength="2" type="number" value="<?= $lireUpdProd->prix_produit; ?>" />
                   </div>

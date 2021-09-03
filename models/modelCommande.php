@@ -85,7 +85,7 @@ class ModelCommande
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM commande, distribu_com,clients, prod_commande,produits WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod  AND distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND distribu_com.id_clt = ? AND livraison like '%livre%' GROUP BY id_com");
+            $query = $db->prepare("SELECT * FROM commande, prod_commande, produits, type_yaout WHERE type_yaout.id_ty = produits.id_yaourt AND prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod  AND prod_commande.id_comma_pro = ? AND livraison like '%livre%'");
             $query->execute(array($idProCleint));
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
@@ -99,7 +99,7 @@ class ModelCommande
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM commande, distribu_com,clients WHERE distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND distribu_com.id_clt = ? AND commande.livraison like '%livre%'");
+            $query = $db->prepare("SELECT * FROM commande, distribu_com, clients, livreur WHERE distribu_com.id_com_liv  = commande.id_com AND distribu_com.id_clt = clients.id_client AND distribu_com.id_livreurCom = livreur.idLivreur AND distribu_com.id_com_liv = ? AND commande.livraison like '%livre%'");
             $query->execute(array($idClientCom));
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);

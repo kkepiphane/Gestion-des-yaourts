@@ -19,10 +19,9 @@ require('../controller/controllerProduit.php');
                 <div class="input-field">
                   <table id="row_input">
                     <tr>
-                      <th width="20%"></th>
-                      <th width="20%"></th>
-                      <th width="20%"></th>
-                      <th width="20%"></th>
+                      <th width="35%"></th>
+                      <th width="30%"></th>
+                      <th width="30%"></th>
                     </tr>
                     <tr>
                       <td>
@@ -100,8 +99,8 @@ require('../controller/controllerProduit.php');
             $som = 0;
             foreach ($allProds as $echoLirePro) :; ?>
               <tr>
-                <td><?= $echoLirePro->ref_Pro; ?></td>
-                <td><?= $echoLirePro->id_yaourt; ?></td>
+                <td><?= $echoLirePro->ref_yaourt; ?></td>
+                <td><?= $echoLirePro->nom_yaourt; ?></td>
                 <td><?= $echoLirePro->quantite_pro; ?></td>
                 <td><?= $echoLirePro->prix_produit; ?></td>
                 <td><?= $echoLirePro->quantite_pro * $echoLirePro->prix_produit;

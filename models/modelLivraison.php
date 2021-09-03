@@ -55,7 +55,7 @@ class ModelDistribution
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM distributions, livreur, clients, distribu_produit, produits WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distribu_produit.id_distribu = ? AND distribu_produit.idProduits_dis = produits.id_prod");
+            $query = $db->prepare("SELECT * FROM distributions, livreur, clients, distribu_produit, produits, type_yaout WHERE type_yaout.id_ty = produits.id_yaourt AND distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distribu_produit.id_distribu = ? AND distribu_produit.idProduits_dis = produits.id_prod");
             $query->execute(array($ID_dis));
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {

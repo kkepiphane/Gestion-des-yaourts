@@ -60,14 +60,14 @@ require('../controller/controllerCommande.php');
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <a href="factureComPaie.php?id_fac_paie=<?= $dayClt->id_dis_com; ?>" class="btn btn-info btn-xs" title="Cliqué pour faire livré"><i class="fa fa-shopping-cart"></i></a>
+                                    <a href="factureComPaie.php?id_fac_paie=<?= $dayClt->id_com; ?>" class="btn btn-info btn-xs" title="Cliqué pour faire livré"><i class="fa fa-shopping-cart"></i></a>
                                 </td>
                                 <td>
 
                                     <?php
                                     $etatPaie = $dayClt->etat_paiement;
                                     if ($etatPaie == "payer") :; ?>
-                                        <a href="factureCommandePaie.php?id_fac_paie_com=<?= $dayClt->id_dis_com ?>" class="btn btn-success btn-xs" title="Cliqué pour faire livré"><i class="fa fa-building-o"></i></a>
+                                        <a href="factureCommandePaie.php?id_fac_paie_com=<?= $dayClt->id_com ?>" class="btn btn-success btn-xs" title="Cliqué pour faire livré"><i class="fa fa-building-o"></i></a>
                                     <?php else : ?>
                                         <a href="addFacture.php" class="btn btn-warning btn-xs" title="Cliqué pour faire la Facture"><i class="fa fa-hand-o-right"></i> faire La facture</a>
                                     <?php endif; ?>

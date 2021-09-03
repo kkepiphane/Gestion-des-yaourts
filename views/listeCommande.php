@@ -53,15 +53,15 @@ require('../controller/controllerCommande.php');
                 <?php
                 $cltComid = $echoComD->id_com;
                 $db = dbConnect();
-                $query = $db->prepare("SELECT * FROM commande, produits, prod_commande WHERE prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND commande.id_com  = '" . $cltComid . "'");
+                $query = $db->prepare("SELECT * FROM commande, produits, prod_commande, type_yaout WHERE type_yaout.id_ty = produits.id_yaourt AND prod_commande.id_comma_pro = commande.id_com AND prod_commande.id_produit_com = produits.id_prod AND commande.id_com  = '" . $cltComid . "'");
                 $query->execute();
                 $idCltDate = $query->fetchall(PDO::FETCH_OBJ);
 
                 foreach ($idCltDate as $dayClt) :;
                 ?>
               <tr>
-                <td><?= $dayClt->ref_Pro ?></td>
-                <td><?= $dayClt->id_yaourt ?></td>
+                <td><?= $dayClt->ref_yaourt; ?></td>
+                <td><?= $dayClt->nom_yaourt; ?></td>
                 <td><?= $dayClt->quantite_com ?></td>
               </tr>
             <?php endforeach; ?>

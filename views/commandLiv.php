@@ -25,7 +25,8 @@ require('../controller/controllerClient.php');
                                     <label for="cname" class="control-label col-lg-3">Ref commande</label>
                                     <div class="col-lg-7">
                                         <select class="form-control" name="id_com_liv" required>
-                                            <?php foreach ($echoCom as $lirCom) : ?>
+                                            <option value=""></option>
+                                            <?php foreach ($echoCom as $lirCom) :; ?>
                                                 <option value="<?= $lirCom->id_com; ?>"><?= $lirCom->reference_commande; ?></option>
                                             <?php endforeach; ?>
                                         </select>

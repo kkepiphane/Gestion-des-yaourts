@@ -151,7 +151,7 @@ class ModelFacturePaie
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM  distribu_com,clients, fact_com_paie WHERE distribu_com.id_clt = clients.id_client AND fact_com_paie.id_DisCom_fact = distribu_com.id_dis_com  AND distribu_com.id_dis_com = ?");
+            $query = $db->prepare("SELECT * FROM  distribu_com,clients, fact_com_paie WHERE distribu_com.id_clt = clients.id_client AND fact_com_paie.id_DisCom_fact = distribu_com.id_dis_com  AND distribu_com.id_com_liv = ?");
             $query->execute(array($idFactCom));
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);
@@ -165,7 +165,7 @@ class ModelFacturePaie
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM  distribu_com,commande, prod_commande,produits WHERE prod_commande.id_comma_pro  = commande.id_com  AND prod_commande.id_produit_com  = produits.id_prod AND distribu_com.id_com_liv = commande.id_com AND distribu_com.id_dis_com = ?");
+            $query = $db->prepare("SELECT * FROM  distribu_com, commande, prod_commande, produits, type_yaout, fact_com_paie WHERE distribu_com.id_dis_com = fact_com_paie.id_DisCom_fact AND type_yaout.id_ty = produits.id_yaourt AND prod_commande.id_comma_pro  = commande.id_com  AND prod_commande.id_produit_com  = produits.id_prod AND distribu_com.id_com_liv = commande.id_com AND distribu_com.id_com_liv = ?");
             $query->execute(array($idFactCom));
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
@@ -194,7 +194,7 @@ class ModelFacturePaie
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("SELECT * FROM distributions, clients, distribu_produit, produits WHERE  distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distribu_produit.idProduits_dis = produits.id_prod  AND distributions.idDis  = ?");
+            $query = $db->prepare("SELECT * FROM distributions, clients, distribu_produit, produits, type_yaout WHERE type_yaout.id_ty = produits.id_yaourt AND  distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distribu_produit.idProduits_dis = produits.id_prod  AND distributions.idDis  = ?");
             $query->execute(array($disBdy));
             return $query->fetchall(PDO::FETCH_OBJ);
         } catch (PDOException $e) {

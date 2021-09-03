@@ -64,8 +64,8 @@ require('../controller/controllerFacturePaie.php');
                                         $sommeT = 0;
                                         foreach ($factprooodDisBy as $echofactDiss) : ?>
                                             <tr>
-                                                <td><?= $echofactDiss->ref_Pro ?></td>
-                                                <td><?= $echofactDiss->id_yaourt ?></td>
+                                                <td><?= $echofactDiss->ref_yaourt ?></td>
+                                                <td><?= $echofactDiss->nom_yaourt ?></td>
                                                 <td><?= $echofactDiss->quantite_venduPro ?></td>
                                                 <td><?= $echofactDiss->prix_produit ?></td>
                                                 <td><?= $echofactDiss->prix_produit * $echofactDiss->quantite_venduPro;

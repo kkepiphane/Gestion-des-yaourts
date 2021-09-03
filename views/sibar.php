@@ -90,7 +90,7 @@
             </a>
             <ul class="sub">
               <li><a href="addProduit.php">Ajout Produits Vendre</a></li>
-              <li><a href="listeProduit.php">Liste Produit</a></li>
+              <li><a href="signalProduit.php">Siganl Produit</a></li>
             </ul>
           </li>
         </ul>
@@ -132,6 +132,16 @@
               <li><a href="fact_distribution.php">Fact Livraison direct</a></li>
             </ul>
           </li>
+        </ul>
+      </li>
+      <li class="sub-menu">
+        <a href="javascript:;">
+          <i class="fa fa-bar-chart-o"></i>
+          <span>Etat</span>
+        </a>
+        <ul class="sub">
+          <li><a href="verification_stock.php">Etat produit</a></li>
+          <li><a href="addSystemNot.php">Etat Client</a></li>
         </ul>
       </li>
       <li class="sub-menu">

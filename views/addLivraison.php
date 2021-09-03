@@ -43,10 +43,10 @@ require('../controller/controllerClient.php');
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-6 col-sm-6">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-3">Nom du Client</label>
-                  <div class="col-lg-7">
+                  <label for="cname" class="control-label col-lg-3">Client</label>
+                  <div class="col-lg-6">
                     <select class="form-control" name="nomClient[]" multiple id="multipleM">
                       <?php foreach ($allClient as $echoFoerIng) : ?>
                         <option value="<?= $echoFoerIng->id_client; ?>"><?= $echoFoerIng->nom_client; ?></option>
@@ -55,12 +55,12 @@ require('../controller/controllerClient.php');
                   </div>
                 </div>
               </div>
-              <div class="col-xs-4 col-sm-4">
+              <div class="col-xs-6 col-sm-6">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-3">Nom du Livreur</label>
-                  <div class="col-lg-7">
+                  <label for="cname" class="control-label col-lg-3">Livreur</label>
+                  <div class="col-lg-6">
                     <select class="form-control" name="nomLivreur">
-                      <option>------------</option>
+                      <option></option>
                       <?php foreach ($allLiv as $echoForLivreur) : ?>
                         <option value="<?= $echoForLivreur->idLivreur; ?>"><?= $echoForLivreur->nom_dis; ?></option>
                       <?php endforeach; ?>
@@ -74,9 +74,9 @@ require('../controller/controllerClient.php');
                 <div class="input-field">
                   <table id="row_input">
                     <tr>
-                      <th width="55%"></th>
-                      <th width="35%"></th>
-                      <th width="15%"></th>
+                      <th width="50%"></th>
+                      <th></th>
+                      <th></th>
                     </tr>
                     <tr>
                       <td>
@@ -84,8 +84,9 @@ require('../controller/controllerClient.php');
                           <label for="cname" class="control-label col-lg-3">Produit</label>
                           <div class="col-lg-7">
                             <select name="produit[]" class="form-control" onchange="selectIngrediant(this.value)">
+                              <option></option>
                               <?php foreach ($allProds as $echoForeiKeyClt) : ?>
-                                <option value=" <?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->id_yaourt; ?> - <?= $echoForeiKeyClt->ref_Pro; ?></option>
+                                <option value=" <?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->ref_yaourt; ?> - <?= $echoForeiKeyClt->nom_yaourt; ?></option>
                               <?php endforeach; ?>
                             </select>
                           </div>
@@ -165,14 +166,14 @@ require('../controller/controllerClient.php');
                 <?php
                 $idD = $echoDistribut->idDis;
                 $db = dbConnect();
-                $query = $db->prepare("SELECT * FROM distributions, livreur, clients, distribu_produit, produits WHERE distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distributions.idDis = ? AND distribu_produit.idProduits_dis = produits.id_prod");
+                $query = $db->prepare("SELECT * FROM distributions, livreur, clients, distribu_produit, produits, type_yaout WHERE type_yaout.id_ty = produits.id_yaourt AND distributions.id_livreur = livreur.idLivreur AND distributions.idClient = clients.id_client AND distribu_produit.id_distribu  = distributions.idDis AND distributions.idDis = ? AND distribu_produit.idProduits_dis = produits.id_prod");
                 $query->execute(array($idD));
                 $proDis = $query->fetchall(PDO::FETCH_OBJ);
 
                 foreach ($proDis as $produitD) :;
                 ?>
               <tr>
-                <td><?= $produitD->id_yaourt ?></td>
+                <td><?= $produitD->ref_yaourt ?> - <?= $produitD->nom_yaourt; ?></td>
                 <td><?= $produitD->quantite_venduPro ?></td>
                 <td>
                   <a href="../controller/controllerLivraison.php?idDel_com=<?= $produitD->id_dis_prod  ?>" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce produit : <?= $produitD->id_yaourt; ?> dans les commandes')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
@@ -257,7 +258,7 @@ require('../controller/controllerClient.php');
      * Ici cette methode c'est pour d'ajouter les input pour l'ajout des ingrédiant et la quantité
      * 
      */
-    var html = '<tr><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Produit</label><div class="col-lg-7"><select name="produit[]" class="form-control" required><?php foreach ($allProds as $echoForeiKeyClt) : ?><option value="<?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->id_yaourt; ?> - <?= $echoForeiKeyClt->ref_Pro; ?> </option><?php endforeach; ?></select></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Quantité</label><div class="col-lg-7"><input class=" form-control" id="quantiteIng" name="quantite[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><input class="btn btn-danger btn-xs" type="button" name="delFac" id="delFac" value="Supprimer" /></div></td></tr>';
+    var html = '<tr><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Produit</label><div class="col-lg-7"><select name="produit[]" class="form-control" required><option></option><?php foreach ($allProds as $echoForeiKeyClt) : ?><option value="<?= $echoForeiKeyClt->id_prod; ?>"><?= $echoForeiKeyClt->ref_yaourt; ?> - <?= $echoForeiKeyClt->nom_yaourt; ?> </option><?php endforeach; ?></select></div></div></td><td><div class="form-group "><label for="cname" class="control-label col-lg-3">Quantité</label><div class="col-lg-7"><input class=" form-control" id="quantiteIng" name="quantite[]" min="1" minlength="2" type="number" required="" /></div></div></td><td><div class="form-group "><input class="btn btn-danger btn-xs" type="button" name="delFac" id="delFac" value="Supprimer" /></div></td></tr>';
 
     var x = 1;
     /**

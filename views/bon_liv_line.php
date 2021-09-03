@@ -61,10 +61,10 @@ require('../controller/controllerLivraison.php');
                                         <?php
 
                                         $sommeT = 0;
-                                        foreach ($body_bn_Liv as $echoBnLiv) : ?>
+                                        foreach ($body_bn_Liv as $echoBnLiv) :; ?>
                                             <tr>
-                                                <td><?= $echoBnLiv->id_yaourt ?></td>
-                                                <td><?= $echoBnLiv->id_yaourt ?></td>
+                                                <td><?= $echoBnLiv->ref_yaourt; ?></td>
+                                                <td><?= $echoBnLiv->nom_yaourt; ?></td>
                                                 <td><?= $echoBnLiv->quantite_venduPro ?></td>
                                                 <td><?= $echoBnLiv->prix_produit ?></td>
                                                 <td><?= $echoBnLiv->prix_produit * $echoBnLiv->quantite_venduPro;
@@ -96,8 +96,8 @@ require('../controller/controllerLivraison.php');
                     </div>
                     <div class="row">
                         <div class="col-xs-6 col-sm-5"></div>
-                        <div class="col-xs-6 col-sm-3">Livré par : </div>
-                        <div class="col-xs-6 col-sm-3">Signature : </div>
+                        <div class="col-xs-3 col-sm-3">Livré par : <?= $head_bn_livraison->nom_dis; ?> </div>
+                        <div class="col-xs-3 col-sm-3">Signature : </div>
                     </div>
                     &copy;<?= $Compte->nom_societe; ?>
                 </div>

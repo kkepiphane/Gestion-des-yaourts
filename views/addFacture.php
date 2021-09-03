@@ -19,7 +19,7 @@ require('../controller/controllerFacturePaie.php');
             <div class="row">
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-3">Ref Facture</label>
+                  <label for="cname" class="control-label col-lg-4">Ref Facture</label>
                   <div class="col-lg-8">
                     <input class=" form-control" id="cname" name="ref_fact_com" minlength="2" type="text" />
                   </div>
@@ -27,7 +27,7 @@ require('../controller/controllerFacturePaie.php');
               </div>
               <div class="col-xs-4 col-sm-4">
                 <div class="form-group ">
-                  <label for="cname" class="control-label col-lg-2">Commande</label>
+                  <label for="cname" class="control-label col-lg-3">Commande</label>
                   <div class="col-lg-8">
                     <select class="form-control" name="CommandeID" id="IDcomm">
                       <option>------------</option>

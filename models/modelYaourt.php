@@ -3,12 +3,12 @@
 require_once '../db/bdd.php';
 class ModelYaourt
 {
-    public function addYaourt($id_ing, $yourt_id, $quantiteDY, $user_create, $date_create)
+    public function addYaourt($id_ing, $yourt_id, $quantiteDY, $nivoPro, $user_create, $date_create)
     {
         try {
             $db = dbConnect();
-            $query = $db->prepare("INSERT INTO yaourt(ing_id, yaourt_id ,quantiteDispoY, user_create, dateCreate) VALUES (?,?,?,?,?)");
-            $executYaourt = $query->execute(array($id_ing, $yourt_id, $quantiteDY, $user_create, $date_create));
+            $query = $db->prepare("INSERT INTO yaourt(ing_id, yaourt_id ,quantiteDispoY, niveau_production , user_create, dateCreate) VALUES (?,?,?,?,?,?)");
+            $executYaourt = $query->execute(array($id_ing, $yourt_id, $quantiteDY, $nivoPro, $user_create, $date_create));
             return $executYaourt;
         } catch (PDOException $e) {
             exit($e->getMessage());

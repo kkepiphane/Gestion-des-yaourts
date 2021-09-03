@@ -33,9 +33,8 @@ require('../controller/controllerCommande.php');
                         <div class="col-xs-6 col-sm-6">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6">
-                                    <b>Référence Commande : </b><?= $comFacturePaie->reference_commande; ?><br>
-                                    <b>Date du Commande : </b> <?= $comFacturePaie->date_com; ?> <br>
-                                    <b>Date Livraison : </b> <?= $comFacturePaie->date_livraison; ?> <br>
+                                    <b>Réf Commande : </b><?= $comFacturePaie->reference_commande; ?><br>
+                                    <b>Date Commande : </b> <?= $comFacturePaie->date_com; ?><br>
                                 </div>
                             </div>
                             <br>
@@ -65,8 +64,8 @@ require('../controller/controllerCommande.php');
                                         $sommeT = 0;
                                         foreach ($proBonLiv as $echoBnLiv) : ?>
                                             <tr>
-                                                <td><?= $echoBnLiv->id_yaourt ?></td>
-                                                <td><?= $echoBnLiv->id_yaourt ?></td>
+                                                <td><?= $echoBnLiv->ref_yaourt; ?></td>
+                                                <td><?= $echoBnLiv->nom_yaourt; ?></td>
                                                 <td><?= $echoBnLiv->quantite_com ?></td>
                                                 <td><?= $echoBnLiv->prix_produit ?></td>
                                                 <td><?= $echoBnLiv->prix_produit * $echoBnLiv->quantite_com;
@@ -96,13 +95,12 @@ require('../controller/controllerCommande.php');
                         </div>
                         <!-- /col-md-12 -->
                     </div>
+                    <br>
                     <div class="row">
-                        <div class="col-xs-6 col-sm-2"></div>
-                        <div class="col-xs-6 col-sm-2">Date livraison : </div>
-                        <div class="col-xs-6 col-sm-2">Livré par : </div>
-                        <div class="col-xs-6 col-sm-3">Signature : </div>
-                        <div class="col-xs-6 col-sm-2"></div>
-                    </div>
+                        <div class="col-xs-4 col-sm-4">Date livraison : <?= $comFacturePaie->date_livraison; ?></div>
+                        <div class="col-xs-4 col-sm-4">Livré par : <?= $comFacturePaie->nom_dis; ?></div>
+                        <div class="col-xs-4 col-sm-4">Signature : </div>
+                    </div><br>
                     &copy;<?= $Compte->nom_societe; ?>
                 </div>
             </div>

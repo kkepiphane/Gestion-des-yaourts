@@ -114,7 +114,7 @@ if (isset($_POST['btnLivraisonIdCom'])) {
 $echoCom = $commande->getAllCommandeForLiv();
 
 /**
- * Favture des commandes
+ * Bon de livraison des commandes
  */
 
 if (isset($_GET['id_fac_paie'])) {
